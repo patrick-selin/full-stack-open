@@ -1,8 +1,17 @@
 import { useState } from "react";
 
-// const Button = ({ handleClick, text }) => (
-//   <button onClick={handleClick}>{text}</button>
-// );
+// #####
+// #####
+
+const Display = ({ counter }) => {
+  return <div>{counter}</div>;
+};
+// #####
+// #####
+
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
 
 // #####
 // #####
@@ -41,7 +50,6 @@ const App = () => {
 
   return (
     <div>
-
       {left}
       <Button handleClick={handleLeftClick} text='left' />      
       <Button handleClick={handleRightClick} text='right' />
