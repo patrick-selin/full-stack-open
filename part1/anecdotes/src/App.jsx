@@ -16,19 +16,27 @@ const App = () => {
     "The only way to go fast, is to go well.",
   ];
 
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState();
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
 
   const randomizer = () => {
     const max = anecdotes.length;
     const randomIndex = Math.floor(Math.random() * max);
     setSelected(randomIndex);
+  };
 
-    console.log(selected);
+  const voter = () => {
+    const newVotes = [...votes];
+    newVotes[selected]++;
+    setVotes(newVotes);
+    console.log(votes);
   };
 
   return (
     <>
       <div>{anecdotes[selected]}</div>
+      <p>has x votes</p>
+      <Button text="vote" handleClick={voter} />
       <Button text="new anecdote" handleClick={randomizer} />
     </>
   );
