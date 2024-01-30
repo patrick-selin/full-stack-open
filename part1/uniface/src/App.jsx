@@ -6,7 +6,24 @@ const Button = ({ handleClick, text }) => {
   return <button onClick={handleClick}>{text}</button>;
 };
 
-const Statistics = ({ good, neutral, bad, countAll, countAverage, countPositivePercentage }) => {
+const Statistics = ({
+  good,
+  neutral,
+  bad,
+  countAll,
+  countAverage,
+  countPositivePercentage,
+}) => {
+  console.log(countAll());
+  if (countAll() === 0) {
+    return (
+      <>
+        <h2>statistics</h2>
+        <div>No feedback given</div>
+      </>
+    );
+  }
+
   return (
     <div>
       <h2>statistics</h2>
@@ -65,7 +82,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>Give Feedback</h2>
+      <h2>give feedback</h2>
       <Button handleClick={handleGoodClick} text="good" />
       <Button handleClick={handleNeutralClick} text="neutral" />
       <Button handleClick={handleBadClick} text="bad" />
