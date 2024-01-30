@@ -34,6 +34,27 @@ const App = () => {
     setBad(bad + 1);
   }
 
+  const countAll = () => {
+    return good + neutral + bad;
+  }
+
+  const countAverage = () => {
+    const totalFeedback = countAll(); // 9
+    if (totalFeedback == 0) {
+      return 0;
+    }
+    const sum = good - bad;
+    return sum / totalFeedback;
+  }
+
+  const countPositivePercentage = () => {
+    const totalFeedback = countAll();
+    if (totalFeedback === 0) {
+      return 0;
+    }
+    return (good / totalFeedback) * 100;
+  };
+
   return (
     <div>
       <h2>Give Feedback</h2>
@@ -45,6 +66,9 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>all { countAll() }</p>
+      <p>average { countAverage() }</p>
+      <p>positive { countPositivePercentage() } %</p>
     </div>
   )
 }
