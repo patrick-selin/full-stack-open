@@ -6,11 +6,12 @@ const Button = ({ handleClick, text }) => {
   return <button onClick={handleClick}>{text}</button>;
 };
 
-const StatisticLine = ( {text, value} ) => {
+const StatisticLine = ({ text, value }) => {
   return (
-    <p>
-      {text} {value}
-    </p>
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
   );
 };
 
@@ -22,7 +23,6 @@ const Statistics = ({
   countAverage,
   countPositivePercentage,
 }) => {
- 
   if (countAll() === 0) {
     return (
       <>
@@ -33,16 +33,20 @@ const Statistics = ({
   }
 
   return (
-    <div>
-      <StatisticLine text="good" value ={good} />
-      <StatisticLine text="neutral" value ={neutral} />
-      <StatisticLine text="bad" value ={bad} />
-      <StatisticLine text="all" value ={countAll()} />
-      <StatisticLine text="average" value ={countAverage()} />
-      <StatisticLine text="positive" value ={countPositivePercentage()} />
-   
-    </div>
-  )
+    <>
+      <h2>statistics</h2>
+      <table>
+        <tbody>
+          <StatisticLine text="good" value={good} />
+          <StatisticLine text="neutral" value={neutral} />
+          <StatisticLine text="bad" value={bad} />
+          <StatisticLine text="all" value={countAll()} />
+          <StatisticLine text="average" value={countAverage()} />
+          <StatisticLine text="positive" value={countPositivePercentage()} />
+        </tbody>
+      </table>
+    </>
+  );
 };
 
 // #########
