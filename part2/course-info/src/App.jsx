@@ -25,9 +25,6 @@ const Course = ({ course }) => {
   );
 };
 
-
-
-
 const App = () => {
   
   const course = {
@@ -51,21 +48,21 @@ const App = () => {
       },
       {
         name: "Redux",
-        exercises:11,
+        exercises: 11,
         id: 4,
       },
     ],
   };
 
   const totalCourses = course.parts.reduce((total, part) => {
-    return total += part.exercises;
-  }, 0)
+    return (total += part.exercises);
+  }, 0);
 
   return (
-  <>
-  <Course course={course} />
-  <Total sum={totalCourses} />
-  </>  
+    <>
+      <Course course={course} />
+      <Total sum={totalCourses} />
+    </>
   );
 };
 
