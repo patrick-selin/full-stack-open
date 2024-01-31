@@ -21,7 +21,6 @@ const Course = ({ course, calc }) => {
     <>
       <Header course={course.name} />
       <Content parts={course.parts} />
-
       <Total sum={calc} />
     </>
   );
@@ -76,7 +75,8 @@ const App = () => {
   const totalCourses = courses.reduce((total, course) => {
     return (
       total +
-      course.parts.reduce((partTotal, part) => partTotal + part.exercises, 0)
+      course.parts.reduce((partTotal, part) => 
+      partTotal + part.exercises, 0)
     );
   }, 0);
 
