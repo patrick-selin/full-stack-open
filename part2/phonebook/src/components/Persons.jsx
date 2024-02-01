@@ -1,4 +1,5 @@
 import Person from "./Person";
+// muista import
 
 const Persons = ({ filteredPersons }) => (
   <>
