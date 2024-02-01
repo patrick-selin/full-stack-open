@@ -7,13 +7,19 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault();
     const newPerson = { name: newName };
-    setPersons([...persons, newPerson]);
-    console.log(event);
+
+    const nameExists = persons.some((person) => person.name === newName);
+
+    if (nameExists) {
+      alert(newName + " is already added to phonebook");
+    } else {
+      setPersons([...persons, newPerson]);
+    }
+
     setNewName("");
   };
 
   const handleInputChange = (event) => {
-    console.log(`Input change: ${event}`);
     setNewName(event.target.value);
   };
 
