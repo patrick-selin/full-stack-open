@@ -21,7 +21,6 @@ const Course = ({ course, calc }) => {
     <>
       <Header course={course.name} />
       <Content parts={course.parts} />
-      <Total sum={calc} />
     </>
   );
 };
