@@ -1,12 +1,10 @@
 const Note = ({ note }) => {
-    return (
-      <li>{note.content}</li>
-    )
-  }
-  
-  export default Note
+  return <li>{note.content}</li>;
+};
 
-  // import Note from './components/Note'
+export default Note;
+
+// import Note from './components/Note'
 
 // const App = (props) => {
 //   const [notes, setNotes] = useState(props.notes)
