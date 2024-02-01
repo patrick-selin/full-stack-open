@@ -1,12 +1,15 @@
 import { useState } from "react";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", number: "0034242" },
+  ]);
   const [newName, setNewName] = useState("");
+  const [newNumber, setNewNumber] = useState("");
 
   const addPerson = (event) => {
     event.preventDefault();
-    const newPerson = { name: newName };
+    const newPerson = { name: newName, number: newNumber };
 
     const nameExists = persons.some((person) => person.name === newName);
 
@@ -17,10 +20,15 @@ const App = () => {
     }
 
     setNewName("");
+    setNewNumber("");
   };
 
-  const handleInputChange = (event) => {
+  const handleNameInputChange = (event) => {
     setNewName(event.target.value);
+  };
+
+  const handleNumberInputChange = (event) => {
+    setNewNumber(event.target.value);
   };
 
   return (
@@ -28,8 +36,13 @@ const App = () => {
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
         <div>
-          name: <input value={newName} onChange={handleInputChange} />
+          name: <input value={newName} onChange={handleNameInputChange} />
         </div>
+
+        <div>
+          number: <input value={newNumber} onChange={handleNumberInputChange} />
+        </div>
+
         <div>
           <button type="submit">add</button>
         </div>
@@ -38,7 +51,7 @@ const App = () => {
 
       <ul>
         {persons.map((person, index) => (
-          <li key={index}>{person.name}</li>
+          <li key={index}>{person.name} {person.number}</li>
         ))}
       </ul>
     </div>
