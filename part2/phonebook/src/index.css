@@ -23,13 +23,11 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: 30px 15px;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
-
 
 button {
   border-radius: 8px;

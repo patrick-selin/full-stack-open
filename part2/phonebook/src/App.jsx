@@ -5,13 +5,12 @@ import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import personsService from "./services/persons";
 
-
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
-  const [infoMessage, setInfoMessage] = useState(null)
+  const [infoMessage, setInfoMessage] = useState(null);
 
   useEffect(() => {
     personsService.getAll().then((initialNotes) => {
@@ -31,7 +30,6 @@ const App = () => {
       );
 
       if (confirmUpdate) {
-        console.log(existingPerson);
         personsService
           .updateItem(existingPerson.id, newPerson)
           .then((returnedPerson) => {
@@ -40,21 +38,40 @@ const App = () => {
                 person.id !== existingPerson.id ? person : returnedPerson
               )
             );
+
+            setInfoMessage({
+              text: `Updated ${newPerson.name}`,
+              type: "success",
+            });
+
+            setTimeout(() => {
+              setInfoMessage(null);
+            }, 3000);
+          })
+          .catch((error) => {
+            setInfoMessage({
+              text: `Information of ${newPerson.name} has already been removed from server`,
+              type: "error",
+            });
+
+            setTimeout(() => {
+              setInfoMessage(null);
+            }, 3000);
           });
       }
     } else {
       personsService.createItem(newPerson).then((returnedNote) => {
         setPersons([...persons, returnedNote]);
-      });
 
-      setInfoMessage({
-        text: `Added ${newPerson.name}`,
-        type: "success",
-      });
+        setInfoMessage({
+          text: `Added '${newPerson.name}'`,
+          type: "success",
+        });
 
         setTimeout(() => {
-          setInfoMessage(null)
-        }, 3000)
+          setInfoMessage(null);
+        }, 3000);
+      });
     }
     setNewName("");
     setNewNumber("");
