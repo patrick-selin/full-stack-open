@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
+import Notification from "./components/Notification";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import personsService from "./services/persons";
+
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
+  const [infoMessage, setInfoMessage] = useState(null)
 
   useEffect(() => {
     personsService.getAll().then((initialNotes) => {
@@ -43,6 +46,15 @@ const App = () => {
       personsService.createItem(newPerson).then((returnedNote) => {
         setPersons([...persons, returnedNote]);
       });
+
+      setInfoMessage({
+        text: `Added ${newPerson.name}`,
+        type: "success",
+      });
+
+        setTimeout(() => {
+          setInfoMessage(null)
+        }, 3000)
     }
     setNewName("");
     setNewNumber("");
@@ -77,6 +89,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={infoMessage} />
       <Filter search={search} handleSearch={handleSearch} />
 
       <h2>add a new</h2>
