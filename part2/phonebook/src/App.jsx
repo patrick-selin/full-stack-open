@@ -25,12 +25,21 @@ const App = () => {
     if (nameExists) {
       alert(newName + " is already added to phonebook");
     } else {
-      personsService.create(newPerson).then((returnedNote) => {
+      personsService.createItem(newPerson).then((returnedNote) => {
         setPersons([...persons, returnedNote]);
       });
     }
     setNewName("");
     setNewNumber("");
+  };
+
+  const handleDelete = (id, name) => {
+    const confirmDelete = window.confirm(`Delete ${name}`);
+    if (confirmDelete)
+      personsService.deleteItem(id).then(() => {
+        setPersons(persons.filter((person) => person.id !== id));
+      });
+    setPersons;
   };
 
   const handleNameInputChange = (event) => {
@@ -65,7 +74,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Persons filteredPersons={filteredPersons} />
+      <Persons filteredPersons={filteredPersons} handleDelete={handleDelete} />
     </div>
   );
 };

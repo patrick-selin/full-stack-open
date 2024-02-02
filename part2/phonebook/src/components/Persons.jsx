@@ -1,11 +1,15 @@
 import Person from "./Person";
 // muista import
 
-const Persons = ({ filteredPersons }) => (
+const Persons = ({ filteredPersons, handleDelete }) => (
   <>
     <ul>
-      {filteredPersons.map((person, index) => (
-        <Person key={index} person={person} />
+      {filteredPersons.map((person) => (
+        <Person
+          key={person.id}
+          person={person}
+          handleDelete={() => handleDelete(person.id, person.name)}
+        />
       ))}
     </ul>
   </>
