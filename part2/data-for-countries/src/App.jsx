@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import countryService from "./services/countries";
+import weatherService from "./services/weather";
 import SearchBar from "./components/SearchBar";
 import CountryList from "./components/CountryList";
 import CountryCard from "./components/CountryCard";
+import WeatherCard from "./components/WeatherCard";
 
 function App() {
   const [countries, setCountries] = useState([]);
+  const [weather, setWeather] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [showPrompt, setShowPrompt] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -15,6 +18,16 @@ function App() {
       setCountries(data);
     });
   }, []);
+
+  useEffect(() => {
+    if (selectedCountry) {
+      const capital = selectedCountry.capital[0];
+      weatherService.getCountryWeather(capital).then((weatherData) => {
+        console.log(weatherData);
+        setWeather(weatherData);
+      });
+    }
+  }, [selectedCountry]);
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -50,7 +63,10 @@ function App() {
         {!showPrompt && searchQuery.trim() !== "" && (
           <div>
             {selectedCountry ? (
-              <CountryCard country={selectedCountry} />
+              <>
+                <CountryCard country={selectedCountry} />
+                {weather && <WeatherCard weatherData={weather} />}
+              </>
             ) : (
               <CountryList
                 countries={filteredCountries}
