@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import countryService from "./services/countries";
-import SearchBar from "./SearchBar";
-import CountryList from "./CountryList";
+import SearchBar from "./components/SearchBar";
+import CountryList from "./components/CountryList";
+import CountryCard from "./components/CountryCard";
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showPrompt, setShowPrompt] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
     countryService.getAllCountries().then((data) => {
@@ -17,6 +19,11 @@ function App() {
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
     setShowPrompt(false);
+    setSelectedCountry(null);
+  };
+
+  const handleCountryClick = (country) => {
+    setSelectedCountry(country);
   };
 
   const filteredCountries = countries.filter((country) =>
@@ -25,11 +32,8 @@ function App() {
 
   useEffect(() => {
     if (filteredCountries.length === 1) {
-      const countryName = filteredCountries[0].name.common;
-
-      countryService.getCountry(countryName).then((countryInfo) => {
-        console.log("Country infooo", countryInfo);
-      });
+      setShowPrompt(false);
+      setSelectedCountry(filteredCountries[0]);
     } else if (filteredCountries.length > 10) {
       setShowPrompt(true);
     } else {
@@ -39,35 +43,19 @@ function App() {
 
   return (
     <>
-      <SearchBar
-        value={searchQuery}
-        onChange={handleSearch}
-      />
+      <SearchBar value={searchQuery} onChange={handleSearch} />
 
       <div>
         {showPrompt && <p>Too many matches, specify another filter</p>}
         {!showPrompt && searchQuery.trim() !== "" && (
           <div>
-            {filteredCountries.length === 1 ? (
-              <>
-                <h2>{filteredCountries[0].name.common}</h2>
-                <p>capital {filteredCountries[0].capital[0]}</p>
-                <p>area: {filteredCountries[0].area}</p>
-                <strong>Languages</strong>
-                <ul>
-                  {Object.values(filteredCountries[0].languages).map(
-                    (language) => (
-                      <li key={language}>{language}</li>
-                    )
-                  )}
-                </ul>
-                <img
-                  src={filteredCountries[0].flags.png}
-                  alt={`${filteredCountries[0].name.common} flag`}
-                />
-              </>
+            {selectedCountry ? (
+              <CountryCard country={selectedCountry} />
             ) : (
-              <CountryList countries={filteredCountries} />
+              <CountryList
+                countries={filteredCountries}
+                onCountryClick={handleCountryClick}
+              />
             )}
           </div>
         )}
