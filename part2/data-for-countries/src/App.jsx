@@ -68,6 +68,7 @@ function App() {
                 {weather && <WeatherCard weatherData={weather} />}
               </>
             ) : (
+              
               <CountryList
                 countries={filteredCountries}
                 onCountryClick={handleCountryClick}
