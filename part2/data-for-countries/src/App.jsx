@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import countryService from "./services/countries";
+import SearchBar from "./SearchBar";
+import CountryList from "./CountryList";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -22,13 +24,11 @@ function App() {
   );
 
   useEffect(() => {
-    // if only one country, get info
     if (filteredCountries.length === 1) {
       const countryName = filteredCountries[0].name.common;
 
       countryService.getCountry(countryName).then((countryInfo) => {
-        console.log("Country info:", countryInfo);
-        // Handle the fetched data, e.g., set it to state
+        console.log("Country infooo", countryInfo);
       });
     } else if (filteredCountries.length > 10) {
       setShowPrompt(true);
@@ -39,19 +39,37 @@ function App() {
 
   return (
     <>
-      <div>
-        <p>find countries</p>
-        <input value={searchQuery} onChange={handleSearch} />
-      </div>
+      <SearchBar
+        value={searchQuery}
+        onChange={handleSearch}
+      />
 
       <div>
         {showPrompt && <p>Too many matches, specify another filter</p>}
         {!showPrompt && searchQuery.trim() !== "" && (
-          <ul>
-            {filteredCountries.map((country) => (
-              <li key={country.cca2}>{country.name.common}</li>
-            ))}
-          </ul>
+          <div>
+            {filteredCountries.length === 1 ? (
+              <>
+                <h2>{filteredCountries[0].name.common}</h2>
+                <p>capital {filteredCountries[0].capital[0]}</p>
+                <p>area: {filteredCountries[0].area}</p>
+                <strong>Languages</strong>
+                <ul>
+                  {Object.values(filteredCountries[0].languages).map(
+                    (language) => (
+                      <li key={language}>{language}</li>
+                    )
+                  )}
+                </ul>
+                <img
+                  src={filteredCountries[0].flags.png}
+                  alt={`${filteredCountries[0].name.common} flag`}
+                />
+              </>
+            ) : (
+              <CountryList countries={filteredCountries} />
+            )}
+          </div>
         )}
       </div>
     </>
