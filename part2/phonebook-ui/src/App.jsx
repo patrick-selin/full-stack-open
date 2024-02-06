@@ -14,6 +14,7 @@ const App = () => {
 
   useEffect(() => {
     personsService.getAll().then((initialNotes) => {
+      console.log(initialNotes);
       setPersons(initialNotes);
     });
   }, []);
