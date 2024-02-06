@@ -100,7 +100,7 @@ const App = () => {
     console.log(search);
   };
 
-  const filteredPersons = persons.filter((person) =>
+  const filteredPersons = persons.filter((person) => 
     person.name.toLowerCase().includes(search.toLowerCase())
   );
 
