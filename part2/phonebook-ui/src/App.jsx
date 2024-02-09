@@ -61,7 +61,10 @@ const App = () => {
           });
       }
     } else {
-      personsService.createItem(newPerson).then((returnedNote) => {
+      personsService.createItem(newPerson)
+      .then((returnedNote) => {
+        // validation
+
         setPersons([...persons, returnedNote]);
 
         setInfoMessage({
@@ -72,7 +75,12 @@ const App = () => {
         setTimeout(() => {
           setInfoMessage(null);
         }, 3000);
-      });
+      })
+      .catch(error => {
+        // this is the way to access the error message
+        console.log(error.response.data.error)
+      })
+      ;
     }
     setNewName("");
     setNewNumber("");
