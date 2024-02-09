@@ -76,11 +76,12 @@ const App = () => {
           setInfoMessage(null);
         }, 3000);
       })
-      .catch(error => {
-        // this is the way to access the error message
-        console.log(error.response.data.error)
-      })
-      ;
+      .catch((error) => {
+        setInfoMessage({
+          text: error.response.data.error,
+          type: "error",
+        });
+      });
     }
     setNewName("");
     setNewNumber("");
