@@ -29,8 +29,15 @@ describe("blog posts total likes", () => {
     expect(result).toBe(1);
   });
 
-  test("totalLikes returns total sum of likes when giben list of blog post in array", () => {
+  test("totalLikes returns total sum of likes when given list of blog post in array", () => {
     const result = listHelper.totalLikes(blogs);
     expect(result).toBe(65);
+  });
+});
+
+describe("favorite blog post by likes", () => {
+  test("favoriteBlog returns blog post that has the most likes when given list of blog post in array", () => {
+    const result = listHelper.favoriteBlog(blogs);
+    expect(result).toEqual({ author: "Author 3", likes: 35, title: "Blog 3" });
   });
 });
