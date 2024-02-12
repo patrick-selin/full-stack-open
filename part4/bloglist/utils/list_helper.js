@@ -35,7 +35,7 @@ const mostBlogs = (blogs) => {
   let mostBlogsAuthor = "";
   let maxBlogs = 0;
 
-  Object.keys(blogCounts).forEach(author => {
+  Object.keys(blogCounts).forEach((author) => {
     console.log(`blogCount author : ${blogCounts[author]}`);
     if (blogCounts[author] > maxBlogs) {
       maxBlogs = blogCounts[author];
@@ -45,6 +45,13 @@ const mostBlogs = (blogs) => {
   });
 
   return { author: mostBlogsAuthor, blogs: maxBlogs };
+};
+
+const mostLikes = (blogs) => {
+  const authorLikes = {};
+
+
+  return ;
 };
 
 module.exports = {
