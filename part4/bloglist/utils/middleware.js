@@ -1,7 +1,7 @@
 const morgan = require("morgan");
 const logger = require("./logger");
 
-morgan.token("type", (req) => JSON.stringify(req.body));
+morgan.token('type', (req, res) => JSON.stringify(req.body));
 
 const morganLogs = morgan(
   ":method :url :status :res[content-length] - :response-time ms :type"
