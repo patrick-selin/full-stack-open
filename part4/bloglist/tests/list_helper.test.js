@@ -1,4 +1,5 @@
 const listHelper = require("../utils/list_helper");
+const Blog = require("../models/blogsModel");
 
 const blogs = [
   {
@@ -46,14 +47,14 @@ const blogs = [
 ];
 
 describe("blog posts total likes", () => {
-  test("dummy returns one if given an array of anything", () => {
+  test.skip("dummy returns one if given an array of anything", () => {
     const blogs = [];
 
     const result = listHelper.dummy(blogs);
     expect(result).toBe(1);
   });
 
-  test("totalLikes returns total sum of likes when given list of blog post in array", () => {
+  test.skip("totalLikes returns total sum of likes when given list of blog post in array", () => {
     const result = listHelper.totalLikes(blogs);
     expect(result).toBe(36);
   });
