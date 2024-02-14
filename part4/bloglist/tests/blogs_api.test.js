@@ -21,13 +21,24 @@ describe("api testing", () => {
 
   test("the first note is about HTTP methods", async () => {
     const res = await api.get("/api/blogs");
-    console.log(`Response body is ${JSON.stringify(res.body)}`);
+    // console.log(`Response body is ${JSON.stringify(res.body)}`);
     expect(res.body[0].title).toBe("React patterns");
   });
 
   test("all blogposts are returned", async () => {
     const res = await api.get("/api/blogs");
     expect(res.body).toHaveLength(testHelper.initialBlogPosts.length);
+  });
+
+  test("blogpost has id property named id, not _id", async () => {
+    const res = await api.get("/api/blogs");
+
+    const blogIds = res.body.map((blog) => blog.id);
+    console.log(blogIds);
+
+    for (const id of blogIds) {
+      expect(id).toBeDefined();
+    }
   });
 
   afterAll(async () => {

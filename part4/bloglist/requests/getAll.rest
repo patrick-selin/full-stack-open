@@ -11,9 +11,9 @@ POST http://localhost:3003/api/blogs HTTP/1.1
 content-type: application/json
 
 {
-    "title": "Book Title Java",
-    "author": "Author Is second",
-    "url": "https://google.fi",
+    "title": "33Book Title Java",
+    "author": "33Author Is second",
+    "url": "33https://google.fi",
     "likes": 483
 }
 ###
