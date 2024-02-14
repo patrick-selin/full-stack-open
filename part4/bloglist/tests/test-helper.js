@@ -1,5 +1,16 @@
 const Blog = require("../models/blogsModel");
 
+const oneBlogPost = [
+  {
+    _id: "54a851b54a676234d1766",
+    title: "Test Title",
+    author: "Ms Tester",
+    url: "https:/test.com/",
+    likes: 3,
+    __v: 0,
+  },
+];
+
 const initialBlogPosts = [
   {
     _id: "5a422a851b54a676234d17f7",
@@ -56,4 +67,4 @@ const blogsInDb = async () => {
   return blogs.map((blog) => blog.toJSON());
 };
 
-module.exports = { initialBlogPosts, blogsInDb };
+module.exports = { initialBlogPosts, blogsInDb, oneBlogPost };

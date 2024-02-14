@@ -11,7 +11,7 @@ beforeEach(async () => {
   await Blog.insertMany(testHelper.initialBlogPosts);
 });
 
-describe("api testing", () => {
+describe("api/blogs GET testing", () => {
   test("blogs are returned as json", async () => {
     await api
       .get("/api/blogs")
@@ -40,8 +40,25 @@ describe("api testing", () => {
       expect(id).toBeDefined();
     }
   });
+});
 
-  afterAll(async () => {
-    await mongoose.connection.close();
+describe("api/blogs POST testing", () => {
+  test("POST to /api/blogs creates a new blog post", async () => {
+    // post
+    await api
+      .post("/api/blogs")
+      .send(testHelper.oneBlogPost)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    const allBlogPosts = await testHelper.blogsInDb();
+    expect(allBlogPosts).toHaveLength(testHelper.initialBlogPosts.length + 1);
+
+    const authors = allBlogPosts.map((blogPost) => blogPost.author);
+    expect(authors).toContain("Michael Chan");
   });
+});
+
+afterAll(async () => {
+  await mongoose.connection.close();
 });
