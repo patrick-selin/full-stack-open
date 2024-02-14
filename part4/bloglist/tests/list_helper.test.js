@@ -1,5 +1,4 @@
 const listHelper = require("../utils/list_helper");
-const Blog = require("../models/blogsModel");
 
 const blogs = [
   {
@@ -47,21 +46,21 @@ const blogs = [
 ];
 
 describe("blog posts total likes", () => {
-  test.skip("dummy returns one if given an array of anything", () => {
+  test("dummy returns one if given an array of anything", () => {
     const blogs = [];
 
     const result = listHelper.dummy(blogs);
     expect(result).toBe(1);
   });
 
-  test.skip("totalLikes returns total sum of likes when given list of blog post in array", () => {
+  test("totalLikes returns total sum of likes when given list of blog post in array", () => {
     const result = listHelper.totalLikes(blogs);
     expect(result).toBe(36);
   });
 });
 
 describe("favorite blog post by likes", () => {
-  test.skip("favoriteBlog returns blog post that has the most likes when given list of blog post in array", () => {
+  test("favoriteBlog returns blog post that has the most likes when given list of blog post in array", () => {
     const result = listHelper.favoriteBlog(blogs);
     expect(result).toEqual({
       title: "Canonical string reduction",
@@ -72,7 +71,7 @@ describe("favorite blog post by likes", () => {
 });
 
 describe("mostBlog author", () => {
-  test.skip("mostBlog returns the author who has the largest amount of blogs", () => {
+  test("mostBlog returns the author who has the largest amount of blogs", () => {
     const result = listHelper.mostBlogs(blogs);
     expect(result).toEqual({
       author: "Robert C. Martin",
@@ -82,7 +81,7 @@ describe("mostBlog author", () => {
 });
 
 describe("mostLikes author", () => {
-  test.skip("returns the author with the most likes", () => {
+  test("returns the author with the most likes", () => {
     const result = listHelper.mostLikes(blogs);
     expect(result).toEqual({ author: "Edsger W. Dijkstra", likes: 17 });
   });
