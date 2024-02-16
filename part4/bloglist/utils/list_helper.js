@@ -36,11 +36,11 @@ const mostBlogs = (blogs) => {
   let maxBlogs = 0;
 
   Object.keys(blogCounts).forEach((author) => {
-    console.log(`blogCount author : ${blogCounts[author]}`);
+    // console.log(`blogCount author : ${blogCounts[author]}`);
     if (blogCounts[author] > maxBlogs) {
       maxBlogs = blogCounts[author];
       mostBlogsAuthor = author;
-      console.log(mostBlogsAuthor);
+      // console.log(mostBlogsAuthor);
     }
   });
 

@@ -40,8 +40,25 @@ describe("api/blogs GET testing", () => {
       expect(id).toBeDefined();
     }
   });
+});
 
-  test("if likes property is missting, it will default to 0", async () => {
+describe("api/blogs POST testing", () => {
+  test.skip("POST to /api/blogs creates a new blog post", async () => {
+    // post
+    await api
+      .post("/api/blogs")
+      .send(testHelper.oneBlogPost)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    const allBlogPosts = await testHelper.blogsInDb();
+    expect(allBlogPosts).toHaveLength(testHelper.initialBlogPosts.length + 1);
+
+    const authors = allBlogPosts.map((blogPost) => blogPost.author);
+    expect(authors).toContain("Michael Chan");
+  });
+
+  test.skip("if likes property is missting, it will default to 0", async () => {
     // note to self
     // test not working when schema is set to required but the app works?
 
@@ -65,20 +82,19 @@ describe("api/blogs GET testing", () => {
   });
 });
 
-describe("api/blogs POST testing", () => {
-  test.skip("POST to /api/blogs creates a new blog post", async () => {
-    // post
-    await api
-      .post("/api/blogs")
-      .send(testHelper.oneBlogPost)
-      .expect(201)
-      .expect("Content-Type", /application\/json/);
+describe("api/blogs/:id DELETE", () => {
+  test("DELETE first post with id and get code 204 and the length is -1", async () => {
+    // ok
+    const blogsAtStart = await testHelper.blogsInDb();
+    const blogToDelete = blogsAtStart[0];
 
-    const allBlogPosts = await testHelper.blogsInDb();
-    expect(allBlogPosts).toHaveLength(testHelper.initialBlogPosts.length + 1);
+    await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
 
-    const authors = allBlogPosts.map((blogPost) => blogPost.author);
-    expect(authors).toContain("Michael Chan");
+    const blogsAfterDeletion = await testHelper.blogsInDb();
+    expect(blogsAfterDeletion).toHaveLength(testHelper.initialBlogPosts.length - 1);
+
+    const author = blogsAfterDeletion.map((r) => r.author);
+    expect(author).not.toContain(blogToDelete.author);
   });
 });
 

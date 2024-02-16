@@ -10,7 +10,7 @@ blogsController.get("/", async (req, res) => {
 
 blogsController.post("/", async (req, res) => {
   const blog = new Blog(req.body);
-  console.log(`this is juu : ${JSON.stringify(blog)}`);
+  // console.log(`this is juu : ${JSON.stringify(blog)}`);
 
   const savedBlog = await blog.save();
   console.log("kaviko888888888888");
