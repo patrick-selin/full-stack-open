@@ -4,14 +4,13 @@ GET http://localhost:3003/api/blogs
 ###
 GET http://localhost:3003/api/blogs/2
 ###
-DELETE http://localhost:3003/api/blogs/2
-###
+DELETE http://localhost:3003/api/blogs/65cf31b632db9d72c6194b12
 ###
 POST http://localhost:3003/api/blogs HTTP/1.1
 content-type: application/json
 
 {
-    "title": "33Book Title Java",
+    "title": "433Book Title Java",
     "author": "33Author Is second",
     "url": "33https://google.fi",
     "likes": 48366456456
