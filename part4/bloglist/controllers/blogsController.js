@@ -18,10 +18,30 @@ blogsController.post("/", async (req, res) => {
 });
 
 blogsController.delete("/:id", async (req, res) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
   await Blog.findByIdAndDelete(req.params.id);
   res.status(204).end();
 });
 
+blogsController.put("/:id", async (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+  console.log(body);
+
+  const blogPost = {
+    title: body.title,
+    author: body.important,
+    url: body.url,
+    likes: body.likes,
+  };
+
+  const updatedBlogPost = await Blog.findByIdAndUpdate(id, blogPost, {
+    new: true,
+  });
+
+  updatedBlogPost
+    ? res.status(200).json(updatedBlogPost.toJSON())
+    : res.status(404).end();
+});
 
 module.exports = blogsController;
