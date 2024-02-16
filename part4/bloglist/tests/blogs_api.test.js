@@ -41,7 +41,9 @@ describe("api/blogs GET testing", () => {
     }
   });
 
-  test("if likes property is missting, it wild default to 0", async () => {
+  test("if likes property is missting, it will default to 0", async () => {
+    // note to self
+    // test not working when schema is set to required but the app works?
     await api
       .post("/api/blogs")
       .send(testHelper.oneBlogPostNoLikes)
