@@ -6,7 +6,10 @@ const blogPostSchema = new mongoose.Schema({
   title: String,
   author: String,
   url: String,
-  likes: Number,
+  likes: {
+    type: Number,
+    default: 0,
+  },
 });
 
 blogPostSchema.set("toJSON", {

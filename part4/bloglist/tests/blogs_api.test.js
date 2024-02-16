@@ -40,6 +40,17 @@ describe("api/blogs GET testing", () => {
       expect(id).toBeDefined();
     }
   });
+
+  test("if likes property is missting, it wild default to 0", async () => {
+    await api
+      .post("/api/blogs")
+      .send(testHelper.oneBlogPostNoLikes)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    const blogsAtEnd = await testHelper.blogsInDb();
+    expect(blogsAtEnd[blogsAtEnd.length - 1].likes).toBe(0);
+  });
 });
 
 describe("api/blogs POST testing", () => {
