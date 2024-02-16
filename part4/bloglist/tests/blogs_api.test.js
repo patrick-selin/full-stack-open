@@ -98,6 +98,24 @@ describe("api/blogs/:id DELETE", () => {
   });
 });
 
+describe("api/blogs/:id PUT", () => {
+  test("update the author and likes with PUT", async () => {
+    const blogsAtStart = await testHelper.blogsInDb();
+    const blogToUpdate = blogsAtStart[0];
+
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send({ author: "Update Me", likes: 55, })
+      .expect(200);
+
+    const blogsAfterPut = await testHelper.blogsInDb();
+    const updatedBlogPost = blogsAfterPut[0];
+    expect(blogsAfterPut).toHaveLength(testHelper.initialBlogPosts.length);
+    expect(updatedBlogPost.likes).toBe(55);
+    expect(updatedBlogPost.author).toBe("Update Me");
+  });
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });

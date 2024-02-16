@@ -30,7 +30,7 @@ blogsController.put("/:id", async (req, res) => {
 
   const blogPost = {
     title: body.title,
-    author: body.important,
+    author: body.author,
     url: body.url,
     likes: body.likes,
   };
