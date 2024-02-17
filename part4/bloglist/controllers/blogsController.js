@@ -1,7 +1,7 @@
 // controller
 const config = require("../utils/config");
 const blogsController = require("express").Router();
-const Blog = require("../models/blogsModel");
+const Blog = require("../models/blogPostModel");
 
 blogsController.get("/", async (req, res) => {
   const blogs = await Blog.find({});

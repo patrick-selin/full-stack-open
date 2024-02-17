@@ -1,4 +1,4 @@
-const Blog = require("../models/blogsModel");
+const Blog = require("../models/blogPostModel");
 
 const oneBlogPost = {
   _id: "54a851b54a676234d1766",

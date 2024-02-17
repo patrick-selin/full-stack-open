@@ -4,7 +4,7 @@ const app = require("../app");
 const api = supertest(app);
 //
 const testHelper = require("./test-helper");
-const Blog = require("../models/blogsModel");
+const Blog = require("../models/blogPostModel");
 
 beforeEach(async () => {
   await Blog.deleteMany({});
@@ -91,7 +91,9 @@ describe("api/blogs/:id DELETE", () => {
     await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
 
     const blogsAfterDeletion = await testHelper.blogsInDb();
-    expect(blogsAfterDeletion).toHaveLength(testHelper.initialBlogPosts.length - 1);
+    expect(blogsAfterDeletion).toHaveLength(
+      testHelper.initialBlogPosts.length - 1
+    );
 
     const author = blogsAfterDeletion.map((r) => r.author);
     expect(author).not.toContain(blogToDelete.author);
@@ -105,7 +107,7 @@ describe("api/blogs/:id PUT", () => {
 
     await api
       .put(`/api/blogs/${blogToUpdate.id}`)
-      .send({ author: "Update Me", likes: 55, })
+      .send({ author: "Update Me", likes: 55 })
       .expect(200);
 
     const blogsAfterPut = await testHelper.blogsInDb();
