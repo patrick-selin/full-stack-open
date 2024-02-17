@@ -30,7 +30,9 @@ POST http://localhost:3003/api/users HTTP/1.1
 content-type: application/json
 
 {
-    "username": "jukka77",
-    "name": "Jukka Poika",
-    "password": "secret999"
+    "username": "jukka788",
+    "name": "Pokka Poika",
+    "password": "secret8888"
 }
+###
+GET http://localhost:3003/api/users
