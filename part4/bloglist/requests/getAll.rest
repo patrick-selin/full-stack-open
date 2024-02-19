@@ -47,12 +47,13 @@ GET http://localhost:3003/api/users
 ###
 POST http://localhost:3003/api/blogs HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvdXZhNzg4IiwiaWQiOiI2NWQzNGM5YzQ0ZjAyMmRmZmMzMThkOTIiLCJpYXQiOjE3MDgzNDk3Mjl9.E_qL6dLVN57IFoD2W0dqAp1jestf_U9YZieWWAVpLjM
 
 {
-        "title": "ttttNew Blog Post",
+        "title": "new two Blog Post",
         "author": "John Doe",
-        "url": "https://example.com/new-blog",
-        "likes": 10
+        "url": "https://example.com/new-blog22",
+        "likes": 50
 }
 ###
 POST http://localhost:3003/api/users HTTP/1.1
@@ -63,8 +64,7 @@ content-type: application/json
         "name": "Neiti Rouvala",
         "password": "secret8888"
 }
-###
-
+### login
 POST http://localhost:3003/api/login HTTP/1.1
 content-type: application/json
 
