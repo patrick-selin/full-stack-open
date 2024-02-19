@@ -5,15 +5,15 @@ const Blog = require("../models/blogPostModel");
 const User = require("../models/userModel");
 
 blogsController.get("/", async (req, res) => {
-  const blogs = await Blog.find({});
+  const blogs = await Blog.find({}).populate("user", { username: 1, name: 1 });
   res.json(blogs);
 });
 
 blogsController.post("/", async (req, res) => {
   const body = req.body;
-  console.log(`this is juu : ${JSON.stringify(body.user.id)}`);
+  // console.log(`this is juu : ${JSON.stringify(body.userId)}`);
 
-  const user = await User.findById(body.user.id);
+  const user = await User.findOne({});
 
   const newBlog = new Blog({
     title: body.title,
@@ -24,8 +24,10 @@ blogsController.post("/", async (req, res) => {
   });
 
   const savedBlog = await newBlog.save();
-  console.log(`this is savedBlog : ${JSON.stringify(savedBlog.id)}`);
-  user.blogPosts = user.blogPosts.concat(savedBlog.id);
+  console.log(`this is savedBlog : ${JSON.stringify(savedBlog._id)}`);
+  // user.blogPosts = user.blogPosts.concat(savedBlog._id);
+  user.blogPosts.push(savedBlog._id);
+  await user.save();
 
   res.status(201).json(savedBlog.toJSON());
 });

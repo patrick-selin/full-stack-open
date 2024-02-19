@@ -4,16 +4,17 @@ GET http://localhost:3003/api/blogs
 ###
 GET http://localhost:3003/api/blogs/2
 ###
-DELETE http://localhost:3003/api/blogs/65cf2a4852342fb382fd3c17
+DELETE http://localhost:3003/api/blogs/65d31e1adcdd95a7adfe67de
 ###
 POST http://localhost:3003/api/blogs HTTP/1.1
 content-type: application/json
 
 {
-    "title": "4533Book Title Java",
+    "title": "wrew4533Book Title Java",
     "author": "33Author Is second",
     "url": "33https://google.fi",
     "likes": 48366456456,
+    "userId" : 2343,
     "user":  {
         "id": "65d07711638749939c77a06d",
         "username": "john7777",
@@ -36,9 +37,20 @@ POST http://localhost:3003/api/users HTTP/1.1
 content-type: application/json
 
 {
-    "username": "jukka78879",
+    "username": "saija78879",
     "name": "Poikko",
     "password": "secret8888"
 }
 ###
 GET http://localhost:3003/api/users
+
+###
+POST http://localhost:3003/api/blogs HTTP/1.1
+content-type: application/json
+
+{
+        "title": "ttttNew Blog Post",
+        "author": "John Doe",
+        "url": "https://example.com/new-blog",
+        "likes": 10
+}

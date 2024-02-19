@@ -5,7 +5,11 @@ const usersController = require("express").Router();
 const User = require("../models/userModel");
 
 usersController.get("/", async (req, res) => {
-  const allUsers = await User.find({}).populate("blogPosts", { url: 1, title: 1, author:1 });
+  const allUsers = await User.find({}).populate("blogPosts", {
+    title: 1,
+    author: 1,
+    url: 1,
+  });
 
   console.log(`Response Payload : ${JSON.stringify(allUsers)}`);
   res.json(allUsers);
@@ -13,7 +17,6 @@ usersController.get("/", async (req, res) => {
 
 usersController.post("/", async (req, res) => {
   const { username, name, password } = req.body;
-
 
   if (!username || !password || username.length <= 3 || password.length <= 3) {
     return res.status(400).json({
