@@ -14,7 +14,7 @@ usersController.post("/", async (req, res) => {
   const { username, name, password } = req.body;
   console.log(username.length);
 
-  if (!username || !password || username.length < 3 || password.length < 3) {
+  if (!username || !password || username.length <= 3 || password.length <= 3) {
     return res
       .status(400)
       .json({
