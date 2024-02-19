@@ -54,3 +54,22 @@ content-type: application/json
         "url": "https://example.com/new-blog",
         "likes": 10
 }
+###
+POST http://localhost:3003/api/users HTTP/1.1
+content-type: application/json
+
+{
+        "username": "rouva788",
+        "name": "Neiti Rouvala",
+        "password": "secret8888"
+}
+###
+
+POST http://localhost:3003/api/login HTTP/1.1
+content-type: application/json
+
+{
+        "username": "rouva788",
+        "password": "secret8888"
+
+}
