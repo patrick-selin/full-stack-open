@@ -63,12 +63,10 @@ describe("api/blogs POST testing", () => {
     // test not working when schema is set to required but the app works?
 
     const onePost = {
-      _id: "54a851b54a676234d1766",
       title: "Test Man Title",
       author: "Ms Tester",
       url: "https:/test.com/",
       likes: 3,
-      __v: 0,
     };
 
     await api

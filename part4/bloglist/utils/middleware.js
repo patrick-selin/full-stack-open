@@ -1,5 +1,7 @@
 const morgan = require("morgan");
+const User = require("../models/userModel");
 const logger = require("./logger");
+const jwt = require("jsonwebtoken");
 
 morgan.token("req-body", (req, res) => JSON.stringify(req.body));
 
@@ -20,25 +22,40 @@ const unknownEndpoint = (req, res) => {
 };
 
 const errorHandler = (error, req, res, next) => {
-  logger.error(error.message);
-
   if (error.name === "CastError") {
     return res.status(400).send({ error: "malformatted id" });
   } else if (error.name === "ValidationError") {
     return res.status(400).json({ error: error.message });
-  } else if (
-    error.name === "MongoServerError" &&
-    error.message.includes("E11000 duplicate key error")
-  ) {
-    return res.status(400).json({ error: "expected `username` to be unique" });
   } else if (error.name === "JsonWebTokenError") {
-    return res.status(400).json({ error: "token missing or invalid" });
-  } else if (error.name === 'TokenExpiredError') {
-    return response.status(401).json({
-    error: 'token expired'
-  })
+    return res.status(401).json({ error: "invalid token" });
+  } else if (error.name === "TokenExpiredError") {
+    return res.status(401).json({ error: "expired token" });
+  }
+
+  logger.error(error.message);
 
   next(error);
+};
+
+
+const tokenExtractor = (req, res, next) => {
+  const authorization = req.get("authorization");
+  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+    req.token = authorization.replace("Bearer ", "");
+  }
+
+  next();
+};
+
+const userExtractor = async (request, response, next) => {
+  const token = request.token;
+  if (token) {
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    const user = await User.findById(decodedToken.id);
+    request.user = user;
+  }
+
+  next();
 };
 
 module.exports = {
@@ -46,4 +63,6 @@ module.exports = {
   unknownEndpoint,
   errorHandler,
   morganLogs,
+  tokenExtractor,
+  userExtractor,
 };

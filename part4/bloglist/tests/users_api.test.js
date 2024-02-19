@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require("../app");
 const api = supertest(app);
+//
+const jwt = require("jsonwebtoken");
+const config = require("../utils/config");
 const bcrypt = require("bcrypt");
 //
 const testHelper = require("./test-helper");
