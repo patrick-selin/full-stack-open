@@ -88,7 +88,24 @@ describe("api/blogs/ Add new user", () => {
   });
 
   test.skip("the username length needs to be greater than 3", async () => {
-    // TODO
+    const usersAtStart = await testHelper.usersInDb();
+
+    const userWithInvalidPassword = {
+      username: "hellourser",
+      name: "Sus",
+      password: "password123",
+    };
+
+    const res = await api
+      .post("/api/users")
+      .send(userWithInvalidPassword)
+      .expect(400)
+      .expect("Content-Type", /application\/json/);
+
+    const usersAtEnd = await testHelper.usersInDb();
+
+    expect(usersAtEnd).toHaveLength(usersAtStart.length);
+    expect(res.body.error).toBeTruthy();
   });
 });
 
