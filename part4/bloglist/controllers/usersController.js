@@ -1,25 +1,24 @@
-const config = require("../utils/config");
+// const config = require("../utils/config");
 const bcrypt = require("bcrypt");
 //
 const usersController = require("express").Router();
 const User = require("../models/userModel");
 
 usersController.get("/", async (req, res) => {
-  const allUsers = await User.find({});
+  const allUsers = await User.find({}).populate("blogPosts", { url: 1, title: 1, author:1 });
+
   console.log(`Response Payload : ${JSON.stringify(allUsers)}`);
   res.json(allUsers);
 });
 
 usersController.post("/", async (req, res) => {
   const { username, name, password } = req.body;
-  console.log(username.length);
+
 
   if (!username || !password || username.length <= 3 || password.length <= 3) {
-    return res
-      .status(400)
-      .json({
-        error: "Both username and password must be at least 3 characters long.",
-      });
+    return res.status(400).json({
+      error: "Both username and password must be at least 3 characters long.",
+    });
   }
 
   const existingUser = await User.findOne({ username });

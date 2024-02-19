@@ -13,7 +13,13 @@ content-type: application/json
     "title": "4533Book Title Java",
     "author": "33Author Is second",
     "url": "33https://google.fi",
-    "likes": 48366456456
+    "likes": 48366456456,
+    "user":  {
+        "id": "65d07711638749939c77a06d",
+        "username": "john7777",
+        "name": "John Man",
+        "password": "secret8888"
+    }   
 }
 ###
 PUT http://localhost:3003/api/blogs/65cf263c2e513f8b9e034125 HTTP/1.1

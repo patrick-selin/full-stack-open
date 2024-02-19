@@ -1,7 +1,8 @@
 // controller
-const config = require("../utils/config");
+// const config = require("../utils/config");
 const blogsController = require("express").Router();
 const Blog = require("../models/blogPostModel");
+const User = require("../models/userModel");
 
 blogsController.get("/", async (req, res) => {
   const blogs = await Blog.find({});
@@ -9,11 +10,23 @@ blogsController.get("/", async (req, res) => {
 });
 
 blogsController.post("/", async (req, res) => {
-  const blog = new Blog(req.body);
-  // console.log(`this is juu : ${JSON.stringify(blog)}`);
+  const body = req.body;
+  console.log(`this is juu : ${JSON.stringify(body.user.id)}`);
 
-  const savedBlog = await blog.save();
-  console.log("kaviko888888888888");
+  const user = await User.findById(body.user.id);
+
+  const newBlog = new Blog({
+    title: body.title,
+    author: body.author,
+    url: body.url,
+    likes: body.likes,
+    user: user._id,
+  });
+
+  const savedBlog = await newBlog.save();
+  console.log(`this is savedBlog : ${JSON.stringify(savedBlog.id)}`);
+  user.blogPosts = user.blogPosts.concat(savedBlog.id);
+
   res.status(201).json(savedBlog.toJSON());
 });
 
