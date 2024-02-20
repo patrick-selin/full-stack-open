@@ -13,10 +13,9 @@ blogsRouter.get("/", async (req, res) => {
 
 blogsRouter.post("/", async (req, res) => {
   const body = req.body;
-  // console.log(`this is juu : ${JSON.stringify(body.userId)}`);
 
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
-  console.log(`this is decodedToken : ${JSON.stringify(decodedToken)}`);
+  // console.log(`this is decodedToken : ${JSON.stringify(decodedToken)}`);
   if (!decodedToken.id) {
     return res.status(401).json({ error: "token invalid" });
   }
@@ -44,7 +43,7 @@ blogsRouter.delete("/:id", async (req, res) => {
   const token = req.token;
 
   const decodedToken = jwt.verify(token, process.env.SECRET);
-  console.log(`this is decodedToken : ${JSON.stringify(decodedToken)}`);
+  // console.log(`this is decodedToken : ${JSON.stringify(decodedToken)}`);
 
   if (!req.token && decodedToken.id) {
     return res.status(401).json({ error: "token invalid or not found" });
