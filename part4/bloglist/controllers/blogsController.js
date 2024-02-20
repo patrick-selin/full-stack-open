@@ -2,6 +2,7 @@
 const config = require("../utils/config");
 const blogsRouter = require("express").Router();
 const jwt = require("jsonwebtoken");
+const middleware = require("../utils/middleware");
 const Blog = require("../models/blogPostModel");
 const User = require("../models/userModel");
 
@@ -39,9 +40,24 @@ blogsRouter.post("/", async (req, res) => {
 });
 
 blogsRouter.delete("/:id", async (req, res) => {
-  // console.log(req.params.id);
-  await Blog.findByIdAndDelete(req.params.id);
-  res.status(204).end();
+  const postId = req.params.id;
+  const token = req.token;
+
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  console.log(`this is decodedToken : ${JSON.stringify(decodedToken)}`);
+
+  if (!req.token && decodedToken.id) {
+    return res.status(401).json({ error: "token invalid or not found" });
+  }
+
+  const blog = await Blog.findById(postId);
+
+  if (blog.user.toString() === decodedToken.id.toString()) {
+    await Blog.deleteOne({ _id: postId });
+    res.sendStatus(204).end();
+  } else {
+    res.status(401).json({ error: "unauthorized operation" });
+  }
 });
 
 blogsRouter.put("/:id", async (req, res) => {
