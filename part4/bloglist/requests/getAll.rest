@@ -37,9 +37,9 @@ POST http://localhost:3003/api/users HTTP/1.1
 content-type: application/json
 
 {
-    "username": "saija78879",
-    "name": "Poikko",
-    "password": "secret8888"
+    "username": "aaaa",
+    "name": "Olen Aaa",
+    "password": "aaaa"
 }
 ###
 GET http://localhost:3003/api/users
@@ -47,13 +47,13 @@ GET http://localhost:3003/api/users
 ###
 POST http://localhost:3003/api/blogs HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvdXZhNzg4IiwiaWQiOiI2NWQzNGM5YzQ0ZjAyMmRmZmMzMThkOTIiLCJpYXQiOjE3MDgzNDk3Mjl9.E_qL6dLVN57IFoD2W0dqAp1jestf_U9YZieWWAVpLjM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYWEiLCJpZCI6IjY1ZDQ5OTRkMDA5MTIzZTZlNzk1NjQ4NSIsImlhdCI6MTcwODQzMTkxMiwiZXhwIjoxNzA4NjQ3OTEyfQ.7wrzBRqvLhwvKy5YHj_lZrvax1i4jvzHEEtFOAvi_bA
 
 {
-        "title": "ttehk uus new two Blog Post",
-        "author": "Johttn Doe",
-        "url": "https://eswxample.com/new-blog22",
-        "likes": 6706
+        "title": "sthird title",
+        "author": "Heelo juujaa",
+        "url": "https://wwweom.com/new-blog22",
+        "likes": 88
 }
 ###
 POST http://localhost:3003/api/users HTTP/1.1
@@ -69,8 +69,8 @@ POST http://localhost:3003/api/login HTTP/1.1
 content-type: application/json
 
 {
-        "username": "rouva788",
-        "password": "secret8888"
+        "username": "aaaa",
+        "password": "aaaa"
 
 }
 ###
