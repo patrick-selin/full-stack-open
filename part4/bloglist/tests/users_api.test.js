@@ -90,12 +90,12 @@ describe("api/blogs/ Add new user", () => {
     expect(res.body.error).toBeTruthy();
   });
 
-  test.skip("the username length needs to be greater than 3", async () => {
+  test("the username length needs to be greater than 3", async () => {
     const usersAtStart = await testHelper.usersInDb();
 
     const userWithInvalidPassword = {
-      username: "hellourser",
-      name: "Sus",
+      username: "hel",
+      name: "Susan Hello",
       password: "password123",
     };
 
