@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
+import LoginForm from "./components/LoginForm";
+//
 import blogService from "./services/blogs";
 import loginService from "./services/login";
-import LoginForm from "./components/LoginForm";
 
 const App = () => {
-  // hooks
   //
+  // hooks
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
 
@@ -27,17 +28,31 @@ const App = () => {
         password,
       });
       setUser(user);
+      console.log(user);
     } catch (exception) {
-      setErrorMessage("Wrong Credentials");
+      // setErrorMessage("Wrong Credentials");
+      console.log("not auth");
     }
   };
+
+  const handleLogOut = async () => {
+    setUser(null)
+    console.log(user);
+  }
 
   return (
     <>
       <div>
         <h2>blogs</h2>
-        <LoginForm handleLogin={handleLogin}/>
-        {/* muista vaihtaa nakyma jos kirjautunut */}
+
+        {user ? (
+          <>
+            <p>{user.name} logged in</p>
+            <button onClick={handleLogOut}>log out</button>
+          </>
+        ) : (
+          <LoginForm handleLogin={handleLogin} />
+        )}
         <br />
         <br />
         {blogs.map((blog) => (
