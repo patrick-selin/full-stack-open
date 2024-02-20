@@ -131,7 +131,7 @@ describe("api/blogs/:id DELETE", () => {
     return token;
   });
 
-  test("DELETE first post with id and get code 204 and the length is -1", async () => {
+  test("DELETE post with id and get code 204 and the length is -1", async () => {
     // ok
     const blogsAtStart = await testHelper.blogsInDb();
     const blogToDelete = blogsAtStart[0];
