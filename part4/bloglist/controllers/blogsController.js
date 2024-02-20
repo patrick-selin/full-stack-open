@@ -13,6 +13,7 @@ blogsRouter.get("/", async (req, res) => {
 
 blogsRouter.post("/", async (req, res) => {
   const body = req.body;
+  const userFromToken = req.user;
 
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
   // console.log(`this is decodedToken : ${JSON.stringify(decodedToken)}`);
@@ -20,20 +21,18 @@ blogsRouter.post("/", async (req, res) => {
     return res.status(401).json({ error: "token invalid" });
   }
 
-  const user = await User.findById(decodedToken.id);
-
   const newBlog = new Blog({
     title: body.title,
     author: body.author,
     url: body.url,
     likes: body.likes,
-    user: user._id,
+    user: userFromToken._id,
   });
 
   const savedBlog = await newBlog.save();
-  console.log(`this is savedBlog : ${JSON.stringify(savedBlog._id)}`);
-  user.blogPosts.push(savedBlog._id);
-  await user.save();
+  // console.log(`this is savedBlog : ${JSON.stringify(savedBlog._id)}`);
+  userFromToken.blogPosts.push(savedBlog._id);
+  await userFromToken.save();
 
   res.status(201).json(savedBlog.toJSON());
 });
@@ -41,6 +40,7 @@ blogsRouter.post("/", async (req, res) => {
 blogsRouter.delete("/:id", async (req, res) => {
   const postId = req.params.id;
   const token = req.token;
+  const userFromToken = req.user;
 
   const decodedToken = jwt.verify(token, process.env.SECRET);
   // console.log(`this is decodedToken : ${JSON.stringify(decodedToken)}`);
@@ -51,7 +51,7 @@ blogsRouter.delete("/:id", async (req, res) => {
 
   const blog = await Blog.findById(postId);
 
-  if (blog.user.toString() === decodedToken.id.toString()) {
+  if (blog.user.toString() === userFromToken.id.toString()) {
     await Blog.deleteOne({ _id: postId });
     res.sendStatus(204).end();
   } else {
