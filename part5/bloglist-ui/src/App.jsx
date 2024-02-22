@@ -54,9 +54,19 @@ const App = () => {
     console.log(user);
   };
 
-  const newBlogPost = () => {
-    // todo
-    // laheta blogServiceen tiedot, object
+  const createBlogPost = async ({ title, author, url }) => {
+    try {
+      const blog = await blogService.createNewBlogPost({
+        title,
+        author,
+        url,
+      });
+      
+      setBlogs(blogs.concat(blog));
+    } catch (exception) {
+      // error message
+      console.log("this is error messaae");
+    }
   }
 
   return (
@@ -71,7 +81,8 @@ const App = () => {
             {blogs.map((blog) => (
               <Blog key={blog.id} blog={blog} />
             ))}
-            <BlogForm/>
+            <BlogForm createBlogPost={createBlogPost}/>
+            <br />
           </>
         ) : (
           <LoginForm handleLogin={handleLogin} />
