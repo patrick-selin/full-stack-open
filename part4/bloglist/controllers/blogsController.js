@@ -43,11 +43,11 @@ blogsRouter.delete("/:id", async (req, res) => {
   const userFromToken = req.user;
 
   const decodedToken = jwt.verify(token, process.env.SECRET);
-  
+
   if (!req.token && decodedToken.id) {
     return res.status(401).json({ error: "token invalid or not found" });
   }
-  
+
   const blog = await Blog.findById(postId);
   console.log(`this is blog : ${JSON.stringify(blog)}`);
 

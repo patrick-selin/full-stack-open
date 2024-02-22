@@ -45,7 +45,7 @@ const BlogForm = ({ createBlogPost }) => {
         </label>
 
         <label>
-          Title:
+          Author:
           <input
             type="text"
             name="author"
@@ -55,7 +55,7 @@ const BlogForm = ({ createBlogPost }) => {
         </label>
 
         <label>
-          Title:
+          url:
           <input
             type="text"
             name="url"

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
 import LoginForm from "./components/LoginForm";
-import BlogForm from "./components/BlogForm"
+import BlogForm from "./components/BlogForm";
 //
 import blogService from "./services/blogs";
 import loginService from "./services/login";
@@ -24,7 +24,7 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
-      // blogService.setToken(user.token);
+      blogService.setToken(user.token);
     }
   }, []);
 
@@ -39,7 +39,7 @@ const App = () => {
       });
 
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
-      blogService.setToken(user.token)
+      blogService.setToken(user.token);
       setUser(user);
       // console.log(user);
     } catch (exception) {
@@ -61,13 +61,13 @@ const App = () => {
         author,
         url,
       });
-      
-      setBlogs(blogs.concat(blog));
+
+      setBlogs([...blogs, blog]);
     } catch (exception) {
       // error message
       console.log("this is error messaae");
     }
-  }
+  };
 
   return (
     <>
@@ -81,7 +81,7 @@ const App = () => {
             {blogs.map((blog) => (
               <Blog key={blog.id} blog={blog} />
             ))}
-            <BlogForm createBlogPost={createBlogPost}/>
+            <BlogForm createBlogPost={createBlogPost} />
             <br />
           </>
         ) : (
