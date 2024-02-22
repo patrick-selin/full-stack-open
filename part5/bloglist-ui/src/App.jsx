@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
 import LoginForm from "./components/LoginForm";
+import BlogForm from "./components/BlogForm"
 //
 import blogService from "./services/blogs";
 import loginService from "./services/login";
@@ -38,9 +39,9 @@ const App = () => {
       });
 
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
-
+      blogService.setToken(user.token)
       setUser(user);
-      console.log(user);
+      // console.log(user);
     } catch (exception) {
       // setErrorMessage("Wrong Credentials");
       console.log("not auth");
@@ -52,6 +53,11 @@ const App = () => {
     localStorage.removeItem("loggedUser");
     console.log(user);
   };
+
+  const newBlogPost = () => {
+    // todo
+    // laheta blogServiceen tiedot, object
+  }
 
   return (
     <>
@@ -65,7 +71,7 @@ const App = () => {
             {blogs.map((blog) => (
               <Blog key={blog.id} blog={blog} />
             ))}
-            
+            <BlogForm/>
           </>
         ) : (
           <LoginForm handleLogin={handleLogin} />
