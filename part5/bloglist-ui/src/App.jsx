@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
 import Blog from "./components/Blog";
@@ -14,6 +14,8 @@ const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
   const [infoMessage, setInfoMessage] = useState(null);
+  //
+  const addBlogFormRef = useRef();
 
   useEffect(() => {
     blogService.getAllBlogPosts().then((blogs) => {
@@ -89,7 +91,7 @@ const App = () => {
         text: `a new blog ${blog.title} by ${blog.author} added `,
         type: "success",
       });
-      setAddBlogVisible(false);
+      addBlogFormRef.current.toggleVisibility();
     } catch (exception) {
       // error message
       console.log("this is error messaae");
@@ -114,8 +116,8 @@ const App = () => {
             ))}
 
             {/* new blog form visibility */}
-            <Togglable buttonLabel="new blog">
-              <BlogForm createBlogPostg={createBlogPost} />
+            <Togglable buttonLabel="add new blog" ref={addBlogFormRef}>
+              <BlogForm createBlogPost={createBlogPost} />
             </Togglable>
           </>
         ) : (
