@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import Blog from "./components/Blog";
+import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
+import Blog from "./components/Blog";
 import BlogForm from "./components/BlogForm";
 //
 import blogService from "./services/blogs";
@@ -11,6 +12,8 @@ const App = () => {
   // hooks
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
+  const [infoMessage, setInfoMessage] = useState(null);
+
 
   useEffect(() => {
     blogService.getAllBlogPosts().then((blogs) => {
@@ -28,8 +31,18 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const notificationTimer = setTimeout(() => {
+      setInfoMessage(null);
+    }, 4000);
+    return () => {
+      clearTimeout(notificationTimer);
+    };
+  }, [infoMessage]);
+
   //
   // helper functions
+
 
   const handleLogin = async (username, password) => {
     try {
@@ -63,6 +76,13 @@ const App = () => {
       });
 
       setBlogs([...blogs, blog]);
+
+      // notification: a new blog ${title} by ${author} added 
+      setInfoMessage({
+        text: `a new blog ${blog.title} by ${blog.author} added `,
+        type: "success",
+      });
+
     } catch (exception) {
       // error message
       console.log("this is error messaae");
@@ -73,7 +93,7 @@ const App = () => {
     <>
       <div>
         <h2>blogs</h2>
-
+        <Notification message={infoMessage} />
         {user ? (
           <>
             <p>{user.name} logged in</p>
@@ -85,6 +105,7 @@ const App = () => {
             <br />
           </>
         ) : (
+          
           <LoginForm handleLogin={handleLogin} />
         )}
         <br />

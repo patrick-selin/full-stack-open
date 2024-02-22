@@ -71,7 +71,6 @@ content-type: application/json
 {
         "username": "aaaa",
         "password": "aaaa"
-
 }
 ###
 DELETE http://localhost:3003/api/blogs/65d4575bfc934e7aedb04d58 HTTP/1.1
