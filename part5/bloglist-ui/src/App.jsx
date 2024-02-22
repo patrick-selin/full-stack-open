@@ -18,6 +18,15 @@ const App = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("loggedUser");
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      // blogService.setToken(user.token);
+    }
+  }, []);
+
   //
   // helper functions
 
@@ -27,6 +36,9 @@ const App = () => {
         username,
         password,
       });
+
+      window.localStorage.setItem("loggedUser", JSON.stringify(user));
+
       setUser(user);
       console.log(user);
     } catch (exception) {
@@ -36,9 +48,10 @@ const App = () => {
   };
 
   const handleLogOut = async () => {
-    setUser(null)
+    setUser(null);
+    localStorage.removeItem("loggedUser");
     console.log(user);
-  }
+  };
 
   return (
     <>
@@ -49,15 +62,16 @@ const App = () => {
           <>
             <p>{user.name} logged in</p>
             <button onClick={handleLogOut}>log out</button>
+            {blogs.map((blog) => (
+              <Blog key={blog.id} blog={blog} />
+            ))}
+            
           </>
         ) : (
           <LoginForm handleLogin={handleLogin} />
         )}
         <br />
         <br />
-        {blogs.map((blog) => (
-          <Blog key={blog.id} blog={blog} />
-        ))}
       </div>
     </>
   );
