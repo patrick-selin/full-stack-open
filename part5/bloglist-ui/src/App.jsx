@@ -13,6 +13,7 @@ const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
   const [infoMessage, setInfoMessage] = useState(null);
+  const [addBlogVisible, setAddBlogVisible] = useState(false);
 
   useEffect(() => {
     blogService.getAllBlogPosts().then((blogs) => {
@@ -84,17 +85,19 @@ const App = () => {
       });
 
       setBlogs([...blogs, blog]);
-
-      // notification: a new blog ${title} by ${author} added
       setInfoMessage({
         text: `a new blog ${blog.title} by ${blog.author} added `,
         type: "success",
       });
+      setAddBlogVisible(false);
     } catch (exception) {
       // error message
       console.log("this is error messaae");
     }
   };
+
+  const hideWhenVisible = { display: addBlogVisible ? "none" : "" };
+  const showWhenVisible = { display: addBlogVisible ? "" : "none" };
 
   return (
     <>
@@ -104,12 +107,22 @@ const App = () => {
         {user ? (
           <>
             <p>{user.name} logged in</p>
-            <button className="gap" onClick={handleLogOut}>log out</button>
+            <button className="gap" onClick={handleLogOut}>
+              log out
+            </button>
             {blogs.map((blog) => (
               <Blog key={blog.id} blog={blog} />
             ))}
-            <BlogForm createBlogPost={createBlogPost} />
-            <br />
+
+            {/* alas */}
+            <div style={hideWhenVisible}>
+              <button onClick={() => setAddBlogVisible(true)}>new note</button>
+            </div>
+
+            <div style={showWhenVisible}>
+              <BlogForm createBlogPost={createBlogPost} />
+              <button onClick={() => setAddBlogVisible(false)}>cancel</button>
+            </div>
           </>
         ) : (
           <LoginForm handleLogin={handleLogin} />
