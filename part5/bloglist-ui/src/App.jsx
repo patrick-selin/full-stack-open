@@ -6,6 +6,7 @@ import BlogForm from "./components/BlogForm";
 //
 import blogService from "./services/blogs";
 import loginService from "./services/login";
+import Togglable from "./components/Togglable";
 
 const App = () => {
   //
@@ -13,7 +14,6 @@ const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
   const [infoMessage, setInfoMessage] = useState(null);
-  const [addBlogVisible, setAddBlogVisible] = useState(false);
 
   useEffect(() => {
     blogService.getAllBlogPosts().then((blogs) => {
@@ -96,9 +96,6 @@ const App = () => {
     }
   };
 
-  const hideWhenVisible = { display: addBlogVisible ? "none" : "" };
-  const showWhenVisible = { display: addBlogVisible ? "" : "none" };
-
   return (
     <>
       <div>
@@ -110,19 +107,16 @@ const App = () => {
             <button className="gap" onClick={handleLogOut}>
               log out
             </button>
+
+            {/* list of blogs */}
             {blogs.map((blog) => (
               <Blog key={blog.id} blog={blog} />
             ))}
 
-            {/* alas */}
-            <div style={hideWhenVisible}>
-              <button onClick={() => setAddBlogVisible(true)}>new note</button>
-            </div>
-
-            <div style={showWhenVisible}>
-              <BlogForm createBlogPost={createBlogPost} />
-              <button onClick={() => setAddBlogVisible(false)}>cancel</button>
-            </div>
+            {/* new blog form visibility */}
+            <Togglable buttonLabel="new blog">
+              <BlogForm createBlogPostg={createBlogPost} />
+            </Togglable>
           </>
         ) : (
           <LoginForm handleLogin={handleLogin} />
