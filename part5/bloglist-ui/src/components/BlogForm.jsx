@@ -31,7 +31,7 @@ const BlogForm = ({ createBlogPost }) => {
 
   // return
   return (
-    <>
+    <div className="blog-adder">
       <h2>create new</h2>
       <form onSubmit={handleSubmitPost}>
         <label>
@@ -65,7 +65,7 @@ const BlogForm = ({ createBlogPost }) => {
         </label>
         <button type="submit">create</button>
       </form>
-    </>
+    </div>
   );
 };
 

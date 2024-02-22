@@ -1,4 +1,7 @@
 :root {
+  margin: 0px;
+  padding: 0px;
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -84,5 +87,30 @@ button:focus-visible {
 }
 
 .blog {
-  padding: 0.25rem 0.75rem;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.25rem;
+  border: 0.5px solid #242424;
+  border-radius: 0.25rem;
 }
+
+.login-form {
+  margin: 1rem;
+  background-color: pink;
+}
+
+.gap {
+  margin-bottom: 3rem;
+}
+
+.blog-adder {
+ background-color: #e2e8e8; 
+ margin-top: 1rem;
+ padding: 0.5rem 1rem;
+ border: 0.5px solid #242424;
+ border-radius: 0.25rem;
+}
+
+.blog-adder form button {
+  margin-left: 1rem;
+
+ }

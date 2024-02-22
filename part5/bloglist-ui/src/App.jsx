@@ -14,7 +14,6 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [infoMessage, setInfoMessage] = useState(null);
 
-
   useEffect(() => {
     blogService.getAllBlogPosts().then((blogs) => {
       setBlogs(blogs);
@@ -43,7 +42,6 @@ const App = () => {
   //
   // helper functions
 
-
   const handleLogin = async (username, password) => {
     try {
       const user = await loginService.login({
@@ -56,8 +54,18 @@ const App = () => {
       setUser(user);
       // console.log(user);
     } catch (exception) {
-      // setErrorMessage("Wrong Credentials");
-      console.log("not auth");
+      let errorMessage = "Login failed. Please try again.";
+      if (
+        exception.response &&
+        exception.response.data &&
+        exception.response.data.error
+      ) {
+        errorMessage = exception.response.data.error;
+      }
+      setInfoMessage({
+        text: errorMessage,
+        type: "error",
+      });
     }
   };
 
@@ -77,12 +85,11 @@ const App = () => {
 
       setBlogs([...blogs, blog]);
 
-      // notification: a new blog ${title} by ${author} added 
+      // notification: a new blog ${title} by ${author} added
       setInfoMessage({
         text: `a new blog ${blog.title} by ${blog.author} added `,
         type: "success",
       });
-
     } catch (exception) {
       // error message
       console.log("this is error messaae");
@@ -97,7 +104,7 @@ const App = () => {
         {user ? (
           <>
             <p>{user.name} logged in</p>
-            <button onClick={handleLogOut}>log out</button>
+            <button className="gap" onClick={handleLogOut}>log out</button>
             {blogs.map((blog) => (
               <Blog key={blog.id} blog={blog} />
             ))}
@@ -105,7 +112,6 @@ const App = () => {
             <br />
           </>
         ) : (
-          
           <LoginForm handleLogin={handleLogin} />
         )}
         <br />
