@@ -16,6 +16,7 @@ const App = () => {
   const [infoMessage, setInfoMessage] = useState(null);
   //
   const addBlogFormRef = useRef();
+  //
 
   useEffect(() => {
     blogService.getAllBlogPosts().then((blogs) => {
@@ -91,7 +92,7 @@ const App = () => {
         text: `a new blog ${blog.title} by ${blog.author} added `,
         type: "success",
       });
-      addBlogFormRef.current.toggleVisibility();
+      addBlogFormRef.current.toggleVisibility(); // think
     } catch (exception) {
       // error message
       console.log("this is error messaae");
