@@ -23,4 +23,11 @@ const createNewBlogPost = async (newPostObject) => {
   return res.data;
 };
 
-export default { getAllBlogPosts, createNewBlogPost, setToken };
+const updateLikes = async (id) => {
+  // get user id and send
+  const res = await axios.put(`${baseUrl}/${id}`);
+  return res.data;
+};
+
+
+export default { getAllBlogPosts, createNewBlogPost, setToken, updateLikes };

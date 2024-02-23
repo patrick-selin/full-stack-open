@@ -7,6 +7,11 @@ const Blog = ({ blog }) => {
     setShowDetails(!showDetails);
   };
 
+  const handleLikeButton = () => {
+    console.log("click");
+    // add one to likes
+  }
+
   return (
     <div className="blog">
       <div className="blog-title">
@@ -22,7 +27,7 @@ const Blog = ({ blog }) => {
           <div>{blog.url}</div>
           <div>
             Likes: {blog.likes}
-            <button>like</button>
+            <button onClick={handleLikeButton}>like</button>
           </div>
           <div>? {blog.user ? blog.user.name : <i>user unknow</i>}</div>
         </div>
