@@ -7,15 +7,10 @@ const Blog = ({ blog }) => {
     setShowDetails(!showDetails);
   };
 
-  const handleClick = () => {
-    console.log("object");
-  };
-
   return (
-    // {showModal &&
     <div className="blog">
       <div className="blog-title">
-        <p>{blog.title}</p>
+        <p>{blog.title} - {blog.author}</p>
 
         <button className="left-margin" onClick={toggleShowDetails}>
           {showDetails ? "hide" : "show"}
@@ -25,16 +20,14 @@ const Blog = ({ blog }) => {
       {showDetails && (
         <div className="blog-modal">
           <div>{blog.url}</div>
-          <div>Likes: {blog.likes}
+          <div>
+            Likes: {blog.likes}
             <button>like</button>
           </div>
-          <div>{blog.user.name}</div>
-      
+          <div>? {blog.user ? blog.user.name : <i>user unknow</i>}</div>
         </div>
       )}
     </div>
   );
 };
 export default Blog;
-
-// {blog.author} {blog.url}

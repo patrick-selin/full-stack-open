@@ -20,6 +20,8 @@ const BlogForm = ({ createBlogPost }) => {
     event.preventDefault();
     createBlogPost(formData);
     setFormData({ title: "", author: "", url: "" });
+    // how to refreast blog.user name.
+    // look at how you are setting the state after the new blog is created
   };
 
   // return

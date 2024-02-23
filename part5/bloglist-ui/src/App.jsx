@@ -17,12 +17,19 @@ const App = () => {
   //
   const addBlogFormRef = useRef();
   //
-
+  
   useEffect(() => {
-    blogService.getAllBlogPosts().then((blogs) => {
-      setBlogs(blogs);
-      console.log(blogs);
-    });
+    const fetchBlogPosts = async () => {
+      try {
+        const blogs = await blogService.getAllBlogPosts();
+        setBlogs(blogs);
+        console.log(blogs);
+      } catch (error) {
+        console.error("Error fetching blog posts:", error);
+      }
+    };
+  
+    fetchBlogPosts();
   }, []);
 
   useEffect(() => {
@@ -86,13 +93,26 @@ const App = () => {
         author,
         url,
       });
-
-      setBlogs([...blogs, blog]);
-      setInfoMessage({
-        text: `a new blog ${blog.title} by ${blog.author} added `,
-        type: "success",
-      });
-      addBlogFormRef.current.toggleVisibility(); // think
+      
+      // Check if the blog object returned by the backend includes user information
+      if (blog.user) {
+        
+        setBlogs([...blogs, blog]);
+        setInfoMessage({
+          text: `a new blog ${blog.title} by ${blog.author} added `,
+          type: "success",
+        });
+        addBlogFormRef.current.toggleVisibility();
+      } else {
+        // If user information is missing, fetch the updated blog post with user information
+        const updatedBlog = await blogService.getBlogPostById(blog.id);
+        setBlogs([...blogs, updatedBlog]);
+        setInfoMessage({
+          text: `a new blog ${updatedBlog.title} by ${updatedBlog.author} added `,
+          type: "success",
+        });
+        addBlogFormRef.current.toggleVisibility();
+      }
     } catch (exception) {
       // error message
       console.log("this is error messaae");
