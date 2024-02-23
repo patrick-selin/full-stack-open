@@ -30,7 +30,7 @@ body {
   margin: 30px 0px;
   padding-left: 1rem;
   display: flex;
-  min-width: 320px;
+  min-width: 620px;
   min-height: 100vh;
 }
 
@@ -87,6 +87,7 @@ button:focus-visible {
 }
 
 .blog {
+  /* max-width: 80%; */
   padding: 0.5rem 0.75rem;
   margin-bottom: 0.25rem;
   border: 0.5px solid #242424;
@@ -102,15 +103,25 @@ button:focus-visible {
   margin-bottom: 3rem;
 }
 
+.blog-title {
+  display: flex;
+  justify-content: space-between;
+}
+
 .blog-adder {
- background-color: #e2e8e8; 
- margin-top: 1rem;
- padding: 0.5rem 1rem;
- border: 0.5px solid #242424;
- border-radius: 0.25rem;
+  background-color: #e2e8e8;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: 0.5px solid #242424;
+  border-radius: 0.25rem;
 }
 
 .blog-adder form button {
   margin-left: 1rem;
+}
 
- }
+.left-margin {
+  margin-left: 1rem;
+}
+
+
