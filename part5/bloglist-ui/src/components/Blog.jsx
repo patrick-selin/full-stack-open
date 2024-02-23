@@ -23,7 +23,7 @@ const Blog = ({ blog }) => {
       </div>
 
       {showDetails && (
-        <div>
+        <div className="blog-modal">
           <div>{blog.url}</div>
           <div>Likes: {blog.likes}
             <button>like</button>
