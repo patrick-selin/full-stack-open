@@ -8,13 +8,6 @@ const BlogForm = ({ createBlogPost }) => {
     url: "",
   });
 
-  // helper functions
-  const handleSubmit = () => {
-    event.preventDefault();
-    console.log("submitted");
-    console.log(formData);
-  };
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
