@@ -33,7 +33,7 @@ blogsRouter.post("/", async (req, res) => {
   // console.log(`this is savedBlog : ${JSON.stringify(savedBlog._id)}`);
   await savedBlog.populate('user', { id: 1, name: 1, username: 1 });
 
-  userFromToken.blog = userFromToken.blogPosts.concat(savedBlog._id);
+  userFromToken.blogPosts.concat(savedBlog._id);
   await userFromToken.save();
 
   res.status(201).json(savedBlog.toJSON());
