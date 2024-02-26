@@ -22,7 +22,7 @@ const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
     if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
       deleteBlogPost(blog.id);
     }
-  }
+  };
 
   return (
     <div className="blog">

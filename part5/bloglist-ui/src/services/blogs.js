@@ -39,5 +39,10 @@ const deleteBlogPost = async (postId) => {
   return res.data;
 };
 
-
-export default { getAllBlogPosts, createNewBlogPost, setToken, updateBlogPost, deleteBlogPost };
+export default {
+  getAllBlogPosts,
+  createNewBlogPost,
+  setToken,
+  updateBlogPost,
+  deleteBlogPost,
+};
