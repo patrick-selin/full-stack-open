@@ -24,15 +24,18 @@ const createNewBlogPost = async (newBlogPostObject) => {
 };
 
 const updateBlogPost = async (postId, newBlogPostObject) => {
-  console.log(newBlogPostObject.likes);
+  // console.log(newBlogPostObject.likes);
   const res = await axios.put(`${baseUrl}/${postId}`, newBlogPostObject);
   return res.data;
 };
 
 const deleteBlogPost = async (postId) => {
-  console.log(postId);
-  const res = await axios.delete(`${baseUrl}/${id}`);
-  console.log(`RES RES ${JSON.stringify(res)}`);
+  const config = {
+    headers: { Authorization: token },
+  };
+
+  const res = await axios.delete(`${baseUrl}/${postId}`, config);
+  // console.log(`RES RES ${JSON.stringify(res)}`);
   return res.data;
 };
 

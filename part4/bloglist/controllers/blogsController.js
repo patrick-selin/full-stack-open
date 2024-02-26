@@ -31,7 +31,7 @@ blogsRouter.post("/", async (req, res) => {
 
   const savedBlog = await newBlog.save();
   // console.log(`this is savedBlog : ${JSON.stringify(savedBlog._id)}`);
-  await savedBlog.populate('user', { id: 1, name: 1, username: 1 });
+  await savedBlog.populate("user", { id: 1, name: 1, username: 1 });
 
   userFromToken.blogPosts.concat(savedBlog._id);
   await userFromToken.save();
@@ -43,6 +43,7 @@ blogsRouter.delete("/:id", async (req, res) => {
   const postId = req.params.id;
   const token = req.token;
   const userFromToken = req.user;
+  console.log(`TOKEN: ${token}`);
 
   const decodedToken = jwt.verify(token, process.env.SECRET);
 
@@ -73,7 +74,6 @@ blogsRouter.put("/:id", async (req, res) => {
   const updatedBlogPost = await Blog.findByIdAndUpdate(id, blogPostData, {
     new: true,
   }).populate("user", { username: 1, name: 1 });
-
 
   updatedBlogPost
     ? res.status(200).json(updatedBlogPost.toJSON())

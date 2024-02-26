@@ -19,7 +19,9 @@ const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
   };
 
   const handleDeletePost = () => {
-    // TODO
+    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
+      deleteBlogPost(blog.id);
+    }
   }
 
   return (

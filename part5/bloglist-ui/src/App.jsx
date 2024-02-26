@@ -101,25 +101,36 @@ const App = () => {
 
   const updateBlogPostLikes = async (postId, blogPostData) => {
     try {
-      const updatedBlog = await blogService.updateBlogPost(postId, blogPostData);
+      const updatedBlog = await blogService.updateBlogPost(
+        postId,
+        blogPostData
+      );
       console.log(updatedBlog.likes);
       const newBlogs = blogs.map((blog) =>
-        blog.id === id ? updatedBlog : blog
+        blog.id === postId ? updatedBlog : blog
       );
       setBlogs(newBlogs);
     } catch (exception) {
       setInfoMessage("error" + exception.response.data.error);
     }
-  }
+  };
 
   const deleteBlogPost = async (postId) => {
     // TODO
     try {
       const deleteBlogPost = await blogService.deleteBlogPost(postId);
-    } catch (error) {
-      
+
+      const updatedBlogs = blogs.filter((blog) => blog.id !== postId);
+      setBlogs(updatedBlogs);
+
+      setInfoMessage({
+        text: "Blog post deleted.",
+        type: "success",
+      });
+    } catch (exception) {
+      setInfoMessage("error" + exception.response.data.error);
     }
-  }
+  };
 
   return (
     <>
@@ -135,23 +146,21 @@ const App = () => {
 
             {/* list of blogs */}
             {blogs
-             .sort((a, b) => a.likes - b.likes)
-             .map((blog) => (
-              <Blog 
-              key={blog.id} 
-              blog={blog}
-              updateBlogPostLikes={updateBlogPostLikes}
-              deleteBlogPost={deleteBlogPost}
-               />
-            ))}
+              .sort((a, b) => a.likes - b.likes)
+              .map((blog) => (
+                <Blog
+                  key={blog.id}
+                  blog={blog}
+                  updateBlogPostLikes={updateBlogPostLikes}
+                  deleteBlogPost={deleteBlogPost}
+                />
+              ))}
 
             {/* sort */}
 
             {/* new blog form visibility */}
             <Togglable buttonLabel="add new blog" ref={addBlogFormRef}>
-              <BlogForm
-                createBlogPost={createBlogPost}
-              />
+              <BlogForm createBlogPost={createBlogPost} />
             </Togglable>
           </>
         ) : (
