@@ -17,7 +17,7 @@ const App = () => {
   //
   const addBlogFormRef = useRef();
   //
-  
+
   useEffect(() => {
     blogService.getAllBlogPosts().then((blogs) => {
       setBlogs(blogs);
@@ -99,10 +99,17 @@ const App = () => {
     }
   };
 
-  const updateBlogPost = async () => {
-    // TODO
-    // send all data to backend
-    // 
+  const updateBlogPostLikes = async (id, blogPostData) => {
+    try {
+      console.log(id, blogPostData);
+      const updatedBlog = await blogService.updateBlogPost(id);
+      const newBlogs = blogs.map((blog) =>
+        blog.id === id ? updatedBlog : blog
+      );
+      setBlogs(newBlogs);
+    } catch (exception) {
+      setMessage("error" + exception.response.data.error);
+    }
   };
 
   return (
@@ -119,12 +126,20 @@ const App = () => {
 
             {/* list of blogs */}
             {blogs.map((blog) => (
-              <Blog key={blog.id} blog={blog} />
+              <Blog 
+              key={blog.id} 
+              blog={blog}
+              updateBlogPostLikes={updateBlogPostLikes}
+               />
             ))}
+
+            {/* sort */}
 
             {/* new blog form visibility */}
             <Togglable buttonLabel="add new blog" ref={addBlogFormRef}>
-              <BlogForm createBlogPost={createBlogPost} />
+              <BlogForm
+                createBlogPost={createBlogPost}
+              />
             </Togglable>
           </>
         ) : (

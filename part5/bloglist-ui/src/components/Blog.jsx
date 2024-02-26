@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, updateBlogPostLikes }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleShowDetails = () => {
@@ -8,9 +8,18 @@ const Blog = ({ blog }) => {
   };
 
   const handleLikeButton = () => {
-    console.log("click");
-    // add one to likes
-  }
+    const blogToUpdate = {
+      title: blog.title,
+      author: blog.author,
+      url: blog.url,
+      likes: blog.likes + 1,
+      user: blog.user.id,
+    };
+    
+    // console.log(blogToUpdate);
+
+    updateBlogPostLikes(blog.id, blogToUpdate);
+  };
 
   return (
     <div className="blog">

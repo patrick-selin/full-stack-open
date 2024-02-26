@@ -70,12 +70,16 @@ blogsRouter.put("/:id", async (req, res) => {
   const body = req.body;
   console.log(body);
 
+  // add likes here or frontend, think?
+
   const blogPost = {
     title: body.title,
     author: body.author,
     url: body.url,
     likes: body.likes,
   };
+
+
 
   const updatedBlogPost = await Blog.findByIdAndUpdate(id, blogPost, {
     new: true,
