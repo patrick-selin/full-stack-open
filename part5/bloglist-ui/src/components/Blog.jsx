@@ -15,8 +15,8 @@ const Blog = ({ blog, updateBlogPostLikes }) => {
       likes: blog.likes + 1,
       user: blog.user.id,
     };
-    
-    // console.log(blogToUpdate);
+
+    // console.log(blogToUpdate.likes);
 
     updateBlogPostLikes(blog.id, blogToUpdate);
   };
@@ -24,7 +24,9 @@ const Blog = ({ blog, updateBlogPostLikes }) => {
   return (
     <div className="blog">
       <div className="blog-title">
-        <p>{blog.title} - {blog.author}</p>
+        <p>
+          {blog.title} - {blog.author}
+        </p>
 
         <button className="left-margin" onClick={toggleShowDetails}>
           {showDetails ? "hide" : "show"}

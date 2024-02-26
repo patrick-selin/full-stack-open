@@ -68,9 +68,7 @@ blogsRouter.delete("/:id", async (req, res) => {
 blogsRouter.put("/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  console.log(body);
-
-  // add likes here or frontend, think?
+  // console.log(body);
 
   const blogPost = {
     title: body.title,
@@ -78,8 +76,6 @@ blogsRouter.put("/:id", async (req, res) => {
     url: body.url,
     likes: body.likes,
   };
-
-
 
   const updatedBlogPost = await Blog.findByIdAndUpdate(id, blogPost, {
     new: true,

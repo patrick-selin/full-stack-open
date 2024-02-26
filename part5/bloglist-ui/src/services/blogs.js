@@ -12,20 +12,21 @@ const getAllBlogPosts = async () => {
   return res.data;
 };
 
-const createNewBlogPost = async (newPostObject) => {
+const createNewBlogPost = async (newBlogPostObject) => {
   console.log(`token in header : ${token}`);
   const config = {
     headers: { Authorization: token },
   };
 
-  const res = await axios.post(baseUrl, newPostObject, config);
+  const res = await axios.post(baseUrl, newBlogPostObject, config);
 
   return res.data;
 };
 
-const updateBlogPost = async (id) => {
-  // get user id and send
-  const res = await axios.put(`${baseUrl}/${id}`);
+const updateBlogPost = async (id, newBlogPostObject) => {
+  console.log(newBlogPostObject.likes);
+  const res = await axios.put(`${baseUrl}/${id}`, newBlogPostObject);
+  console.log(`RES RES ${JSON.stringify(res)}`);
   return res.data;
 };
 

@@ -101,14 +101,14 @@ const App = () => {
 
   const updateBlogPostLikes = async (id, blogPostData) => {
     try {
-      console.log(id, blogPostData);
-      const updatedBlog = await blogService.updateBlogPost(id);
+      const updatedBlog = await blogService.updateBlogPost(id, blogPostData);
+      console.log(updatedBlog.likes);
       const newBlogs = blogs.map((blog) =>
         blog.id === id ? updatedBlog : blog
       );
       setBlogs(newBlogs);
     } catch (exception) {
-      setMessage("error" + exception.response.data.error);
+      setInfoMessage("error" + exception.response.data.error);
     }
   };
 
