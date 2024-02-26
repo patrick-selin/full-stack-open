@@ -26,6 +26,7 @@ const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
 
   return (
     <div className="blog">
+      {/* test that the title shows, not the modal */}
       <div className="blog-title">
         <p>
           {blog.title} - {blog.author}
