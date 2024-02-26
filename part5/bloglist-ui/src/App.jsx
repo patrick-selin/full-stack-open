@@ -99,9 +99,9 @@ const App = () => {
     }
   };
 
-  const updateBlogPostLikes = async (id, blogPostData) => {
+  const updateBlogPostLikes = async (postId, blogPostData) => {
     try {
-      const updatedBlog = await blogService.updateBlogPost(id, blogPostData);
+      const updatedBlog = await blogService.updateBlogPost(postId, blogPostData);
       console.log(updatedBlog.likes);
       const newBlogs = blogs.map((blog) =>
         blog.id === id ? updatedBlog : blog
@@ -110,7 +110,16 @@ const App = () => {
     } catch (exception) {
       setInfoMessage("error" + exception.response.data.error);
     }
-  };
+  }
+
+  const deleteBlogPost = async (postId) => {
+    // TODO
+    try {
+      const deleteBlogPost = await blogService.deleteBlogPost(postId);
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <>
@@ -132,6 +141,7 @@ const App = () => {
               key={blog.id} 
               blog={blog}
               updateBlogPostLikes={updateBlogPostLikes}
+              deleteBlogPost={deleteBlogPost}
                />
             ))}
 

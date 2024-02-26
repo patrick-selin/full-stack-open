@@ -23,12 +23,18 @@ const createNewBlogPost = async (newBlogPostObject) => {
   return res.data;
 };
 
-const updateBlogPost = async (id, newBlogPostObject) => {
+const updateBlogPost = async (postId, newBlogPostObject) => {
   console.log(newBlogPostObject.likes);
-  const res = await axios.put(`${baseUrl}/${id}`, newBlogPostObject);
+  const res = await axios.put(`${baseUrl}/${postId}`, newBlogPostObject);
+  return res.data;
+};
+
+const deleteBlogPost = async (postId) => {
+  console.log(postId);
+  const res = await axios.delete(`${baseUrl}/${id}`);
   console.log(`RES RES ${JSON.stringify(res)}`);
   return res.data;
 };
 
 
-export default { getAllBlogPosts, createNewBlogPost, setToken, updateBlogPost };
+export default { getAllBlogPosts, createNewBlogPost, setToken, updateBlogPost, deleteBlogPost };
