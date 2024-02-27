@@ -67,6 +67,4 @@ describe("<Blog />", () => {
 
     expect(likeButtonMockHandler).toHaveBeenCalledTimes(2);
   });
-
-  test.todo("write test for this feature");
 });
