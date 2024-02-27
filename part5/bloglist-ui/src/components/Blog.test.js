@@ -1,6 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Blog from "./Blog";
 
 describe("<Blog />", () => {
@@ -16,11 +17,15 @@ describe("<Blog />", () => {
   };
 
   let component;
+  // start session ??
+  const mockHandler = jest.fn();
 
   beforeEach(() => {
     component = render(
-      <Blog key={blog.id} blog={blog} />
+      <Blog key={blog.id} blog={blog} updateLikes={mockHandler} />
     );
+
+    const user = userEvent.setup();
   });
 
   test("renders Blog component", () => {
@@ -37,5 +42,13 @@ describe("<Blog />", () => {
     );
     expect(component.queryByText(blog.url)).not.toBeInTheDocument();
     expect(component.queryByText(blog.likes)).not.toBeInTheDocument();
+  });
+
+  test("checks that the blog's URL and likes are shown when the button has been clicked", () => {
+    const button = component.getByText("show");
+    fireEvent.click(button);
+
+    expect(component.getByText(blog.url)).toBeInTheDocument();
+    expect(component.getByText(`Likes: ${blog.likes}`)).toBeInTheDocument();
   });
 });
