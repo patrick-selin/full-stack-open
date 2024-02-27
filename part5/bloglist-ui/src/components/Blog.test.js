@@ -18,18 +18,22 @@ describe("<Blog />", () => {
 
   let component;
   // start session ??
-  const mockHandler = jest.fn();
+  const likeButtonMockHandler = jest.fn();
 
   beforeEach(() => {
     component = render(
-      <Blog key={blog.id} blog={blog} updateLikes={mockHandler} />
+      <Blog
+        key={blog.id}
+        blog={blog}
+        updateBlogPostLikes={likeButtonMockHandler}
+      />
     );
 
     const user = userEvent.setup();
   });
 
   test("renders Blog component", () => {
-    render(<Blog blog={blog} />);
+    render(<Blog blog={blog} updateBlogPostLikes={likeButtonMockHandler} />);
   });
 
   test("renders Blog-component and shows title and tuhor, but not URL or likes", () => {
@@ -51,4 +55,18 @@ describe("<Blog />", () => {
     expect(component.getByText(blog.url)).toBeInTheDocument();
     expect(component.getByText(`Likes: ${blog.likes}`)).toBeInTheDocument();
   });
+
+  test("calls event handler twice when like button is clicked twice", () => {
+    const button = component.getByText("show");
+    fireEvent.click(button);
+
+    const likeButton = component.getByText("like");
+    // console.log(likeButton);
+    fireEvent.click(likeButton);
+    fireEvent.click(likeButton);
+
+    expect(likeButtonMockHandler).toHaveBeenCalledTimes(2);
+  });
+
+  test.todo("write test for this feature");
 });
