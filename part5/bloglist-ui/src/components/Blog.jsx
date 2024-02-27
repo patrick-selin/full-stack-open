@@ -8,7 +8,7 @@ const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
   };
 
   const handleLikeButton = () => {
-    console.log("Like button clicked");
+    // console.log("Like button clicked");
     const blogToUpdate = {
       title: blog.title,
       author: blog.author,
