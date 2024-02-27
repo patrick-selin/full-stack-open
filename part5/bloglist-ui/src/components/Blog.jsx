@@ -25,7 +25,7 @@ const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
   };
 
   return (
-    <div className="blog">
+    <div className="blog" data-testid="blog-component">
       {/* test that the title shows, not the modal */}
       <div className="blog-title">
         <p>
