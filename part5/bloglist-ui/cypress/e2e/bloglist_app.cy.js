@@ -27,7 +27,7 @@ describe("BlogPost app", function () {
       cy.contains("Olen Aaa logged in");
     });
 
-    it.only("Login is not succesful, correct credenials", function () {
+    it("Login is not succesful, correct credenials", function () {
       // TODO
       cy.contains("Login").click();
       cy.get("#username").type("eitoimi");
@@ -35,15 +35,23 @@ describe("BlogPost app", function () {
       cy.get("#login-button").click();
       cy.contains("Olen Aaa logged in").should("not.exist");
       cy.contains("invalid username or password");
-      cy.get(".error").should('have.css', 'color', 'rgb(255, 0, 0)');
-       
-
+      cy.get(".error").should("have.css", "color", "rgb(255, 0, 0)");
     });
   });
 
-  // it.skip("5.19", function () {
-  //   // TODO
-  // });
+  describe("5.19 When logged in", function () {
+    beforeEach(function () {
+      cy.login({ username: "aaaa", password: "aaaa" });
+    });
+
+    it.only("Logged in user can creare a new blog", function () {
+      cy.contains("add new blog")
+      cy.get('#add-blog').should('exist');
+      cy.get('#add-blog').click();
+
+      //
+    });
+  });
 
   // it.skip("5.20", function () {
   //   // TODO
