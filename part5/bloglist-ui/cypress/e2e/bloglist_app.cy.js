@@ -19,7 +19,6 @@ describe("BlogPost app", function () {
 
   describe("5.18 Loggin in", function () {
     it("Login is successful, incorrect credentials", function () {
-      // TODO
       cy.contains("Login").click();
       cy.get("#username").type("aaaa");
       cy.get("#password").type("aaaa");
@@ -44,13 +43,16 @@ describe("BlogPost app", function () {
       cy.login({ username: "aaaa", password: "aaaa" });
     });
 
-    it.only("Logged in user can creare a new blog", function () {
-      cy.contains("add new blog")
-      cy.get('#add-blog').should('exist');
-      cy.get('#add-blog').click();
+    it("Logged in user can creare a new blog", function () {
+      cy.createBlog({
+        title: "Test Title",
+        author: "Test Authori",
+        url: "https://www.testing.fi/",
+      });
 
-      //
+      cy.contains("Test Title");
     });
+
   });
 
   // it.skip("5.20", function () {
