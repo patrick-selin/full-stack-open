@@ -46,7 +46,7 @@ const LoginForm = ({ handleLogin }) => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button id="login-button" type="submit">Login</button>
       </form>
     </div>
   );
