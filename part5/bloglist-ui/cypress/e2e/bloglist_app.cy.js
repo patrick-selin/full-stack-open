@@ -52,19 +52,25 @@ describe("BlogPost app", function () {
 
       cy.contains("Hello Test Title");
     });
-
   });
 
-  it.skip("5.20", function () {
-    // TODO
+  describe("5.20 user can like a post", function () {
+    beforeEach(function () {
+      cy.createBlog({
+        title: "New blog",
+        author: "john wayne",
+        url: "asko.gi/",
+      });
+      cy.createBlog({
+        title: "another blog",
+        author: "Me and you",
+        url: "hyle.fi/",
+      });
+    });
+
+    it("users can like a blog", function () {
+      cy.contains("another blog").parent().find("button").click();
+      cy.get("#like-btn").click();
+    });
   });
-  // it.skip("5.21", function () {
-  //   // TODO
-  // });
-  // it.skip("5.22", function () {
-  //   // TODO
-  // });
-  // it.skip("5.23", function () {
-  //   // TODO
-  // });
 });
