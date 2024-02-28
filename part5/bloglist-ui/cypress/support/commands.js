@@ -15,11 +15,10 @@ Cypress.Commands.add("login", ({ username, password }) => {
       method: "POST",
       body: { title, author, url },
       headers: {
-        Authorization: `bearer ${
-          JSON.parse(localStorage.getItem("loggedUser")).token
-        }`,
-      },
-    });
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("loggedUser")).token}`
+        }
+      })
   
     cy.visit("http://localhost:5173");
   });

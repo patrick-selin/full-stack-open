@@ -54,7 +54,7 @@ describe("BlogPost app", function () {
     });
   });
 
-  describe("5.20 user can like a post", function () {
+  describe("5.20 5.21", function () {
     beforeEach(function () {
       cy.createBlog({
         title: "New blog",
@@ -70,7 +70,13 @@ describe("BlogPost app", function () {
 
     it("users can like a blog", function () {
       cy.contains("another blog").parent().find("button").click();
-      cy.get("#like-btn").click();
+      cy.get("#like-button").click();
+    });
+
+    it("user can delete a post", function () {
+      cy.contains("another blog").parent().find("button").click();
+      cy.get("#remove-button").click();
+      cy.get("html").should("not.contain", "another blog");
     });
   });
 });
