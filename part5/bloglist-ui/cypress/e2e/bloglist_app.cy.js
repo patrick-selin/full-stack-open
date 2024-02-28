@@ -55,9 +55,9 @@ describe("BlogPost app", function () {
     });
   });
 
-  // it.skip("5.20", function () {
-  //   // TODO
-  // });
+  it.skip("5.20", function () {
+    // TODO
+  });
   // it.skip("5.21", function () {
   //   // TODO
   // });
