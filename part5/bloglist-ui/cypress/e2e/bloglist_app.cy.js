@@ -19,7 +19,6 @@ describe("BlogPost app", function () {
 
   describe("5.18 Loggin in", function () {
     it("Login is successful, incorrect credentials", function () {
-      // TODO
       cy.contains("Login").click();
       cy.get("#username").type("aaaa");
       cy.get("#password").type("aaaa");
@@ -53,6 +52,7 @@ describe("BlogPost app", function () {
 
       cy.contains("Hello Test Title");
     });
+
   });
 
   it.skip("5.20", function () {
