@@ -44,12 +44,14 @@ describe("BlogPost app", function () {
       cy.login({ username: "aaaa", password: "aaaa" });
     });
 
-    it.only("Logged in user can creare a new blog", function () {
-      cy.contains("add new blog")
-      cy.get('#add-blog').should('exist');
-      cy.get('#add-blog').click();
+    it("a blog can be created", function () {
+      cy.createBlog({
+        title: "Hello Test Title",
+        author: "Test Woman",
+        url: "https://www.testing.fi/",
+      });
 
-      //
+      cy.contains("Hello Test Title");
     });
   });
 

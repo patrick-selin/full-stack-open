@@ -11,7 +11,6 @@ usersRouter.get("/", async (req, res) => {
     url: 1,
   });
 
-//   console.log(`Response Payload : ${JSON.stringify(allUsers)}`);
   res.json(allUsers);
 });
 
