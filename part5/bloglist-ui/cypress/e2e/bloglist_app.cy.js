@@ -18,7 +18,7 @@ describe("BlogPost app", function () {
   });
 
   describe("5.18 Loggin in", function () {
-    it.only("Login is successful, incorrect credentials", function () {
+    it("Login is successful, incorrect credentials", function () {
       // TODO
       cy.contains("Login").click();
       cy.get("#username").type("aaaa");
@@ -26,14 +26,18 @@ describe("BlogPost app", function () {
       cy.get("#login-button").click();
       cy.contains("Olen Aaa logged in");
     });
-  
-    it("Login is not succesful, correct credenials", function () {
+
+    it.only("Login is not succesful, correct credenials", function () {
       // TODO
       cy.contains("Login").click();
       cy.get("#username").type("eitoimi");
       cy.get("#password").type("wrong");
       cy.get("#login-button").click();
+      cy.contains("Olen Aaa logged in").should("not.exist");
       cy.contains("invalid username or password");
+      cy.get(".error").should('have.css', 'color', 'rgb(255, 0, 0)');
+       
+
     });
   });
 
