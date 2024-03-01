@@ -1,0 +1,40 @@
+Script started on Fri Mar  1 12:03:10 2024
+[0m[49m[39m[27m[24m
+[K
+[1A7[0m[49m[39m[0m[47m[38;5;232m [0m[38;5;232m[47m[47m[38;5;232m [0m[38;5;232m[47m[44m[37m[0m[37m[44m[44m[38;5;254m  [1m[38;5;254m[44m[38;5;255m~[0m[38;5;255m[44m[44m[38;5;254m/Documents/00_CODE/[1m[38;5;254m[44m[38;5;255mFSO[0m[38;5;255m[44m[44m[38;5;254m[0m[38;5;254m[44m[44m[38;5;254m [0m[38;5;254m[44m[49m[34m[0m[34m[49m[39m [0m[49m[39m                                                                  [0m[49m[30m[0m[30m[40m[32m [0m[32m[40m[40m[32m✔[0m[32m[40m[40m[32m [0m[32m[40m[40m[32m[37m[0m[37m[40m[47m[30m at 12:03:10[0m[30m[47m[47m[30m [0m[30m[47m[47m[30m [0m[30m[47m[49m[39m[0m[49m[39m[27m[24m
+[33C[?2004h[?25l8[0m[49m[39m[27m[24m[J]2;pat_devs@Patricks-MacBook-Pro:~/Documents/00_CODE/FSO]1;..s/00_CODE/FSO]7;file://Patricks-MacBook-Pro.local/Users/pat_devs/Documents/00_CODE/FSO\[0m[38;5;254m[49m[39m[27m[24m[1m[7m%[27m[1m[0m                                                                                                                       
+[0m[49m[39m[27m[24m[K
+[0m[27m[24m[J[0m[49m[39m[0m[47m[38;5;232m [0m[38;5;232m[47m[47m[38;5;232m [0m[38;5;232m[47m[44m[37m[0m[37m[44m[44m[38;5;254m  [1m[38;5;254m[44m[38;5;255m~[0m[38;5;255m[44m[44m[38;5;254m/[38;5;250mDoc[0m[38;5;250m[44m[44m[38;5;254m/00_CODE/[1m[38;5;254m[44m[38;5;255mFSO[0m[38;5;255m[44m[44m[38;5;254m[0m[38;5;254m[44m[44m[38;5;254m [0m[38;5;254m[44m[43m[34m[0m[34m[43m[43m[30m on  [30m main [30m!1 [30m?1[0m[30m[43m[43m[30m [0m[30m[43m[49m[33m[0m[33m[49m[39m [0m[49m[39m[K[41C[0m[49m[30m[0m[30m[40m[32m [0m[32m[40m[40m[32m✔[0m[32m[40m[40m[32m [0m[32m[40m[40m[32m[35m[0m[35m[40m[45m[30m system[0m[30m[45m[45m[30m [0m[30m[45m[45m[30m [0m[30m[45m[45m[30m[37m[0m[37m[45m[47m[30m at 12:03:10[0m[30m[47m[47m[30m [0m[30m[47m[47m[30m [0m[30m[47m[49m[39m[72D[?1h=[?25h[?2004hscript typescript[17Ddocker start -i tender_wescoff[?1l>[?2004l
+
+]2;docker start -i tender_wescoff]1;docker[?2004h]0;root@134a5cb9e584: /root@134a5cb9e584:/# 
+[K]0;root@134a5cb9e584: /root@134a5cb9e584:/# cd src
+[?2004l
+bash: cd: src: No such file or directory
+[?2004h]0;root@134a5cb9e584: /root@134a5cb9e584:/# cd usr
+[?2004l
+[?2004h]0;root@134a5cb9e584: /usrroot@134a5cb9e584:/usr# cd src
+[?2004l
+[?2004h]0;root@134a5cb9e584: /usr/srcroot@134a5cb9e584:/usr/src# ls
+[?2004l
+[0m[01;34mapp[0m
+[?2004h]0;root@134a5cb9e584: /usr/srcroot@134a5cb9e584:/usr/src# cd ap
+[?2004l
+bash: cd: ap: No such file or directory
+[?2004h]0;root@134a5cb9e584: /usr/srcroot@134a5cb9e584:/usr/src# cd pp  app
+[?2004l
+[?2004h]0;root@134a5cb9e584: /usr/src/approot@134a5cb9e584:/usr/src/app# ls
+[?2004l
+index.js
+[?2004h]0;root@134a5cb9e584: /usr/src/approot@134a5cb9e584:/usr/src/app# i nano index.js
+[?2004l
+[?2004h[?1049h[22;0;0t[1;37r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[35;54H(B[0;7m[ Reading... ](B[m[35;53H(B[0;7m[ Read 1 line ](B[m[H(B[0;7m  GNU nano 6.2 [43bindex.js [52b [1;119H(B[m
+[36d(B[0;7m^G(B[m Help[36;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[36;61H(B[0;7m^T(B[m Execute     (B[0;7m^C(B[m Location    (B[0;7mM-U(B[m Undo[106G(B[0;7mM-A(B[m Set Mark
+[37d(B[0;7m^X(B[m Exit[37;16H(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste[61G(B[0;7m^J(B[m Justify     (B[0;7m^/(B[m Go To Line  (B[0;7mM-E(B[m Redo[106G(B[0;7mM-6(B[m Copy
+[2dhello dockeri
+[?12l[?25h[?25l[?12l[?25h[3d[?25l[?12l[?25h[?25l[?12l[?25h[A[?25l[?12l[?25hh[?25l[?12l[?25he[?25l[?12l[?25hl[?25l[?12l[?25hl[?25l[?12l[?25ho[?25l[?12l[?25h [?25l[?12l[?25hd[?25l[?12l[?25ho[?25l[?12l[?25hc[?25l[?12l[?25hk[?25l[?12l[?25he[?25l[?12l[?25hr[?25l[?12l[?25hi[?25l[1;68H(B[0;7m*[119G(B[m[?12l[?25h[2;13H [?25l[?12l[?25h [?25l[?12l[?25h [?25l
+[35d[K[?12l[?25h[2;10H [?25l[?12l[?25h(B[0;1m[33mdo[39m(B[m[K[?25l[?12l[?25hd[K[?25l[?12l[?25h[42m [49m(B[m[K[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[K[?25l[?12l[?25hH[?25l[?12l[?25he[?25l[?12l[?25hl[?25l[?12l[?25hl[?25l[?12l[?25ho[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h W[?25l[?12l[?25ho[?25l[?12l[?25hr[?25l[?12l[?25hl[?25l[?12l[?25hd[?25l
+[35d(B[0;7mSave modified buffer? [97b [36;1H Y(B[m Yes[K
+[37d(B[0;7m N(B[m No  [37;16H (B[0;7m^C(B[m Cancel[K[35;23H[?12l[?25h[?25l
+[36d(B[0;7m^G(B[m Help[36;31H(B[0;7mM-D(B[m DOS Format[36;61H(B[0;7mM-A(B[m Append[36;91H(B[0;7mM-B(B[m Backup File
+[37d(B[0;7m^C(B[m Cancel[17G[14X[37;31H(B[0;7mM-M(B[m Mac Format[37;61H(B[0;7mM-P(B[m Prepend[37;91H(B[0;7m^T(B[m Browse
+[35d(B[0;7mFile Name to Write: index.js(B[m[?12l[?25h
