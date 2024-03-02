@@ -10,6 +10,9 @@
 
 # production
 /build
+mongo_data/
+/mongo_data
+
 
 # misc
 .DS_Store
