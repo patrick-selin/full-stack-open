@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const { Todo } = require("../mongo");
+const { getAsync, setAsync } = require("../redis");
 const router = express.Router();
 
 /* GET todos listing. */
@@ -11,6 +12,16 @@ router.get("/", async (_, res) => {
 
 /* POST todo to listing. */
 router.post("/", async (req, res) => {
+  const todoCounter = async () => {
+    const count = await getAsync("count");
+
+    return count
+      ? setAsync("count", parseInt(count) + 1)
+      : setAsync("count", 1);
+  };
+
+  todoCounter();
+
   const todo = await Todo.create({
     text: req.body.text,
     done: false,
@@ -61,7 +72,7 @@ singleRouter.put("/", async (req, res) => {
     return res.json(newTodo);
   }
 
-  res.sendStatus(200); 
+  res.sendStatus(200);
 });
 
 router.use("/:id", findByIdMiddleware, singleRouter);
