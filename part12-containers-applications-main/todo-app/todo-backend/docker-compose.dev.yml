@@ -14,9 +14,12 @@ services:
       - ./mongo_data:/data/db
 
   redis:
-      image: redis
-      ports:
-        - 6379:6379    
+    image: redis
+    ports:
+      - 6379:6379
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - ./redis_data:/data
 
-volumes:  
+volumes:
   mongo_data:
