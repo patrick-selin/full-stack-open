@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-ENV REACT_APP_BACKEND_URL=http://localhost:3001
+ENV REACT_APP_BACKEND_URL=http://localhost:8080/api/
 ENV WATCHPACK_POLLING=true
 
 RUN npm ci --only=production
