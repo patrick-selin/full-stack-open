@@ -2,7 +2,7 @@
 
 services:
   app:
-    image: hello-front-dev
+    image: todo-frontend-dev
     build:
       context: .
       dockerfile: dev.Dockerfile
@@ -10,4 +10,4 @@ services:
       - ./:/usr/src/app
     ports:
       - 3000:3000
-    container_name: hello-front-dev
+    container_name: todo-frontend-dev
