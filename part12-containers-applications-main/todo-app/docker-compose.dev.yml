@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
     app:
-      image: todo-frontend-dev
+      image: hello-front-dev
       build:
         context: ./todo-frontend
         dockerfile: dev.Dockerfile
@@ -13,7 +13,7 @@ services:
         - PORT=3000
         - WDS_SOCKET_PORT=0
         - WATCHPACK_POLLING=true
-      container_name: todo-frontend-dev
+      container_name: hello-front-dev
 
     mongo:
       image: mongo
@@ -52,17 +52,16 @@ services:
         - mongo
         - redis
 
-    # nginx:
-    #   image: nginx:1.20.1
-    #   volumes:
-    #     # - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    #     - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
-    #   ports:
-    #     - 8080:80
-    #   container_name: reverse-proxy
-    #   depends_on:
-    #     - app
-    #     - server
+    nginx:
+      image: nginx:1.20.1
+      volumes:
+        - ./nginx.dev.conf:/etc/nginx/nginx.dev.conf:ro
+      ports:
+        - 8080:80
+      container_name: reverse-proxy
+      depends_on:
+        - app # wait for the frontend container to be started
+        - server
 
 volumes:
   mongo_data:
