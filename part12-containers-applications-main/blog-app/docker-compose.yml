@@ -1,1 +1,33 @@
 # blog-app production
+
+version: "3.8"
+
+services:
+  app:
+    image: blog-app-frontti-dev
+    build:
+      context: ./blog-app-frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./blog-app-frontend:/usr/src/app
+    ports:
+      - 3210:3000
+    environment:
+      - PORT=3003
+      - WDS_SOCKET_PORT=0
+      - WATCHPACK_POLLING=true
+    container_name: frontti-dev
+
+  server:
+    image: blog-app-back-dev
+    build:
+      context: ./blog-app-backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./blog-app-backend:/usr/src/app
+    env_file:
+      - ./blog-app-backend/.env
+    container_name: back-dev
+
+volumes:
+  mongo_data:
