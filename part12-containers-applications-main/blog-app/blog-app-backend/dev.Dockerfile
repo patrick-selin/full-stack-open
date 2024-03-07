@@ -13,6 +13,8 @@ RUN npm install bcrypt --build-from-source
 
 ENV NODE_ENV=development
 
+EXPOSE 3003
+
 USER node
 
 CMD ["npm", "run", "dev"]
