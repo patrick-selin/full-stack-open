@@ -7,9 +7,6 @@ WORKDIR /usr/src/app
 COPY --chown=node:node . .
 
 RUN npm install
-RUN npm uninstall bcrypt
-# RUN npm install bcryptjs
-RUN npm install bcrypt --build-from-source
 
 ENV NODE_ENV=development
 
