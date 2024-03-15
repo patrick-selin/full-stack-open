@@ -1,5 +1,5 @@
 // const config = require("../utils/config");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 //
 const usersRouter = require("express").Router();
 const User = require("../models/userModel");
