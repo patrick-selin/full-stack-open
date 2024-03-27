@@ -10,8 +10,7 @@ services:
       - ./blog-app-frontend:/usr/src/app
     environment:
       - PORT=3003
-      - WDS_SOCKET_PORT=0
-      - WATCHPACK_POLLING=true
+  
     container_name: frontti-dev
 
   server:
