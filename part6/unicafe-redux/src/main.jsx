@@ -10,28 +10,26 @@ const App = () => {
   const handleGood = () => {
     store.dispatch({
       type: "GOOD",
-    })  
+    });
   };
 
   const handleOk = () => {
     store.dispatch({
       type: "OK",
-    })  
+    });
   };
 
   const handleBad = () => {
     store.dispatch({
       type: "BAD",
-    })  
+    });
   };
 
   const handleReset = () => {
     store.dispatch({
       type: "ZERO",
-    })  
+    });
   };
-
-
 
   return (
     <div>
