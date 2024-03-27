@@ -18,7 +18,7 @@ const anecdoteAsObject = (anecdote) => {
 };
 
 const initialState = anecdotesAtStart.map(anecdoteAsObject);
-console.log("initial state -- ", initialState);
+// console.log("initial state -- ", initialState);
 
 const reducer = (state = initialState, action) => {
   console.log("state now: ", state);
