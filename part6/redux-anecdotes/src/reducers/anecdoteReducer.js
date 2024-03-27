@@ -9,7 +9,7 @@ const anecdotesAtStart = [
 
 const getRandomId = () => (100000 * Math.random()).toFixed(0);
 
-const andecdoteAsObject = (anecdote) => {
+const anecdoteAsObject = (anecdote) => {
   return {
     content: anecdote,
     id: getRandomId(),
@@ -17,7 +17,7 @@ const andecdoteAsObject = (anecdote) => {
   };
 };
 
-const initialState = anecdotesAtStart.map(andecdoteAsObject);
+const initialState = anecdotesAtStart.map(anecdoteAsObject);
 console.log("initial state -- ", initialState);
 
 const reducer = (state = initialState, action) => {
@@ -38,6 +38,9 @@ const reducer = (state = initialState, action) => {
         anecdote.id !== newAnecdoteId ? anecdote : updatedAnecdote
       );
     }
+    case "ADD_ANECDOTE":
+      return [...state, action.payload];
+
     default:
       return state;
   }
@@ -47,6 +50,17 @@ export const addVote = (id) => {
   return {
     type: "ADD_VOTE",
     payload: { id },
+  };
+};
+
+export const addAnecdote = (content) => {
+  return {
+    type: "ADD_ANECDOTE",
+    payload: {
+      content,
+      id: getRandomId(),
+      votes: 0,
+    },
   };
 };
 
