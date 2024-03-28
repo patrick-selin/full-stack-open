@@ -3,7 +3,15 @@ body {
 }
 
 #main-app {
- max-width: 70%;
+  max-width: 70%;
+}
+
+#anecdote-filter-component {
+  background-color: rgb(155, 170, 184);
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
 }
 
 #anecdote-list-component {
@@ -28,4 +36,5 @@ body {
   background-color: rgb(156, 165, 166);
   margin-top: 0.5rem;
   padding: 0.2rem 1rem;
+  max-width: 70%;
 }

@@ -1,23 +1,17 @@
-// todo
-const initialState = "";
-
-const filterReducer = (state = initialState, action) => {
-  // todo
-  console.log(action);
-  switch (action.type) {
-    case 'SET_FILTER':
-      return action.filter
-    default:
-      return state
+const filterReducer = (state = 'ALL', action) => {
+    switch (action.type) {
+      case 'SET_FILTER':
+        return action.payload
+      default:
+        return state
+    }
   }
-};
-
-// todo, action creator
-export const filterChange = (filter) => {
+  
+  export const filterChange = (filter) => {
     return {
       type: 'SET_FILTER',
-      filter,
+      payload: filter,
     }
-}
-
-export default filterReducer;
+  }
+  
+  export default filterReducer
