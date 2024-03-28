@@ -5,12 +5,12 @@ import { addVote } from "../reducers/anecdoteReducer";
 function AnecdoteList() {
   const dispatch = useDispatch();
   const anecdotes = useSelector((state) => {
-    if (state.filter === 'ALL') {
-        return state.anecdotes
-      }
-      return state.anecdotes.filter(a => {
-        return a.content.toLowerCase().includes(state.filter.toLowerCase())
-      })
+    if (state.filter === "ALL") {
+      return state.anecdotes;
+    }
+    return state.anecdotes.filter((anecdoteItem) => {
+      return anecdoteItem.content.toLowerCase().includes(state.filter.toLowerCase());
+    });
   });
 
   const handleVote = (id) => {
@@ -19,11 +19,6 @@ function AnecdoteList() {
   };
 
   const sortedAnecdotes = anecdotes.slice().sort((a, b) => b.votes - a.votes);
-
-  //
-  // filtering functionality
-
-  //
 
   return (
     <div id="anecdote-list-component">
