@@ -1,5 +1,4 @@
 // AnecdoteForm.jsx
-
 import { useDispatch } from "react-redux";
 import { addAnecdote } from "../reducers/anecdoteReducer";
 
@@ -17,7 +16,7 @@ function AnecdoteForm() {
   };
 
   return (
-    <div>
+    <div id="anecdote-form-component">
       <h2>create new</h2>
       <form onSubmit={handleAddAnecdote}>
         <div>

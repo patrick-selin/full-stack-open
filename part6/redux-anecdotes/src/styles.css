@@ -1,0 +1,27 @@
+body {
+  padding: 0rem 2rem;
+}
+
+#anecdote-list-component {
+  background-color: rgb(236, 240, 244);
+}
+
+.anecdote-row {
+  background-color: rgb(222, 226, 230);
+  border: 0.5px solid black;
+  border-radius: 5px;
+
+  padding: 0.5rem 1rem;
+}
+
+#vote-button {
+  background-color: bisque;
+  padding: 0.1rem 0.5rem;
+  margin-left: 1rem;
+}
+
+#anecdote-form-component {
+  background-color: rgb(156, 165, 166);
+  margin-top: 0.5rem;
+  padding: 0.2rem 1rem;
+}
