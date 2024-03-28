@@ -2,6 +2,10 @@ body {
   padding: 0rem 2rem;
 }
 
+#main-app {
+ max-width: 70%;
+}
+
 #anecdote-list-component {
   background-color: rgb(236, 240, 244);
 }
