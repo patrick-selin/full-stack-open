@@ -20,7 +20,7 @@ function AnecdoteForm() {
     dispatch(notificationSet(`New Anecdote added: '${content}'`));
     setTimeout(() => {
       dispatch(notificationClear(""));
-    }, 3000);
+    }, 5000);
   };
 
   return (

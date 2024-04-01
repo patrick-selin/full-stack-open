@@ -10,7 +10,6 @@ const notificationSlice = createSlice({
       notificationClear(state, action) {
         return action.payload
       }
-
     } 
   })
   
