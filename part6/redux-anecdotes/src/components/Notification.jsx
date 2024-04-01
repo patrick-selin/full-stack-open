@@ -2,17 +2,20 @@ import { useSelector } from "react-redux";
 
 const Notification = () => {
   // TODO
-  // const notification = useSelector(/* something here */);
+  const notification = useSelector(state => state.notification);
 
   const style = {
+    marginTop: 10,
+    marginBottom: 10,
     border: "solid",
     padding: 10,
-    borderWidth: 1,
+    borderWidth: 2,
+    backgroundColor: "lightblue",
   };
   return (
     <div style={style}>
-      TODO notification component
-      {/* {notification} */}
+   
+      {notification}
     </div>
   );
 };
