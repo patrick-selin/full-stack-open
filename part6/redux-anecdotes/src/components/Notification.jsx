@@ -14,7 +14,6 @@ const Notification = () => {
   };
   return (
     <div style={style}>
-   
       {notification}
     </div>
   );

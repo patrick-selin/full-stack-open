@@ -1,8 +1,10 @@
 // AnecdoteList.jsx
 import { useSelector, useDispatch } from "react-redux";
 import { addVote } from "../reducers/anecdoteReducer";
-import { notificationSet } from "../reducers/notificationReducer";
-import { Children } from "react";
+import {
+  notificationSet,
+  notificationClear,
+} from "../reducers/notificationReducer";
 
 function AnecdoteList() {
   const dispatch = useDispatch();
@@ -19,7 +21,10 @@ function AnecdoteList() {
     // console.log("vote", id);
     console.log(`THIS IS anecdote.content :: ${anecdote.content}`);
     dispatch(addVote(anecdote.id));
-    dispatch(notificationSet(`you voted '${anecdote.content}`));
+    dispatch(notificationSet(`your vote is added to: ${anecdote.content}`));
+    setTimeout(() => {
+      dispatch(notificationClear(""));
+    }, 5000);
   };
 
   const sortedAnecdotes = anecdotes.slice().sort((a, b) => b.votes - a.votes);
