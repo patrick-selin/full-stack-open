@@ -16,9 +16,10 @@ function AnecdoteForm() {
     const content = event.target.addNewAnecdote.value;
     event.target.addNewAnecdote.value = "";
 
-    dispatch(createAnecdote(content))
+    dispatch(createAnecdote(content));
 
     dispatch(notificationSet(`New Anecdote added: '${content}'`));
+
     setTimeout(() => {
       dispatch(notificationClear(""));
     }, 5000);
