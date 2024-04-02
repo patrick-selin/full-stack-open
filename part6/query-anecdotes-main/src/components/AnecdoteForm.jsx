@@ -1,11 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { createNew, updateVotes } from "../services/anecdotes";
+import { createNew } from "../services/anecdotes";
 
 const AnecdoteForm = () => {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const newAnecdoteMutation = useMutation({
-    mutationFn: updateVotes,
+    mutationFn: createNew,
     onSuccess: () => {
       queryClient.invalidateQueries("anecdotes");
     },
