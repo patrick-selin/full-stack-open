@@ -1,13 +1,15 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { createNew } from "../services/anecdotes";
 
 const AnecdoteForm = () => {
-  const createAnecdote = (newAnecdote) =>
-    axios
-      .post("http://localhost:3001/anecdotes", newAnecdote)
-      .then((res) => res.data);
+  const queryClient = useQueryClient()
 
-  const newAnecdoteMutation = useMutation({ mutationFn: createAnecdote });
+  const newAnecdoteMutation = useMutation({
+    mutationFn: createNew,
+    onSuccess: () => {
+      queryClient.invalidateQueries("anecdotes");
+    },
+  });
 
   const getRandomId = () => (100000 * Math.random()).toFixed(0);
 
@@ -18,10 +20,10 @@ const AnecdoteForm = () => {
     console.log("new anecdote");
 
     // react query
-    newAnecdoteMutation.mutate({ 
+    newAnecdoteMutation.mutate({
       content: content,
       id: getRandomId(),
-      votes: 0
+      votes: 0,
     });
   };
 
