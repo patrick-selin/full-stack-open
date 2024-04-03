@@ -1,7 +1,7 @@
 // App.jsx
 
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
@@ -27,7 +27,7 @@ const App = () => {
       id: 2,
     },
   ]);
-  
+
   const [notification, setNotification] = useState("");
 
   const addNew = (anecdote) => {
@@ -48,14 +48,28 @@ const App = () => {
     setAnecdotes(anecdotes.map((a) => (a.id === id ? voted : a)));
   };
 
+  const mainStyle = {
+    border: "2px solid black",
+    borderRadius: "1rem",
+    backgroundColor: "lightgrey",
+    padding: "1rem",
+    marginTop: "3rem",
+    marginBottom: "3rem",
+  };
   return (
     <Router>
       <div>
         <h1>Software anecdotes</h1>
         <Menu />
-        <AnecdoteList anecdotes={anecdotes} />
-        <About />
-        <CreateNew addNew={addNew} />
+        <section style={mainStyle}>
+          {/* router */}
+          <Routes>
+            <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
+            <Route path="/create" element={<CreateNew addNew={addNew} />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+          {/* router */}
+        </section>
         <Footer />
       </div>
     </Router>
