@@ -11,6 +11,15 @@ const AnecdoteForm = () => {
     onSuccess: () => {
       queryClient.invalidateQueries("anecdotes");
     },
+    onError: () => {
+      dispatch({
+        type: "ERROR",
+        payload: "too short anecdote, must have length 5 or more",
+      });
+      setTimeout(() => {
+        dispatch({ type: "TIMEOUT" });
+      }, 4000);
+    },
   });
 
   const getRandomId = () => (100000 * Math.random()).toFixed(0);
