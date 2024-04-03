@@ -1,7 +1,7 @@
 // App.jsx
 
 import { useState } from "react";
-import { useMatch, Routes, Route } from "react-router-dom";
+import { useMatch, Routes, Route, useNavigate } from "react-router-dom";
 //
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
@@ -12,6 +12,7 @@ import AnecdoteDetail from "./components/AnecdoteDetail";
 //
 
 const App = () => {
+  const [notification, setNotification] = useState(null);
   const [anecdotes, setAnecdotes] = useState([
     {
       content: "If it hurts, do it more often",
@@ -29,11 +30,15 @@ const App = () => {
     },
   ]);
 
-  const [notification, setNotification] = useState("");
+  const navigate = useNavigate();
 
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000);
     setAnecdotes(anecdotes.concat(anecdote));
+    //
+    navigate("/");
+    setNotification(`a new anecdote ${anecdote.content} created!`);
+    setTimeout(() => setNotification(null), 5000);
   };
 
   const match = useMatch("/anecdotes/:id");
@@ -62,10 +67,22 @@ const App = () => {
     marginTop: "3rem",
     marginBottom: "3rem",
   };
+
+  const notificationStyle = {
+    border: "3px solid green",
+    borderRadius: "1rem",
+    backgroundColor: "lightgrey",
+    padding: "0.5rem",
+    marginTop: "2rem",
+    fontWeight: "700",
+    fontSize: "1.5rem",
+  };
+
   return (
     <div>
       <h1>Software anecdotes</h1>
       <Menu />
+      {notification && <div style={notificationStyle}>{notification}</div>}
       <section style={mainStyle}>
         {/* router */}
         <Routes>
