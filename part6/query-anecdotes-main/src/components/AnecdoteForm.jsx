@@ -1,7 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNew } from "../services/anecdotes";
+import { useNotificationDispatch } from "../NotificationContext";
 
 const AnecdoteForm = () => {
+  const dispatch = useNotificationDispatch();
   const queryClient = useQueryClient();
 
   const newAnecdoteMutation = useMutation({
@@ -25,6 +27,11 @@ const AnecdoteForm = () => {
       id: getRandomId(),
       votes: 0,
     });
+
+    dispatch({ type: "CREATE", payload: `anecdote '${content}' created` });
+    setTimeout(() => {
+      dispatch({ type: "TIMEOUT" });
+    }, 3000);
   };
 
   return (

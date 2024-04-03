@@ -2,9 +2,11 @@ import AnecdoteForm from "./components/AnecdoteForm";
 import Notification from "./components/Notification";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getAll, updateVotes } from "./services/anecdotes";
+import { useNotificationDispatch } from "./NotificationContext";
 
 const App = () => {
   const queryClient = useQueryClient();
+  const dispatch = useNotificationDispatch();
 
   const updateAnecdoteVoteseMutation = useMutation({
     mutationFn: updateVotes,
@@ -28,7 +30,7 @@ const App = () => {
     return (
       <>
         <p>Anecdote service not available due to problems in server</p>
-        <p>Eror: {result.error.message}</p>
+        <p>Error: {result.error.message}</p>
       </>
     );
   }
@@ -39,6 +41,10 @@ const App = () => {
       ...anecdote,
       votes: anecdote.votes + 1,
     });
+    dispatch({ type: "VOTE", payload: `anecdote '${anecdote.content}' voted` });
+    setTimeout(() => {
+      dispatch({ type: "TIMEOUT" });
+    }, 3000);
   };
 
   return (
