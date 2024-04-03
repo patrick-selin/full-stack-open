@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import About from "./components/About";
 import AnecdoteList from "./components/AnecdoteList";
 import CreateNew from "./components/CreateNew";
+import AnecdoteDetail from "./components/AnecdoteDetail";
 //
 
 const App = () => {
@@ -16,14 +17,14 @@ const App = () => {
       content: "If it hurts, do it more often",
       author: "Jez Humble",
       info: "https://martinfowler.com/bliki/FrequencyReducesDifficulty.html",
-      votes: 0,
+      votes: 6,
       id: 1,
     },
     {
       content: "Premature optimization is the root of all evil",
       author: "Donald Knuth",
       info: "http://wiki.c2.com/?PrematureOptimization",
-      votes: 0,
+      votes: 7,
       id: 2,
     },
   ]);
@@ -67,6 +68,10 @@ const App = () => {
             <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
             <Route path="/create" element={<CreateNew addNew={addNew} />} />
             <Route path="/about" element={<About />} />
+            <Route
+              path="/anecdotes/:id"
+              element={<AnecdoteDetail anecdotes={anecdotes} />}
+            />
           </Routes>
           {/* router */}
         </section>
