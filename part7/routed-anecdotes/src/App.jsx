@@ -1,7 +1,7 @@
 // App.jsx
 
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useMatch, Routes, Route } from "react-router-dom";
 //
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
@@ -36,6 +36,11 @@ const App = () => {
     setAnecdotes(anecdotes.concat(anecdote));
   };
 
+  const match = useMatch("/anecdotes/:id");
+  const anecdote = match
+    ? anecdotes.find((anecdote) => anecdote.id === Number(match.params.id))
+    : null;
+
   const anecdoteById = (id) => anecdotes.find((a) => a.id === id);
 
   const vote = (id) => {
@@ -58,26 +63,24 @@ const App = () => {
     marginBottom: "3rem",
   };
   return (
-    <Router>
-      <div>
-        <h1>Software anecdotes</h1>
-        <Menu />
-        <section style={mainStyle}>
-          {/* router */}
-          <Routes>
-            <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
-            <Route path="/create" element={<CreateNew addNew={addNew} />} />
-            <Route path="/about" element={<About />} />
-            <Route
-              path="/anecdotes/:id"
-              element={<AnecdoteDetail anecdotes={anecdotes} />}
-            />
-          </Routes>
-          {/* router */}
-        </section>
-        <Footer />
-      </div>
-    </Router>
+    <div>
+      <h1>Software anecdotes</h1>
+      <Menu />
+      <section style={mainStyle}>
+        {/* router */}
+        <Routes>
+          <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
+          <Route path="/create" element={<CreateNew addNew={addNew} />} />
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/anecdotes/:id"
+            element={<AnecdoteDetail anecdote={anecdote} />}
+          />
+        </Routes>
+        {/* router */}
+      </section>
+      <Footer />
+    </div>
   );
 };
 export default App;

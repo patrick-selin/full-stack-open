@@ -1,10 +1,7 @@
 // AnecdoteDetail.jsx
 
-import { useParams } from "react-router-dom";
+const AnecdoteDetail = ({ anecdote }) => {
 
-const AnecdoteDetail = ({ anecdotes }) => {
-  const { id } = useParams();
-  const anecdote = anecdotes.find((anecdote) => anecdote.id === parseInt(id));
 
   if (!anecdote) {
     return <div>Anecdote not found</div>;
