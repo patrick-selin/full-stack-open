@@ -7,57 +7,8 @@ import Menu from "./components/Menu";
 import Footer from "./components/Footer";
 import About from "./components/About";
 import AnecdoteList from "./components/AnecdoteList";
-
-
-
-const CreateNew = (props) => {
-  const [content, setContent] = useState("");
-  const [author, setAuthor] = useState("");
-  const [info, setInfo] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    props.addNew({
-      content,
-      author,
-      info,
-      votes: 0,
-    });
-  };
-
-  return (
-    <div>
-      <h2>create a new anecdote</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          content
-          <input
-            name="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-        </div>
-        <div>
-          author
-          <input
-            name="author"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
-        </div>
-        <div>
-          url for more info
-          <input
-            name="info"
-            value={info}
-            onChange={(e) => setInfo(e.target.value)}
-          />
-        </div>
-        <button>create</button>
-      </form>
-    </div>
-  );
-};
+import CreateNew from "./components/CreateNew";
+//
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -76,7 +27,7 @@ const App = () => {
       id: 2,
     },
   ]);
-
+  
   const [notification, setNotification] = useState("");
 
   const addNew = (anecdote) => {
