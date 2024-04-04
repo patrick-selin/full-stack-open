@@ -26,7 +26,7 @@ export const useCountry = (name) => {
     const fetchCountry = async () => { 
       try {
         const res = await axios.get(url);
-        console.log(`RES :: ${JSON.stringify(res.data.name)}`);
+        // console.log(`RES :: ${JSON.stringify(res.data.name)}`);
         if (res.data.length === 0 ) {
           setCountry({
             isFound: false,
