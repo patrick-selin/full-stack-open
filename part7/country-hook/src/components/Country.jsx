@@ -1,4 +1,9 @@
-const Country = ({ country }) => {
+// Country.jsx
+import { useCountry } from "../hooks";
+
+const Country = ({ name }) => {
+  const country = useCountry(name);
+
   if (!country) {
     return null;
   }
