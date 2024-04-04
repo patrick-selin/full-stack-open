@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { useField, useCountry } from './hooks';
+import React, { useState, useEffect } from "react";
+import { useField, useCountry } from "./hooks";
 
 const Country = ({ country }) => {
+  console.log(country);
   if (!country) {
     return null;
   }
 
-  if (!country.found) {
+  if (!country.isFound) {
     return <div>not found...</div>;
   }
 
@@ -17,8 +18,8 @@ const Country = ({ country }) => {
       <div>population {country.data.population}</div>
       <img
         src={country.data.flag}
-        height="100"
-        alt={`flag of ${country.data.name}`}
+        height="300"
+        alt={`picture of ${country.data.name} flag`}
       />
     </div>
   );
