@@ -18,10 +18,10 @@ const useField = (type) => {
 const useResource = (baseUrl) => {
   const [resources, setResources] = useState([])
 
-  // ...
+  // TODO
 
   const create = (resource) => {
-    // ...
+    // TODO
   }
 
   const service = {
