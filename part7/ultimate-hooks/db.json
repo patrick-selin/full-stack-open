@@ -1,10 +1,14 @@
 {
   "notes": [
     { "id": 1, "content": "custom-hooks are awesome!" },
-    { "id": 2, "content": "best feature ever <3" }
+    { "id": 2, "content": "best feature ever <3" },
+    { "id": 3, "content": "Remember to refactor code regularly" },
+    { "id": 4, "content": "Learn something new every day" }
   ],
   "persons": [
     { "id": 1, "name": "mluukkai", "number": "040-5483923" },
-    { "id": 2, "name": "hellas", "number": "012-123123" }
+    { "id": 2, "name": "hellas", "number": "012-123123" },
+    { "id": 3, "name": "john_doe", "number": "555-123456" },
+    { "id": 4, "name": "jane_doe", "number": "555-987654" }
   ]
 }
