@@ -8,6 +8,7 @@ const App = () => {
 
   const [notes, noteService] = useResource("http://localhost:3005/notes");
   const [persons, personService] = useResource("http://localhost:3005/persons");
+  // console.log(notes);
 
   const handleNoteSubmit = (event) => {
     event.preventDefault();

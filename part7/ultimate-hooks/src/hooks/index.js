@@ -1,17 +1,23 @@
 // hooks/index.js
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
+// useField Hook
+//
 export const useResource = (baseUrl) => {
   const [resources, setResources] = useState([]);
 
-  // TODO
+  useEffect(() => {
+    axios.get(baseUrl).then((response) => {
+      setResources(response.data);
+    });
+  }, [setResources, baseUrl]);
 
-  // returun an [all resources, object of recources]
-
-  const create = (resource) => {
-    // TODO
+  const create = async (newResource) => {
+    const res = await axios.post(baseUrl, newResource);
+    console.log(`THIS is RES :: ${JSON.stringify(res)}`);
+    setResources([...resources, res.data]);
   };
 
   const service = {
@@ -21,8 +27,7 @@ export const useResource = (baseUrl) => {
   return [resources, service];
 };
 
-//
-//
+// useField Hook
 //
 export const useField = (type) => {
   const [value, setValue] = useState("");
