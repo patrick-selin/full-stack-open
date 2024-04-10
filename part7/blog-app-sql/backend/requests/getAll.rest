@@ -1,0 +1,97 @@
+
+###
+PUT http://localhost:3003/api/blogs/65cf263c2e513f8b9e034125 HTTP/1.1
+content-type: application/json
+
+{
+    "title": "8888Book Title Java",
+    "author": "3888Autuuhor Is second",
+    "url": "88https://uugoogle.fi",
+    "likes": 88
+}
+###
+POST http://localhost:3005/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "username": "a@a.fi",
+    "name": "Olen Aaa",
+    "password": "aaaa"
+}
+
+###
+GET http://localhost:3005/api/users
+
+### POST new blog
+POST http://localhost:3005/api/blogs HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFAYS5maSIsImlkIjoxLCJpYXQiOjE3MTE0NDMxMjYsImV4cCI6MTcxMzYwMzEyNn0.5G4xtF8fqwRBqFXQoktLvNnFQD4R9NxuOcHtV6jdwJI
+
+{
+        "title": "vvv title",
+        "author": "ccc juujaa",
+        "url": "https://wwweom.com/new-blog9",
+        "likes": 41,
+        "year": 2024
+}
+
+### POST reading list
+POST http://localhost:3005/api/readinglists HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFAYS5maSIsImlkIjoxLCJpYXQiOjE3MTEwMTA2NjUsImV4cCI6MTcxMzE3MDY2NX0.JwfPYAsh3eLE2CVTsRK0nrsONnA4kCqcfD_UrhcWYMw
+
+{
+    "blogId": 7,
+    "userId": 1
+}
+
+### login
+POST http://localhost:3005/api/login HTTP/1.1
+content-type: application/json
+
+{
+        "username": "a@a.fi",
+        "password": "aaaa"
+}
+###
+DELETE http://localhost:3005/api/blogs/4 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYWEiLCJpZCI6IjY1ZTk3NjBhOTQ5NGU3YzBmMjdhMzBiMSIsImlhdCI6MTcwOTc5ODkzOSwiZXhwIjoxNzEwMDE0OTM5fQ.DDOG07KAky4wRGPZDoBVrnzwwsMynjh79rupAcnYXcI
+
+
+###
+###
+###
+
+###
+POST http://localhost:3005/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "username": "b@b.fi",
+    "name": "Olen Bbb",
+    "password": "bbbb"
+}
+
+### login
+POST http://localhost:3005/api/login HTTP/1.1
+content-type: application/json
+
+{
+        "username": "b@b.fi",
+        "password": "bbbb"
+}
+
+
+
+###
+PUT http://localhost:3005/api/readinglists/3 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFAYS5maSIsImlkIjoxLCJpYXQiOjE3MTEwMTA2NjUsImV4cCI6MTcxMzE3MDY2NX0.JwfPYAsh3eLE2CVTsRK0nrsONnA4kCqcfD_UrhcWYMw
+
+{ "isRead": true }
+
+###
+DELETE http://localhost:3005/api/logout HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJAYi5maSIsImlkIjoyLCJpYXQiOjE3MTE0NDMyOTUsImV4cCI6MTcxMzYwMzI5NX0.KxHWBn71_uUX0mJundlu5IQ1RHQHiZidz1y60tQ4dK4
