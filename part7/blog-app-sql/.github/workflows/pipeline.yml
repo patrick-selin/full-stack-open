@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          path: full-stack-open/part7/blog-app-sql
+          path: part7/blog-app-sql
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
