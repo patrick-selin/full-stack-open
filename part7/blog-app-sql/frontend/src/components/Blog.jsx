@@ -16,7 +16,7 @@ const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
       author: blog.author,
       url: blog.url,
       likes: blog.likes + 1,
-      user: blog.user ? blog.user.id : null,
+      // user: blog.user.name ? blog.user.id : null,
     };
     updateBlogPostLikes(blog.id, blogToUpdate);
   };
@@ -49,7 +49,7 @@ const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
               like
             </button>
           </div>
-          <div>? {blog.user ? blog.user.name : <i>user unknow</i>}</div>
+          <div>{blog.user ? blog.user.name : <i>user unknow</i>}</div>
           <button id="remove-button" onClick={handleDeletePost}>
             remove
           </button>

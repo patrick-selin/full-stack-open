@@ -63,11 +63,12 @@ const userExtractor = async (req, res, next) => {
   const token = req.token;
   if (token) {
     const decodedToken = jwt.verify(token, process.env.SECRET);
+    console.log(
+      `HELLO GELLO :: :: :: :: :: ${JSON.stringify(decodedToken.id)}`
+    );
     const userFromDb = await User.findByPk(decodedToken.id);
-    console.log(`userFromDb :: :: :: :: :: ${userFromDb}`);
-    console.log(`USER USER USER :: :: :: :: :: ${req.user}`);
-
     req.user = userFromDb;
+    // console.log(`req.user IS :: :: ${JSON.stringify(req.user.id)}`);
   }
 
   next();
@@ -75,7 +76,7 @@ const userExtractor = async (req, res, next) => {
 
 const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id);
-  console.log(`BLOG FINDER :: :: :: :: :: ${req.blog}`);
+  // console.log(`BLOG FINDER :: :: :: :: :: ${req.blog}`);
 
   next();
 };

@@ -81,11 +81,14 @@ const App = () => {
   };
 
   const createBlogPost = async ({ title, author, url }) => {
+    const year = new Date().getFullYear();
+    
     try {
       const blog = await blogService.createNewBlogPost({
         title,
         author,
         url,
+        year,
       });
 
       setBlogs([...blogs, blog]);
@@ -108,11 +111,17 @@ const App = () => {
       );
       console.log(updatedBlog.likes);
 
-      console.log(`huu HUU ${JSON.stringify(updatedBlog)}`);
+      console.log(`huu HUU ${JSON.stringify(blogPostData)}`);
       const newBlogs = blogs.map((blog) =>
         blog.id === postId ? updatedBlog : blog
       );
       setBlogs(newBlogs);
+      setInfoMessage({
+        text: `you updvoted the post: ${blogPostData.title}`,
+        type: "success",
+      });
+      // setUser(user);
+   
     } catch (exception) {
       setInfoMessage("error" + exception.response.data.error);
     }
