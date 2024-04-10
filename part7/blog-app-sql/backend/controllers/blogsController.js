@@ -51,13 +51,16 @@ blogsRouter.post("/", async (req, res) => {
   return res.json(blog);
 });
 
+//
+// delete
 blogsRouter.delete("/:id", blogFinder, async (req, res) => {
   console.log(`huu is :::: ${JSON.stringify(req.blog)}`);
   if (!req.blog) {
     return res.status(404).send({ error: "Blog not found" });
   }
-
-  if (req.blog.userId !== req.decodedToken.id) {
+  console.log(`DADADA :::: ${JSON.stringify(req.blog.userId)}`);
+  console.log(`DADADA22 :::: ${JSON.stringify(req.user.id)}`);
+  if (req.blog.userId !== req.user.id) {
     return res.status(401).send({ error: "Unauthorized to delete this blog" });
   }
 

@@ -1,5 +1,5 @@
 const morgan = require("morgan");
-const User = require("../models/userModel");
+const User = require("../models/user");
 const Blog = require("../models/blog");
 const logger = require("./logger");
 const jwt = require("jsonwebtoken");
@@ -60,9 +60,14 @@ const tokenExtractor = (req, res, next) => {
 };
 
 const userExtractor = async (req, res, next) => {
-  if (req.user && req.user.id) {
-    const userId = req.user.id;
-    req.user = await User.findByPk(userId);
+  const token = req.token;
+  if (token) {
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    const userFromDb = await User.findByPk(decodedToken.id);
+    console.log(`userFromDb :: :: :: :: :: ${userFromDb}`);
+    console.log(`USER USER USER :: :: :: :: :: ${req.user}`);
+
+    req.user = userFromDb;
   }
 
   next();
@@ -70,6 +75,7 @@ const userExtractor = async (req, res, next) => {
 
 const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id);
+  console.log(`BLOG FINDER :: :: :: :: :: ${req.blog}`);
 
   next();
 };
