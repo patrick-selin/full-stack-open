@@ -1,0 +1,78 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  cicd_pipeline:
+    runs-on: ubuntu-22.04
+    environment:
+      name: .env
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Frontend build and test
+      - name: Frontend Install dependencies
+        run: cd frontend && npm install
+
+      - name: Frontend Lint
+        run: cd frontend && npm run lint
+
+      - name: Frontend Test
+        run: cd frontend && npm test
+
+      - name: Frontend Build
+        run: cd frontend && npm run build
+          
+      # Backend build and test
+      - name: Backend Install dependencies
+        run: cd backend && npm install
+
+      - name: Backend Lint
+        run: cd backend && npm run lint
+
+      - name: Backend Test
+        env:
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+          SECRET: ${{ secrets.SECRET }}
+        run: cd backend && npm run test
+
+      - name: Backend Build
+        run: cd backend && npm run build:ui
+       
+      # Start backki test mode
+      - name: Start backend server
+        run: cd backend && npm run start:test &
+          
+      # Start frontti 
+      # Run for e2e test
+      - name: Start frontend server for Cypress
+        run: cd frontend && npm run cypress:open &
+    
+
+  tag_relase:
+    needs: [cicd_pipeline]
+    if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@a2c70ae13a881faf2b4953baaa9e49731997ab36
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
