@@ -10,7 +10,11 @@ Blog.belongsTo(User);
 // User.sync({ alter: true });
 
 User.belongsToMany(Blog, { through: ReadingList, as: "readings" });
-Blog.belongsToMany(User, { through: ReadingList, as: "readers" });
+Blog.belongsToMany(User, {
+  through: ReadingList,
+  as: "readers",
+  foreignKey: "blogId",
+});
 
 Blog.hasMany(ReadingList);
 ReadingList.belongsTo(Blog);

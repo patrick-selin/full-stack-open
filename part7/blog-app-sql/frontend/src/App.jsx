@@ -1,3 +1,4 @@
+// App.jsx
 import { useState, useEffect, useRef } from "react";
 import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
@@ -106,6 +107,8 @@ const App = () => {
         blogPostData
       );
       console.log(updatedBlog.likes);
+
+      console.log(`huu HUU ${JSON.stringify(updatedBlog)}`);
       const newBlogs = blogs.map((blog) =>
         blog.id === postId ? updatedBlog : blog
       );

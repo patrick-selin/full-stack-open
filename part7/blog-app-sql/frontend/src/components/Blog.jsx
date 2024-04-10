@@ -1,3 +1,5 @@
+// Blog.jsx
+
 import { useState } from "react";
 
 const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
@@ -14,7 +16,7 @@ const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
       author: blog.author,
       url: blog.url,
       likes: blog.likes + 1,
-      user: blog.user.id,
+      user: blog.user ? blog.user.id : null,
     };
     updateBlogPostLikes(blog.id, blogToUpdate);
   };
@@ -43,10 +45,14 @@ const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
           <div>{blog.url}</div>
           <div>
             Likes: {blog.likes}
-            <button id="like-button" onClick={handleLikeButton}>like</button>
+            <button id="like-button" onClick={handleLikeButton}>
+              like
+            </button>
           </div>
           <div>? {blog.user ? blog.user.name : <i>user unknow</i>}</div>
-          <button id="remove-button" onClick={handleDeletePost}>remove</button>
+          <button id="remove-button" onClick={handleDeletePost}>
+            remove
+          </button>
         </div>
       )}
     </div>
