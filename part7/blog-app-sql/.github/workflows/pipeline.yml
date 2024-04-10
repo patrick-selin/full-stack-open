@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          path: part7/blog-app-sql
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -35,7 +37,7 @@ jobs:
 
       - name: Frontend Build
         run: cd frontend && npm run build
-          
+
       # Backend build and test
       - name: Backend Install dependencies
         run: cd backend && npm install
@@ -51,16 +53,15 @@ jobs:
 
       - name: Backend Build
         run: cd backend && npm run build:ui
-       
+
       # Start backki test mode
       - name: Start backend server
         run: cd backend && npm run start:test &
-          
-      # Start frontti 
+
+      # Start frontti
       # Run for e2e test
       - name: Start frontend server for Cypress
         run: cd frontend && npm run cypress:open &
-    
 
   tag_relase:
     needs: [cicd_pipeline]
