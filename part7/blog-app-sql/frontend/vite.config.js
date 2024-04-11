@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: true, // FYI: added this for cypress 
+    host: true, // FYI: added this for cypress
     proxy: {
       "/api": {
         target: "http://localhost:3005",

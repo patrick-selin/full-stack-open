@@ -128,11 +128,10 @@ button:focus-visible {
 }
 
 .blog-modal {
- padding: 0.75rem 0.25rem;
+  padding: 0.75rem 0.25rem;
 }
 
 .blog-modal button {
   margin-left: 1rem;
   padding: 0.25rem 0.5.rem;
 }
-

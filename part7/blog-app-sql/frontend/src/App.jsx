@@ -82,7 +82,7 @@ const App = () => {
 
   const createBlogPost = async ({ title, author, url }) => {
     const year = new Date().getFullYear();
-    
+
     try {
       const blog = await blogService.createNewBlogPost({
         title,
@@ -107,13 +107,13 @@ const App = () => {
     try {
       const updatedBlog = await blogService.updateBlogPost(
         postId,
-        blogPostData
+        blogPostData,
       );
       console.log(updatedBlog.likes);
 
       console.log(`huu HUU ${JSON.stringify(blogPostData)}`);
       const newBlogs = blogs.map((blog) =>
-        blog.id === postId ? updatedBlog : blog
+        blog.id === postId ? updatedBlog : blog,
       );
       setBlogs(newBlogs);
       setInfoMessage({
@@ -121,7 +121,6 @@ const App = () => {
         type: "success",
       });
       // setUser(user);
-   
     } catch (exception) {
       setInfoMessage("error" + exception.response.data.error);
     }

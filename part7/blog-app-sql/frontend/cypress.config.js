@@ -5,8 +5,9 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: 'http://localhost:3007',
+    baseUrl: "http://localhost:3007",
     env: {
-      BACKEND: 'http://localhost:3001/api'    }
+      BACKEND: "http://localhost:3001/api",
+    },
   },
 });

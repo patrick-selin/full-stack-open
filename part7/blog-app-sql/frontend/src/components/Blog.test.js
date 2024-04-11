@@ -26,7 +26,7 @@ describe("<Blog />", () => {
         key={blog.id}
         blog={blog}
         updateBlogPostLikes={likeButtonMockHandler}
-      />
+      />,
     );
 
     const user = userEvent.setup();
@@ -40,10 +40,10 @@ describe("<Blog />", () => {
   test("renders Blog-component and shows title and tuhor, but not URL or likes", () => {
     expect(component.getByTestId("blog-component")).toBeInTheDocument();
     expect(component.container.querySelector(".blog-title")).toHaveTextContent(
-      blog.title
+      blog.title,
     );
     expect(component.container.querySelector(".blog-title")).toHaveTextContent(
-      blog.author
+      blog.author,
     );
     expect(component.queryByText(blog.url)).not.toBeInTheDocument();
     expect(component.queryByText(blog.likes)).not.toBeInTheDocument();
