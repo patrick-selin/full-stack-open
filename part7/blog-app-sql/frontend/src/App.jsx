@@ -20,6 +20,7 @@ const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
   const [infoMessage, setInfoMessage] = useState(null);
+  // refactor useState to use the redux store, useSelector()
   //
   const addBlogFormRef = useRef();
   //
@@ -155,7 +156,7 @@ const App = () => {
     <>
       <div>
         <h2>blogs</h2>
-        <Notification message={infoMessage} />
+        <Notification />
         {user ? (
           <>
             <p>{user.name} logged in</p>
