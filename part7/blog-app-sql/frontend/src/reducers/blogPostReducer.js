@@ -11,11 +11,14 @@ const blogPostSlice = createSlice({
       return [...state, action.payload];
     },
     setBlogPosts(state, action) {
-      return action.payload;
+      return action.payload.sort((a, b) => b.likes - a.likes);
+    },
+    updateSingleBlogPost(state, action) {
+      return state.map((blogPost) =>
+        blogPost.id === action.payload.id ? action.payload : blogPost,
+      );
     },
   },
-  // createBlogPost
-  // TODO
 });
 
 export const initializeBlogPosts = () => {
@@ -26,11 +29,25 @@ export const initializeBlogPosts = () => {
 };
 
 export const createBlogPost = (content) => {
-  console.log(`content 22 :: ${JSON.stringify(content)}`);
   return async (dispatch) => {
     const newBlogPost = await blogService.createNewBlogPost(content);
     dispatch(appendBlogPost(newBlogPost));
     // dispatch(notificationSetter(`New Blog Post added: '${content}'`, 4));
+  };
+};
+
+export const updateBlogPost = (postId, blogPostData) => {
+  console.log(`content 1 :: ${JSON.stringify(postId)}`);
+  console.log(`content 1 :: ${JSON.stringify(blogPostData)}`);
+  return async (dispatch) => {
+    const updatedBlogPost = await blogService.updateBlogPost(
+      postId,
+      blogPostData,
+    );
+    console.log(`content 22 :: ${JSON.stringify(updatedBlogPost)}`);
+
+    dispatch(updateSingleBlogPost(updatedBlogPost));
+    // dispatch(notificationSetter(`you upvoted the post: '${content}'`, 4));
   };
 };
 
@@ -50,5 +67,6 @@ export const deleteBlogPost = (postId) => {
   };
 };
 
-export const { appendBlogPost, setBlogPosts } = blogPostSlice.actions;
+export const { appendBlogPost, setBlogPosts, updateSingleBlogPost } =
+  blogPostSlice.actions;
 export default blogPostSlice.reducer;

@@ -14,7 +14,8 @@ import { notificationSetter } from "./reducers/notificationReducer";
 import {
   initializeBlogPosts,
   createBlogPost,
-  deleteBlogPost
+  deleteBlogPost,
+  updateBlogPost,
 } from "./reducers/blogPostReducer";
 
 const App = () => {
@@ -104,17 +105,7 @@ const App = () => {
 
   const updateBlogPostLikes = async (postId, blogPostData) => {
     try {
-      const updatedBlog = await blogService.updateBlogPost(
-        postId,
-        blogPostData,
-      );
-
-      const newBlogs = blogs.map(
-        (
-          blog, // HERE
-        ) => (blog.id === postId ? updatedBlog : blog),
-      );
-      // setBlogs(newBlogs); // HERE
+      const updatedBlog = dispatch(updateBlogPost(postId, blogPostData));
 
       dispatch(
         notificationSetter({
@@ -133,11 +124,9 @@ const App = () => {
     try {
       dispatch(deleteBlogPost(postId));
 
-      // const updatedBlogs = blogs.filter((blog) => blog.id !== postId);
-
       dispatch(
         notificationSetter({
-          text: `Blog post deleted.`,
+          text: "Blog post deleted.",
           timeOutLength: 5,
           type: "success",
         }),
@@ -146,6 +135,7 @@ const App = () => {
       "error" + exception.response.data.error;
     }
   };
+  console.log(blogs);
 
   return (
     <>
@@ -160,18 +150,14 @@ const App = () => {
             </button>
 
             {/* list of blogs */}
-            {blogs // HERE // HERE
-              // .sort((a, b) => a.likes - b.likes) // HERE
-              .map((blog) => (
-                <Blog
-                  key={blog.id}
-                  blog={blog}
-                  updateBlogPostLikes={updateBlogPostLikes}
-                  handleDeleteBlogPost={handleDeleteBlogPost}
-                />
-              ))}
-
-            {/* sort */}
+            {blogs.map((blog) => (
+              <Blog
+                key={blog.id}
+                blog={blog}
+                updateBlogPostLikes={updateBlogPostLikes}
+                handleDeleteBlogPost={handleDeleteBlogPost}
+              />
+            ))}
 
             {/* new blog form visibility */}
             <Togglable buttonLabel="add new blog" ref={addBlogFormRef}>

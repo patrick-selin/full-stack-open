@@ -26,7 +26,6 @@ const createNewBlogPost = async (newBlogPostObject) => {
 };
 
 const updateBlogPost = async (postId, newBlogPostObject) => {
-  // console.log(newBlogPostObject.likes);
   const res = await axios.put(`${baseUrl}/${postId}`, newBlogPostObject);
   return res.data;
 };
