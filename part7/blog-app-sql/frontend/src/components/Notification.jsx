@@ -1,18 +1,18 @@
-// import state to put the message inside the div
-// useDispatch vai useSelector, createNotification
+// components/Notification.jsx
 
 import { useSelector } from "react-redux";
 
 const Notification = () => {
 
   const notification = useSelector(state => state.notification);
+  console.log(`NOTIFICATION :: :: ${notification}`);
 
-  if (notification === null) {
+  if (!notification) {
     return null;
   }
 
   // return <div className={message.type}>{notification}</div>; 
-  return <div className={notification.type}>{notification.text}</div>;
+  return <div>{notification}</div>;
 };
 
 export default Notification;

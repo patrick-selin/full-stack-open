@@ -11,7 +11,7 @@ import Togglable from "./components/Togglable";
 //
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { createNotification } from "./reducers/notificationReducer";
+import { notificationSetter } from "./reducers/notificationReducer";
 //
 
 const App = () => {
@@ -19,14 +19,11 @@ const App = () => {
   // hooks
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
-  const [infoMessage, setInfoMessage] = useState(null);
-  // refactor useState to use the redux store, useSelector()
+  // const [infoMessage, setInfoMessage] = useState(null);
   //
   const addBlogFormRef = useRef();
   //
-
-  //
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     blogService.getAllBlogPosts().then((blogs) => {
@@ -44,14 +41,14 @@ const App = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const notificationTimer = setTimeout(() => {
-      setInfoMessage(null);
-    }, 4000);
-    return () => {
-      clearTimeout(notificationTimer);
-    };
-  }, [infoMessage]);
+  // useEffect(() => {
+  //   const notificationTimer = setTimeout(() => {
+  //     setInfoMessage(null);
+  //   }, 4000);
+  //   return () => {
+  //     clearTimeout(notificationTimer);
+  //   };
+  // }, [infoMessage]);
 
   //
   // helper functions
@@ -76,10 +73,10 @@ const App = () => {
       ) {
         errorMessage = exception.response.data.error;
       }
-      setInfoMessage({
-        text: errorMessage,
-        type: "error",
-      });
+      // setInfoMessage({
+      //   text: errorMessage,
+      //   type: "error",
+      // });
     }
   };
 
@@ -101,10 +98,18 @@ const App = () => {
       });
 
       setBlogs([...blogs, blog]);
-      setInfoMessage({
-        text: `a new blog ${blog.title} by ${blog.author} added `,
-        type: "success",
-      });
+      //
+      dispatch(
+        notificationSetter(
+          `a new blog ${blog.title} by ${blog.author} added`,
+          4,
+        ),
+      );
+      //
+      // setInfoMessage({
+      //   text: `a new blog ${blog.title} by ${blog.author} added `,
+      //   type: "success",
+      // });
       addBlogFormRef.current.toggleVisibility();
     } catch (exception) {
       // error message
@@ -125,13 +130,19 @@ const App = () => {
         blog.id === postId ? updatedBlog : blog,
       );
       setBlogs(newBlogs);
-      setInfoMessage({
-        text: `you updvoted the post: ${blogPostData.title}`,
-        type: "success",
-      });
-      // setUser(user);
+      // setInfoMessage({
+      //   text: `you updvoted the post: ${blogPostData.title}`,
+      //   type: "success",
+      // });
+      dispatch(
+        notificationSetter(
+          `you updvoted the post: ${blogPostData.title}`,
+          4,
+        ),
+      );
+      setUser(user);
     } catch (exception) {
-      setInfoMessage("error" + exception.response.data.error);
+      "error" + exception.response.data.error;
     }
   };
 
@@ -143,12 +154,12 @@ const App = () => {
       const updatedBlogs = blogs.filter((blog) => blog.id !== postId);
       setBlogs(updatedBlogs);
 
-      setInfoMessage({
-        text: "Blog post deleted.",
-        type: "success",
-      });
+      // setInfoMessage({
+      //   text: "Blog post deleted.",
+      //   type: "success",
+      // });
     } catch (exception) {
-      setInfoMessage("error" + exception.response.data.error);
+      "error" + exception.response.data.error;
     }
   };
 
