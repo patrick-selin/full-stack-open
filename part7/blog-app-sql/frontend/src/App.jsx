@@ -19,10 +19,8 @@ const App = () => {
   // hooks
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
-  // const [infoMessage, setInfoMessage] = useState(null);
   //
   const addBlogFormRef = useRef();
-  //
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,18 +38,6 @@ const App = () => {
       blogService.setToken(user.token);
     }
   }, []);
-
-  // useEffect(() => {
-  //   const notificationTimer = setTimeout(() => {
-  //     setInfoMessage(null);
-  //   }, 4000);
-  //   return () => {
-  //     clearTimeout(notificationTimer);
-  //   };
-  // }, [infoMessage]);
-
-  //
-  // helper functions
 
   const handleLogin = async (username, password) => {
     try {
@@ -73,7 +59,7 @@ const App = () => {
       ) {
         errorMessage = exception.response.data.error;
       }
-      
+
       dispatch(
         notificationSetter({
           text:  errorMessage,
