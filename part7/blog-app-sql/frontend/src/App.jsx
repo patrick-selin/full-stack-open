@@ -14,6 +14,7 @@ import { notificationSetter } from "./reducers/notificationReducer";
 import {
   initializeBlogPosts,
   createBlogPost,
+  deleteBlogPost
 } from "./reducers/blogPostReducer";
 
 const App = () => {
@@ -128,12 +129,11 @@ const App = () => {
     }
   };
 
-  const deleteBlogPost = async (postId) => {
+  const handleDeleteBlogPost = async (postId) => {
     try {
-      const deleteBlogPost = await blogService.deleteBlogPost(postId);
+      dispatch(deleteBlogPost(postId));
 
-      const updatedBlogs = blogs.filter((blog) => blog.id !== postId); // HERE
-      // setBlogs(updatedBlogs);
+      // const updatedBlogs = blogs.filter((blog) => blog.id !== postId);
 
       dispatch(
         notificationSetter({
@@ -167,7 +167,7 @@ const App = () => {
                   key={blog.id}
                   blog={blog}
                   updateBlogPostLikes={updateBlogPostLikes}
-                  deleteBlogPost={deleteBlogPost}
+                  handleDeleteBlogPost={handleDeleteBlogPost}
                 />
               ))}
 

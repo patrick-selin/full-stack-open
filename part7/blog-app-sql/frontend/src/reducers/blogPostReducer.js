@@ -30,7 +30,23 @@ export const createBlogPost = (content) => {
   return async (dispatch) => {
     const newBlogPost = await blogService.createNewBlogPost(content);
     dispatch(appendBlogPost(newBlogPost));
-    // dispatch(notificationSetter(`New Anecdote added: '${content}'`, 4));
+    // dispatch(notificationSetter(`New Blog Post added: '${content}'`, 4));
+  };
+};
+
+export const deleteBlogPost = (postId) => {
+  console.log(`content 22 :: ${JSON.stringify(postId)}`);
+  return async (dispatch, getState) => {
+    await blogService.deleteBlogPost(postId);
+
+    const currentState = getState();
+
+    const updatedBlogPosts = currentState.blogPosts.filter(
+      (blogPost) => blogPost.id !== postId,
+    );
+
+    dispatch(setBlogPosts(updatedBlogPosts));
+    // dispatch(notificationSetter(`Blog post deleted`, 4));
   };
 };
 

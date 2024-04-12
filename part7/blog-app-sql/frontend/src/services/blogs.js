@@ -37,7 +37,6 @@ const deleteBlogPost = async (postId) => {
   };
 
   const res = await axios.delete(`${baseUrl}/${postId}`, config);
-  console.log(`RES RES ${JSON.stringify(res)}`);
   return res.data;
 };
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
+const Blog = ({ blog, updateBlogPostLikes, handleDeleteBlogPost }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleShowDetails = () => {
@@ -22,7 +22,7 @@ const Blog = ({ blog, updateBlogPostLikes, deleteBlogPost }) => {
 
   const handleDeletePost = () => {
     if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
-      deleteBlogPost(blog.id);
+      handleDeleteBlogPost(blog.id);
     }
   };
 
