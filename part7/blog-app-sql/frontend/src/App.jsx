@@ -73,10 +73,14 @@ const App = () => {
       ) {
         errorMessage = exception.response.data.error;
       }
-      // setInfoMessage({
-      //   text: errorMessage,
-      //   type: "error",
-      // });
+      
+      dispatch(
+        notificationSetter({
+          text:  errorMessage,
+          timeOutLength: 5,
+          type: "error",
+        }),
+      );
     }
   };
 
@@ -106,14 +110,9 @@ const App = () => {
           type: "success",
         }),
       );
-      //
-      // setInfoMessage({
-      //   text: `a new blog ${blog.title} by ${blog.author} added `,
-      //   type: "success",
-      // });
+
       addBlogFormRef.current.toggleVisibility();
     } catch (exception) {
-      // error message
       console.log("this is error messaae");
     }
   };
@@ -150,10 +149,13 @@ const App = () => {
       const updatedBlogs = blogs.filter((blog) => blog.id !== postId);
       setBlogs(updatedBlogs);
 
-      // setInfoMessage({
-      //   text: "Blog post deleted.",
-      //   type: "success",
-      // });
+      dispatch(
+        notificationSetter({
+          text: `Blog post deleted.`,
+          timeOutLength: 5,
+          type: "success",
+        }),
+      );
     } catch (exception) {
       "error" + exception.response.data.error;
     }
