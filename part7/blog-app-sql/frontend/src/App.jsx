@@ -100,10 +100,11 @@ const App = () => {
       setBlogs([...blogs, blog]);
       //
       dispatch(
-        notificationSetter(
-          `a new blog ${blog.title} by ${blog.author} added`,
-          4,
-        ),
+        notificationSetter({
+          text: `a new blog ${blog.title} by ${blog.author} added`,
+          timeOutLength: 5,
+          type: "success",
+        }),
       );
       //
       // setInfoMessage({
@@ -123,22 +124,18 @@ const App = () => {
         postId,
         blogPostData,
       );
-      console.log(updatedBlog.likes);
 
-      console.log(`huu HUU ${JSON.stringify(blogPostData)}`);
       const newBlogs = blogs.map((blog) =>
         blog.id === postId ? updatedBlog : blog,
       );
       setBlogs(newBlogs);
-      // setInfoMessage({
-      //   text: `you updvoted the post: ${blogPostData.title}`,
-      //   type: "success",
-      // });
+
       dispatch(
-        notificationSetter(
-          `you updvoted the post: ${blogPostData.title}`,
-          4,
-        ),
+        notificationSetter({
+          text: `you upvoted the post: ${blogPostData.title}`,
+          timeOutLength: 3,
+          type: "success",
+        }),
       );
       setUser(user);
     } catch (exception) {
@@ -147,7 +144,6 @@ const App = () => {
   };
 
   const deleteBlogPost = async (postId) => {
-    // TODO
     try {
       const deleteBlogPost = await blogService.deleteBlogPost(postId);
 
