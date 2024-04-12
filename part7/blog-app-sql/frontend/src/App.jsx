@@ -12,23 +12,21 @@ import Togglable from "./components/Togglable";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 import { notificationSetter } from "./reducers/notificationReducer";
+import { initializeBlogPosts } from "./reducers/blogPostReducer";
 //
 
 const App = () => {
   //
-  // hooks
-  const [blogs, setBlogs] = useState([]);
+  const blogs = useSelector((state) => state.blogPosts);
+  console.log(blogs);
   const [user, setUser] = useState(null);
   //
   const addBlogFormRef = useRef();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    blogService.getAllBlogPosts().then((blogs) => {
-      setBlogs(blogs);
-      console.log(blogs);
-    });
-  }, []);
+    dispatch(initializeBlogPosts());
+  }, [dispatch]);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
@@ -48,8 +46,8 @@ const App = () => {
 
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
       blogService.setToken(user.token);
+
       setUser(user);
-      // console.log(user);
     } catch (exception) {
       let errorMessage = "Login failed. Please try again.";
       if (
@@ -62,7 +60,7 @@ const App = () => {
 
       dispatch(
         notificationSetter({
-          text:  errorMessage,
+          text: errorMessage,
           timeOutLength: 5,
           type: "error",
         }),
@@ -80,18 +78,18 @@ const App = () => {
     const year = new Date().getFullYear();
 
     try {
-      const blog = await blogService.createNewBlogPost({
+      const createdBlog = await blogService.createNewBlogPost({
         title,
         author,
         url,
         year,
       });
 
-      setBlogs([...blogs, blog]);
+      // setBlogs([...blogs, createdBlog]); // HERE
       //
       dispatch(
         notificationSetter({
-          text: `a new blog ${blog.title} by ${blog.author} added`,
+          text: `a new blog ${createdBlog.title} by ${createdBlog.author} added`,
           timeOutLength: 5,
           type: "success",
         }),
@@ -99,7 +97,7 @@ const App = () => {
 
       addBlogFormRef.current.toggleVisibility();
     } catch (exception) {
-      console.log("this is error messaae");
+      console.log("this is error messaage");
     }
   };
 
@@ -110,10 +108,12 @@ const App = () => {
         blogPostData,
       );
 
-      const newBlogs = blogs.map((blog) =>
-        blog.id === postId ? updatedBlog : blog,
+      const newBlogs = blogs.map(
+        (
+          blog, // HERE
+        ) => (blog.id === postId ? updatedBlog : blog),
       );
-      setBlogs(newBlogs);
+      // setBlogs(newBlogs); // HERE
 
       dispatch(
         notificationSetter({
@@ -132,8 +132,8 @@ const App = () => {
     try {
       const deleteBlogPost = await blogService.deleteBlogPost(postId);
 
-      const updatedBlogs = blogs.filter((blog) => blog.id !== postId);
-      setBlogs(updatedBlogs);
+      const updatedBlogs = blogs.filter((blog) => blog.id !== postId); // HERE
+      // setBlogs(updatedBlogs);
 
       dispatch(
         notificationSetter({
@@ -160,8 +160,8 @@ const App = () => {
             </button>
 
             {/* list of blogs */}
-            {blogs
-              .sort((a, b) => a.likes - b.likes)
+            {blogs // HERE // HERE
+              // .sort((a, b) => a.likes - b.likes) // HERE
               .map((blog) => (
                 <Blog
                   key={blog.id}
