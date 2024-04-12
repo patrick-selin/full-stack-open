@@ -4,21 +4,22 @@ import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
 import Blog from "./components/Blog";
 import BlogForm from "./components/BlogForm";
+import Togglable from "./components/Togglable";
 //
 import blogService from "./services/blogs";
 import loginService from "./services/login";
-import Togglable from "./components/Togglable";
 //
-// redux
 import { useSelector, useDispatch } from "react-redux";
 import { notificationSetter } from "./reducers/notificationReducer";
-import { initializeBlogPosts } from "./reducers/blogPostReducer";
-//
+import {
+  initializeBlogPosts,
+  createBlogPost,
+} from "./reducers/blogPostReducer";
 
 const App = () => {
   //
   const blogs = useSelector((state) => state.blogPosts);
-  console.log(blogs);
+  //
   const [user, setUser] = useState(null);
   //
   const addBlogFormRef = useRef();
@@ -74,22 +75,21 @@ const App = () => {
     console.log(user);
   };
 
-  const createBlogPost = async ({ title, author, url }) => {
+  const handleCreateBlogPost = async ({ title, author, url }) => {
     const year = new Date().getFullYear();
 
-    try {
-      const createdBlog = await blogService.createNewBlogPost({
-        title,
-        author,
-        url,
-        year,
-      });
+    const content = {
+      title,
+      author,
+      url,
+      year,
+    };
 
-      // setBlogs([...blogs, createdBlog]); // HERE
-      //
+    try {
+      dispatch(createBlogPost(content));
       dispatch(
         notificationSetter({
-          text: `a new blog ${createdBlog.title} by ${createdBlog.author} added`,
+          text: `a new blog ${content.title} by ${content.author} added`,
           timeOutLength: 5,
           type: "success",
         }),
@@ -175,7 +175,7 @@ const App = () => {
 
             {/* new blog form visibility */}
             <Togglable buttonLabel="add new blog" ref={addBlogFormRef}>
-              <BlogForm createBlogPost={createBlogPost} />
+              <BlogForm handleCreateBlogPost={handleCreateBlogPost} />
             </Togglable>
           </>
         ) : (

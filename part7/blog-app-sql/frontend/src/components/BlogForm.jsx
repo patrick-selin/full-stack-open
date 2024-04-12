@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-const BlogForm = ({ createBlogPost }) => {
+const BlogForm = ({ handleCreateBlogPost }) => {
   // hooks
   const [formData, setFormData] = useState({
     title: "",
@@ -19,7 +19,7 @@ const BlogForm = ({ createBlogPost }) => {
 
   const handleSubmitPost = (event) => {
     event.preventDefault();
-    createBlogPost(formData);
+    handleCreateBlogPost(formData);
     setFormData({ title: "", author: "", url: "" });
   };
 
