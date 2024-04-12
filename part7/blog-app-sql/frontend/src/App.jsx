@@ -8,6 +8,11 @@ import BlogForm from "./components/BlogForm";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 import Togglable from "./components/Togglable";
+//
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { createNotification } from "./reducers/notificationReducer";
+//
 
 const App = () => {
   //
@@ -18,6 +23,9 @@ const App = () => {
   //
   const addBlogFormRef = useRef();
   //
+
+  //
+  const dispatch = useDispatch()
 
   useEffect(() => {
     blogService.getAllBlogPosts().then((blogs) => {
