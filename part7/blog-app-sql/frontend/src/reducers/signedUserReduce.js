@@ -5,25 +5,38 @@ import userService from "../services/login";
 
 const signedUserSlice = createSlice({
   name: "signedUser",
-  initialState: "",
+  initialState: null,
   reducers: {
-    userFunc(state, action) {
-      // TODO
+    setUser(state, action) {
       return action.payload;
     },
-    // for logOut -> null
-
-    // tallenna localStorage
-    
-    // hae localStorage
+    clearUser(state) {
+      return null;
+    },
   },
 });
 
-export const funcci = () => {
+export const loginUser = (userData) => {
   return async (dispatch) => {
-    // TODO
+    try {
+      dispatch(setUser(userData));
+    } catch (error) {
+      console.error("Error logging in:", error);
+      // Handle error TODO
+    }
   };
 };
 
-export const { userFunc } = signedUserSlice.actions;
+export const logoutUser = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(clearUser());
+    } catch (error) {
+      console.error("Error logging out:", error);
+      // Handle error, dispatch appropriate action or set error state
+    }
+  };
+};
+
+export const { setUser, clearUser } = signedUserSlice.actions;
 export default signedUserSlice.reducer;

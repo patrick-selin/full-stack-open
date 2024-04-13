@@ -77,7 +77,7 @@ const App = () => {
 
   const handleLogOut = async () => {
     // THIS THIS
-    setUser(null); // hand
+    setUser(null); // dispatch redux
     localStorage.removeItem("loggedUser");
   };
 
