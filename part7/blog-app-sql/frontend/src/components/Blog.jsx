@@ -28,7 +28,6 @@ const Blog = ({ blog, updateBlogPostLikes, handleDeleteBlogPost }) => {
 
   return (
     <div className="blog" data-testid="blog-component">
-      {/* test that the title shows, not the modal */}
       <div className="blog-title">
         <p>
           {blog.title} - {blog.author}
@@ -49,6 +48,7 @@ const Blog = ({ blog, updateBlogPostLikes, handleDeleteBlogPost }) => {
             </button>
           </div>
           <div>{blog.user ? blog.user.name : <i>user unknow</i>}</div>
+          {/* <div>{blog.user.name} </div> */}
           <button id="remove-button" onClick={handleDeletePost}>
             remove
           </button>

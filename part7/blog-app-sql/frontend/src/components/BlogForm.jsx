@@ -2,7 +2,6 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 const BlogForm = ({ handleCreateBlogPost }) => {
-  // hooks
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -23,7 +22,6 @@ const BlogForm = ({ handleCreateBlogPost }) => {
     setFormData({ title: "", author: "", url: "" });
   };
 
-  // return
   return (
     <div className="blog-adder">
       <h2>create new</h2>

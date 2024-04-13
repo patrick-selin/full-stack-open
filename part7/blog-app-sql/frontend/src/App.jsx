@@ -24,10 +24,8 @@ import {
 } from "./reducers/blogPostReducer";
 
 const App = () => {
-  //
   const blogs = useSelector((state) => state.blogPosts);
   const user = useSelector((state) => state.signedUser);
-  //
   const addBlogFormRef = useRef();
   const dispatch = useDispatch();
 
@@ -98,7 +96,7 @@ const App = () => {
 
   const updateBlogPostLikes = async (postId, blogPostData) => {
     try {
-      const updatedBlog = dispatch(updateBlogPost(postId, blogPostData));
+      dispatch(updateBlogPost(postId, blogPostData));
 
       dispatch(
         notificationSetter({
@@ -107,7 +105,7 @@ const App = () => {
           type: "success",
         }),
       );
-      dispatch(loginUser(user));
+   
     } catch (exception) {
       "error" + exception.response.data.error;
     }
