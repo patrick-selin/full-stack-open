@@ -8,9 +8,18 @@ const signedUserSlice = createSlice({
   initialState: null,
   reducers: {
     setUser(state, action) {
+      localStorage.setItem("loggedUser", JSON.stringify(action.payload));
       return action.payload;
     },
     clearUser(state) {
+      localStorage.removeItem("loggedUser");
+      return null;
+    },
+    initializeUserFromStorage(state) {
+      const loggedUserJSON = localStorage.getItem("loggedUser");
+      if (loggedUserJSON) {
+        return JSON.parse(loggedUserJSON);
+      }
       return null;
     },
   },
@@ -38,5 +47,6 @@ export const logoutUser = () => {
   };
 };
 
-export const { setUser, clearUser } = signedUserSlice.actions;
+export const { setUser, clearUser, initializeUserFromStorage } =
+  signedUserSlice.actions;
 export default signedUserSlice.reducer;

@@ -11,7 +11,11 @@ import loginService from "./services/login";
 //
 import { useSelector, useDispatch } from "react-redux";
 import { notificationSetter } from "./reducers/notificationReducer";
-import { loginUser, logoutUser } from "./reducers/signedUserReduce";
+import {
+  loginUser,
+  logoutUser,
+  initializeUserFromStorage,
+} from "./reducers/signedUserReduce";
 import {
   initializeBlogPosts,
   createBlogPost,
@@ -29,17 +33,8 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initializeBlogPosts());
+    dispatch(initializeUserFromStorage());
   }, [dispatch]);
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedUser");
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-
-      dispatch(loginUser(user));
-      blogService.setToken(user.token);
-    }
-  }, []); // dispatch ??????
 
   const handleLogin = async (username, password) => {
     try {
@@ -48,7 +43,6 @@ const App = () => {
         password,
       });
 
-      window.localStorage.setItem("loggedUser", JSON.stringify(user));
       blogService.setToken(user.token);
 
       dispatch(loginUser(user));
@@ -74,7 +68,6 @@ const App = () => {
 
   const handleLogOut = async () => {
     dispatch(logoutUser());
-    localStorage.removeItem("loggedUser");
   };
 
   const handleCreateBlogPost = async ({ title, author, url }) => {
@@ -114,7 +107,7 @@ const App = () => {
           type: "success",
         }),
       );
-      setUser(user);
+      dispatch(loginUser(user));
     } catch (exception) {
       "error" + exception.response.data.error;
     }
@@ -135,7 +128,6 @@ const App = () => {
       "error" + exception.response.data.error;
     }
   };
-  console.log(blogs);
 
   return (
     <>
