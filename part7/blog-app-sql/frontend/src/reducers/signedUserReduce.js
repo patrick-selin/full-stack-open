@@ -33,7 +33,7 @@ export const logoutUser = () => {
       dispatch(clearUser());
     } catch (error) {
       console.error("Error logging out:", error);
-      // Handle error, dispatch appropriate action or set error state
+      // Handle error,TODO
     }
   };
 };

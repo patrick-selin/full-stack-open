@@ -1,5 +1,5 @@
 // App.jsx
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
 import Blog from "./components/Blog";
@@ -11,6 +11,7 @@ import loginService from "./services/login";
 //
 import { useSelector, useDispatch } from "react-redux";
 import { notificationSetter } from "./reducers/notificationReducer";
+import { loginUser, logoutUser } from "./reducers/signedUserReduce";
 import {
   initializeBlogPosts,
   createBlogPost,
@@ -21,9 +22,7 @@ import {
 const App = () => {
   //
   const blogs = useSelector((state) => state.blogPosts);
-  //
-  // const user = useSelector((state) => state.signedUser);
-  const [user, setUser] = useState(null); // THIS THIS use redux useSelector
+  const user = useSelector((state) => state.signedUser);
   //
   const addBlogFormRef = useRef();
   const dispatch = useDispatch();
@@ -33,19 +32,17 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    // THIS THIS
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      setUser(user); // vaihda tama dispatch to redux
+
+      dispatch(loginUser(user));
       blogService.setToken(user.token);
     }
-  }, []);
+  }, []); // dispatch ??????
 
   const handleLogin = async (username, password) => {
-    // THIS THIS
     try {
-      // 
       const user = await loginService.login({
         username,
         password,
@@ -54,7 +51,7 @@ const App = () => {
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
       blogService.setToken(user.token);
 
-      setUser(user); // dispatch to redux
+      dispatch(loginUser(user));
     } catch (exception) {
       let errorMessage = "Login failed. Please try again.";
       if (
@@ -76,8 +73,7 @@ const App = () => {
   };
 
   const handleLogOut = async () => {
-    // THIS THIS
-    setUser(null); // dispatch redux
+    dispatch(logoutUser());
     localStorage.removeItem("loggedUser");
   };
 
