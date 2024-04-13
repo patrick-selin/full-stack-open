@@ -37,22 +37,19 @@ export const createBlogPost = (content) => {
 };
 
 export const updateBlogPost = (postId, blogPostData) => {
-  console.log(`content 1 :: ${JSON.stringify(postId)}`);
-  console.log(`content 1 :: ${JSON.stringify(blogPostData)}`);
   return async (dispatch) => {
     const updatedBlogPost = await blogService.updateBlogPost(
       postId,
       blogPostData,
     );
-    console.log(`content 22 :: ${JSON.stringify(updatedBlogPost)}`);
-
+    
     dispatch(updateSingleBlogPost(updatedBlogPost));
     // dispatch(notificationSetter(`you upvoted the post: '${content}'`, 4));
   };
 };
 
 export const deleteBlogPost = (postId) => {
-  console.log(`content 22 :: ${JSON.stringify(postId)}`);
+//   console.log(`content 22 :: ${JSON.stringify(postId)}`);
   return async (dispatch, getState) => {
     await blogService.deleteBlogPost(postId);
 

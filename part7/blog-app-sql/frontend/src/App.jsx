@@ -22,7 +22,7 @@ const App = () => {
   //
   const blogs = useSelector((state) => state.blogPosts);
   //
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // THIS THIS
   //
   const addBlogFormRef = useRef();
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    // THIS THIS
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
@@ -41,6 +42,7 @@ const App = () => {
   }, []);
 
   const handleLogin = async (username, password) => {
+    // THIS THIS
     try {
       const user = await loginService.login({
         username,
@@ -72,9 +74,9 @@ const App = () => {
   };
 
   const handleLogOut = async () => {
+    // THIS THIS
     setUser(null);
     localStorage.removeItem("loggedUser");
-    console.log(user);
   };
 
   const handleCreateBlogPost = async ({ title, author, url }) => {
