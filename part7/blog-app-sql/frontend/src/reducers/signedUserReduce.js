@@ -11,6 +11,11 @@ const signedUserSlice = createSlice({
       // TODO
       return action.payload;
     },
+    // for logOut -> null
+
+    // tallenna localStorage
+    
+    // hae localStorage
   },
 });
 

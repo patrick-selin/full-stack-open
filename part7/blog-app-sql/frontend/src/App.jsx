@@ -22,7 +22,8 @@ const App = () => {
   //
   const blogs = useSelector((state) => state.blogPosts);
   //
-  const [user, setUser] = useState(null); // THIS THIS
+  // const user = useSelector((state) => state.signedUser);
+  const [user, setUser] = useState(null); // THIS THIS use redux useSelector
   //
   const addBlogFormRef = useRef();
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      setUser(user);
+      setUser(user); // vaihda tama dispatch to redux
       blogService.setToken(user.token);
     }
   }, []);
@@ -44,6 +45,7 @@ const App = () => {
   const handleLogin = async (username, password) => {
     // THIS THIS
     try {
+      // 
       const user = await loginService.login({
         username,
         password,
@@ -52,7 +54,7 @@ const App = () => {
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
       blogService.setToken(user.token);
 
-      setUser(user);
+      setUser(user); // dispatch to redux
     } catch (exception) {
       let errorMessage = "Login failed. Please try again.";
       if (
@@ -75,7 +77,7 @@ const App = () => {
 
   const handleLogOut = async () => {
     // THIS THIS
-    setUser(null);
+    setUser(null); // hand
     localStorage.removeItem("loggedUser");
   };
 
