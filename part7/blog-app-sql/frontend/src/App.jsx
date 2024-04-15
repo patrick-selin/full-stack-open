@@ -12,12 +12,7 @@ import Togglable from "./components/Togglable";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 //
-import {
-  useMatch,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
+import { useMatch, Routes, Route, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { notificationSetter } from "./reducers/notificationReducer";
 import {
@@ -45,7 +40,7 @@ const App = () => {
   const user = matchUser
     ? users.find((user) => user.id === Number(matchUser.params.id))
     : null;
-  
+
   useEffect(() => {
     dispatch(initializeBlogPosts());
     dispatch(initializeUserFromStorage());
@@ -158,11 +153,7 @@ const App = () => {
                 <>
                   {/* List of blogs */}
                   {blogs.map((blog) => (
-                    <Link
-                      key={blog.id}
-                      to={`/blogs/${blog.id}`}
-                      style={{ textDecoration: "none", color: "inherit" }}
-                    >
+                    <Link key={blog.id} to={`/blogs/${blog.id}`}>
                       <h3>{blog.title}</h3>
                     </Link>
                   ))}
