@@ -42,7 +42,13 @@ const App = () => {
   const addBlogFormRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  //
+  const match = useMatch("/users/:id");
+  const user = match
+    ? users.find((user) => user.id === Number(match.params.id))
+    : null;
+  //
+  //
   useEffect(() => {
     dispatch(initializeBlogPosts());
     dispatch(initializeUserFromStorage());
@@ -177,7 +183,7 @@ const App = () => {
             }
           />
           <Route path="/users" element={<UsersList users={users} />} />
-          <Route path="/users/:id" element={<UserDetail />} />
+          <Route path="/users/:id" element={<UserDetail user={user} />} />
         </Routes>
       </div>
     </>
