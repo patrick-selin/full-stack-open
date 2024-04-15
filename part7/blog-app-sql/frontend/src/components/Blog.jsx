@@ -31,8 +31,6 @@ const Blog = () => {
       window.confirm(`Remove blog ${blogData.title} by ${blogData.author}?`)
     ) {
       dispatch(deleteBlogPost(blogData.id));
-      // Redirect user to the home page after deleting the blog post
-      // You can use useHistory hook here if available
     }
   };
 

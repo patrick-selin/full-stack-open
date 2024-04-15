@@ -45,14 +45,9 @@ const App = () => {
   const navigate = useNavigate();
   //
   const matchUser = useMatch("/users/:id");
-  // const matchBlog = useMatch("/blogs/:id");
   const user = matchUser
     ? users.find((user) => user.id === Number(matchUser.params.id))
     : null;
-  // const blogId = matchBlog
-  //   ? blogs.find((blog) => blog.id === Number(matchBlog.params.id))
-  //   : null;
-  //
 
   useEffect(() => {
     dispatch(initializeBlogPosts());
@@ -164,10 +159,6 @@ const App = () => {
             element={
               signedUser ? (
                 <>
-                  <p>{signedUser.name} logged in</p>
-                  <button className="gap" onClick={handleLogOut}>
-                    log out
-                  </button>
                   {/* List of blogs */}
                   {blogs.map((blog) => (
                     <Link
