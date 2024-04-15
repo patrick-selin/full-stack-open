@@ -1,16 +1,23 @@
 // App.jsx
 import { useEffect, useRef } from "react";
+import Menu  from "./components/Menu";
 import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
 import Blog from "./components/Blog";
-import User from "./components/User";
+import User from "./components/UsersList";
 import BlogForm from "./components/BlogForm";
 import Togglable from "./components/Togglable";
 //
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 //
-import { useMatch, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  useMatch,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { notificationSetter } from "./reducers/notificationReducer";
 import {
@@ -26,12 +33,15 @@ import {
 } from "./reducers/blogPostsReducer";
 
 import { initializeUsers, setUsers } from "./reducers/usersReducer";
+import UsersList from "./components/UsersList";
 
 const App = () => {
   const blogs = useSelector((state) => state.blogPosts);
-  const user = useSelector((state) => state.signedUser);
+  const signedUser = useSelector((state) => state.signedUser);
+  const users = useSelector((state) => state.users);
   const addBlogFormRef = useRef();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(initializeBlogPosts());
@@ -41,14 +51,14 @@ const App = () => {
 
   const handleLogin = async (username, password) => {
     try {
-      const user = await loginService.login({
+      const signedUser = await loginService.login({
         username,
         password,
       });
 
-      blogService.setToken(user.token);
+      blogService.setToken(signedUser.token);
 
-      dispatch(loginUser(user));
+      dispatch(loginUser(signedUser));
     } catch (exception) {
       let errorMessage = "Login failed. Please try again.";
       if (
@@ -135,34 +145,49 @@ const App = () => {
     <>
       <div>
         <h2>blogs</h2>
+        <Menu />
         <Notification />
-        {user ? (
-          <>
-            <p>{user.name} logged in</p>
-            <button className="gap" onClick={handleLogOut}>
-              log out
-            </button>
-
-            {/* list of blogs */}
-            {blogs.map((blog) => (
-              <Blog
-                key={blog.id}
-                blog={blog}
-                updateBlogPostLikes={updateBlogPostLikes}
-                handleDeleteBlogPost={handleDeleteBlogPost}
-              />
-            ))}
-
-            {/* new blog form visibility */}
-            <Togglable buttonLabel="add new blog" ref={addBlogFormRef}>
-              <BlogForm handleCreateBlogPost={handleCreateBlogPost} />
-            </Togglable>
-          </>
-        ) : (
-          <LoginForm handleLogin={handleLogin} />
-        )}
-        <br />
-        <br />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              signedUser ? (
+                <>
+                  <p>{signedUser.name} logged in</p>
+                  <button className="gap" onClick={handleLogOut}>
+                    log out
+                  </button>
+                  {/* List of blogs */}
+                  {blogs.map((blog) => (
+                    <Blog
+                      key={blog.id}
+                      blog={blog}
+                      updateBlogPostLikes={updateBlogPostLikes}
+                      handleDeleteBlogPost={handleDeleteBlogPost}
+                    />
+                  ))}
+                  {/* New blog form visibility */}
+                  <Togglable buttonLabel="add new blog" ref={addBlogFormRef}>
+                    <BlogForm handleCreateBlogPost={handleCreateBlogPost} />
+                  </Togglable>
+                </>
+              ) : (
+                <LoginForm handleLogin={handleLogin} />
+              )
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              signedUser ? (
+                <UsersList users={users} />
+              ) : (
+                // Redirect
+                <Navigate to="/" replace />
+              )
+            }
+          />
+        </Routes>
       </div>
     </>
   );
