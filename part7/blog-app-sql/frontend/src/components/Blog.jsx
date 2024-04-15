@@ -1,60 +1,57 @@
 // Blog.jsx
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updateBlogPost, deleteBlogPost } from "../reducers/blogPostsReducer";
 
-import { useState } from "react";
+const Blog = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const blog = useSelector((state) =>
+    state.blogPosts.find((blog) => blog.id === Number(id)),
+  );
+  const [blogData, setBlogData] = useState(blog);
 
-const Blog = ({ blog, updateBlogPostLikes, handleDeleteBlogPost }) => {
-  const [showDetails, setShowDetails] = useState(false);
-
-  const toggleShowDetails = () => {
-    setShowDetails(!showDetails);
-  };
+  useEffect(() => {
+    setBlogData(blog);
+  }, [blog]);
 
   const handleLikeButton = () => {
-    const blogToUpdate = {
-      title: blog.title,
-      author: blog.author,
-      url: blog.url,
-      likes: blog.likes + 1,
-      // user: blog.user.name ? blog.user.id : null,
+    const updatedBlogData = {
+      ...blogData,
+      likes: blogData.likes + 1,
     };
-    updateBlogPostLikes(blog.id, blogToUpdate);
+
+    dispatch(updateBlogPost(blogData.id, updatedBlogData));
+    setBlogData(updatedBlogData);
   };
 
   const handleDeletePost = () => {
-    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
-      handleDeleteBlogPost(blog.id);
+    if (
+      window.confirm(`Remove blog ${blogData.title} by ${blogData.author}?`)
+    ) {
+      dispatch(deleteBlogPost(blogData.id));
+      // Redirect user to the home page after deleting the blog post
+      // You can use useHistory hook here if available
     }
   };
 
+  if (!blogData) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="blog" data-testid="blog-component">
-      <div className="blog-title">
-        <p>
-          {blog.title} - {blog.author}
-        </p>
-
-        <button className="left-margin" onClick={toggleShowDetails}>
-          {showDetails ? "hide" : "show"}
-        </button>
+    <div>
+      <h2>{blogData.title}</h2>
+      <p>URL: {blogData.url}</p>
+      <p>Likes: {blogData.likes}</p>
+      <button onClick={handleLikeButton}>Like</button>
+      <button onClick={handleDeletePost}>Remove</button>
+      <div>
+        <Link to="/">Back to Blogs</Link>
       </div>
-
-      {showDetails && (
-        <div className="blog-modal">
-          <div>{blog.url}</div>
-          <div>
-            Likes: {blog.likes}
-            <button id="like-button" onClick={handleLikeButton}>
-              like
-            </button>
-          </div>
-          <div>{blog.user ? blog.user.name : <i>user unknow</i>}</div>
-          {/* <div>{blog.user.name} </div> */}
-          <button id="remove-button" onClick={handleDeletePost}>
-            remove
-          </button>
-        </div>
-      )}
     </div>
   );
 };
+
 export default Blog;

@@ -16,6 +16,7 @@ import {
   useMatch,
   Routes,
   Route,
+  Link,
   Navigate,
   useNavigate,
 } from "react-router-dom";
@@ -43,12 +44,16 @@ const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //
-  const match = useMatch("/users/:id");
-  const user = match
-    ? users.find((user) => user.id === Number(match.params.id))
+  const matchUser = useMatch("/users/:id");
+  // const matchBlog = useMatch("/blogs/:id");
+  const user = matchUser
+    ? users.find((user) => user.id === Number(matchUser.params.id))
     : null;
+  // const blogId = matchBlog
+  //   ? blogs.find((blog) => blog.id === Number(matchBlog.params.id))
+  //   : null;
   //
-  
+
   useEffect(() => {
     dispatch(initializeBlogPosts());
     dispatch(initializeUserFromStorage());
@@ -165,12 +170,13 @@ const App = () => {
                   </button>
                   {/* List of blogs */}
                   {blogs.map((blog) => (
-                    <Blog
+                    <Link
                       key={blog.id}
-                      blog={blog}
-                      updateBlogPostLikes={updateBlogPostLikes}
-                      handleDeleteBlogPost={handleDeleteBlogPost}
-                    />
+                      to={`/blogs/${blog.id}`}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <h3>{blog.title}</h3>
+                    </Link>
                   ))}
                   {/* New blog form visibility */}
                   <Togglable buttonLabel="add new blog" ref={addBlogFormRef}>
@@ -184,6 +190,7 @@ const App = () => {
           />
           <Route path="/users" element={<UsersList users={users} />} />
           <Route path="/users/:id" element={<UserDetail user={user} />} />
+          <Route path="/blogs/:id" element={<Blog />} />
         </Routes>
       </div>
     </>
