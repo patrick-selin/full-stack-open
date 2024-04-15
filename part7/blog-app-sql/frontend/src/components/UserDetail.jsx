@@ -1,10 +1,13 @@
 // UserDetail.jsx
 
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const UserDetail = ({ user }) => {
   const { id } = useParams();
+
+  if (!user) {
+    return null;
+  }
 
   // Render user details
   return (

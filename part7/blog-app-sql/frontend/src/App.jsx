@@ -48,7 +48,7 @@ const App = () => {
     ? users.find((user) => user.id === Number(match.params.id))
     : null;
   //
-  //
+  
   useEffect(() => {
     dispatch(initializeBlogPosts());
     dispatch(initializeUserFromStorage());
