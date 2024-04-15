@@ -12,7 +12,11 @@ import Togglable from "./components/Togglable";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 //
-import { useMatch, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  useMatch,
+  Routes,
+  Route,
+} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { notificationSetter } from "./reducers/notificationReducer";
 import {
@@ -36,12 +40,11 @@ const App = () => {
   const addBlogFormRef = useRef();
   const dispatch = useDispatch();
   //
-  const match = useMatch("/users/:id");
-  const user = match
-    ? users.find((user) => user.id === Number(match.params.id))
+  const matchUser = useMatch("/users/:id");
+  const user = matchUser
+    ? users.find((user) => user.id === Number(matchUser.params.id))
     : null;
-  //
-
+  
   useEffect(() => {
     dispatch(initializeBlogPosts());
     dispatch(initializeUserFromStorage());
@@ -152,18 +155,15 @@ const App = () => {
             element={
               signedUser ? (
                 <>
-                  <p>{signedUser.name} logged in</p>
-                  <button className="gap" onClick={handleLogOut}>
-                    log out
-                  </button>
                   {/* List of blogs */}
                   {blogs.map((blog) => (
-                    <Blog
+                    <Link
                       key={blog.id}
-                      blog={blog}
-                      updateBlogPostLikes={updateBlogPostLikes}
-                      handleDeleteBlogPost={handleDeleteBlogPost}
-                    />
+                      to={`/blogs/${blog.id}`}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <h3>{blog.title}</h3>
+                    </Link>
                   ))}
                   {/* New blog form visibility */}
                   <Togglable buttonLabel="add new blog" ref={addBlogFormRef}>
@@ -177,6 +177,7 @@ const App = () => {
           />
           <Route path="/users" element={<UsersList users={users} />} />
           <Route path="/users/:id" element={<UserDetail user={user} />} />
+          <Route path="/blogs/:id" element={<Blog />} />
         </Routes>
       </div>
     </>
