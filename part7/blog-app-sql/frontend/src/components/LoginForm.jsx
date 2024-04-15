@@ -21,8 +21,6 @@ const LoginForm = ({ handleLogin }) => {
     setPassword("");
   };
 
-  //
-
   return (
     <div>
       <form onSubmit={handleSubmit}>

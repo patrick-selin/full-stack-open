@@ -12,13 +12,7 @@ import Togglable from "./components/Togglable";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 //
-import {
-  useMatch,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { useMatch, Routes, Route, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { notificationSetter } from "./reducers/notificationReducer";
 import {
@@ -33,7 +27,7 @@ import {
   updateBlogPost,
 } from "./reducers/blogPostsReducer";
 
-import { initializeUsers, setUsers } from "./reducers/usersReducer";
+import { initializeUsers } from "./reducers/usersReducer";
 
 const App = () => {
   const blogs = useSelector((state) => state.blogPosts);
@@ -41,14 +35,13 @@ const App = () => {
   const users = useSelector((state) => state.users);
   const addBlogFormRef = useRef();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   //
   const match = useMatch("/users/:id");
   const user = match
     ? users.find((user) => user.id === Number(match.params.id))
     : null;
   //
-  
+
   useEffect(() => {
     dispatch(initializeBlogPosts());
     dispatch(initializeUserFromStorage());
