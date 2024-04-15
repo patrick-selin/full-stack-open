@@ -1,10 +1,11 @@
 // App.jsx
 import { useEffect, useRef } from "react";
-import Menu  from "./components/Menu";
+import Menu from "./components/Menu";
 import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
 import Blog from "./components/Blog";
-import User from "./components/UsersList";
+import UsersList from "./components/UsersList";
+import UserDetail from "./components/UserDetail";
 import BlogForm from "./components/BlogForm";
 import Togglable from "./components/Togglable";
 //
@@ -33,7 +34,6 @@ import {
 } from "./reducers/blogPostsReducer";
 
 import { initializeUsers, setUsers } from "./reducers/usersReducer";
-import UsersList from "./components/UsersList";
 
 const App = () => {
   const blogs = useSelector((state) => state.blogPosts);
@@ -176,17 +176,8 @@ const App = () => {
               )
             }
           />
-          <Route
-            path="/users"
-            element={
-              signedUser ? (
-                <UsersList users={users} />
-              ) : (
-                // Redirect
-                <Navigate to="/" replace />
-              )
-            }
-          />
+          <Route path="/users" element={<UsersList users={users} />} />
+          <Route path="/users/:id" element={<UserDetail />} />
         </Routes>
       </div>
     </>
