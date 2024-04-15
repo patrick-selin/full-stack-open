@@ -17,13 +17,15 @@ import {
   loginUser,
   logoutUser,
   initializeUserFromStorage,
-} from "./reducers/signedUserReduce";
+} from "./reducers/signedUserReducer";
 import {
   initializeBlogPosts,
   createBlogPost,
   deleteBlogPost,
   updateBlogPost,
-} from "./reducers/blogPostReducer";
+} from "./reducers/blogPostsReducer";
+
+import { initializeUsers, setUsers } from "./reducers/usersReducer";
 
 const App = () => {
   const blogs = useSelector((state) => state.blogPosts);
@@ -34,6 +36,7 @@ const App = () => {
   useEffect(() => {
     dispatch(initializeBlogPosts());
     dispatch(initializeUserFromStorage());
+    dispatch(initializeUsers());
   }, [dispatch]);
 
   const handleLogin = async (username, password) => {
@@ -107,7 +110,6 @@ const App = () => {
           type: "success",
         }),
       );
-   
     } catch (exception) {
       "error" + exception.response.data.error;
     }
@@ -140,7 +142,6 @@ const App = () => {
             <button className="gap" onClick={handleLogOut}>
               log out
             </button>
-           
 
             {/* list of blogs */}
             {blogs.map((blog) => (

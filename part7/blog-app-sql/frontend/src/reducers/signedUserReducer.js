@@ -1,4 +1,4 @@
-// reducer/signedUserReducer.js
+// reducer/signedReducer.js
 
 import { createSlice } from "@reduxjs/toolkit";
 import userService from "../services/login";
