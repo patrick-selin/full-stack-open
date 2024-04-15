@@ -3,12 +3,14 @@ import { useEffect, useRef } from "react";
 import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
 import Blog from "./components/Blog";
+import User from "./components/User";
 import BlogForm from "./components/BlogForm";
 import Togglable from "./components/Togglable";
 //
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 //
+import { useMatch, Routes, Route, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { notificationSetter } from "./reducers/notificationReducer";
 import {
@@ -138,6 +140,7 @@ const App = () => {
             <button className="gap" onClick={handleLogOut}>
               log out
             </button>
+           
 
             {/* list of blogs */}
             {blogs.map((blog) => (
