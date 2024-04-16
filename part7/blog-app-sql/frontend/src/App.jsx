@@ -38,14 +38,12 @@ const App = () => {
     ? users.find((user) => user.id === Number(matchUser.params.id))
     : null;
 
-  console.log(`signedUser :: ${JSON.stringify(user)}`);
   useEffect(() => {
     const userFromStorage = dispatch(initializeUserFromStorage());
     if (userFromStorage) {
       blogService.setToken(userFromStorage.token);
     }
-    // dispatch(initializeUserFromStorage());
-    //
+
     dispatch(initializeBlogPosts());
     dispatch(initializeUsers());
   }, [dispatch]);
