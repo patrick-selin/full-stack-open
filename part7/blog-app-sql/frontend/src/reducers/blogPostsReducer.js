@@ -32,7 +32,6 @@ export const createBlogPost = (content) => {
   return async (dispatch) => {
     const newBlogPost = await blogService.createNewBlogPost(content);
     dispatch(appendBlogPost(newBlogPost));
-    // dispatch(notificationSetter(`New Blog Post added: '${content}'`, 4));
   };
 };
 
@@ -44,7 +43,6 @@ export const updateBlogPost = (postId, blogPostData) => {
     );
     
     dispatch(updateSingleBlogPost(updatedBlogPost));
-    // dispatch(notificationSetter(`you upvoted the post: '${content}'`, 4));
   };
 };
 
@@ -60,7 +58,6 @@ export const deleteBlogPost = (postId) => {
     );
 
     dispatch(setBlogPosts(updatedBlogPosts));
-    // dispatch(notificationSetter(`Blog post deleted`, 4));
   };
 };
 
