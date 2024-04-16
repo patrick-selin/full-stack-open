@@ -1,5 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 const BlogForm = ({ handleCreateBlogPost }) => {
   const [formData, setFormData] = useState({
@@ -23,43 +27,45 @@ const BlogForm = ({ handleCreateBlogPost }) => {
   };
 
   return (
-    <div className="blog-adder">
-      <h2>create new</h2>
+    <Box>
+      <Typography variant="h2">Create New Blog</Typography>
       <form onSubmit={handleSubmitPost}>
-        <label>
-          Title:
-          <input
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-          />
-        </label>
-
-        <label>
-          Author:
-          <input
-            type="text"
-            name="author"
-            value={formData.author}
-            onChange={handleChange}
-          />
-        </label>
-
-        <label>
-          url:
-          <input
-            type="text"
-            name="url"
-            value={formData.url}
-            onChange={handleChange}
-          />
-        </label>
-        <button id="add-blog" type="submit">
-          create
-        </button>
+        <TextField
+          label="Title"
+          type="text"
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
+          label="Author"
+          type="text"
+          name="author"
+          value={formData.author}
+          onChange={handleChange}
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
+          label="URL"
+          type="text"
+          name="url"
+          value={formData.url}
+          onChange={handleChange}
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          required
+        />
+        <Button variant="contained" type="submit">Create</Button>
       </form>
-    </div>
+    </Box>
   );
 };
 

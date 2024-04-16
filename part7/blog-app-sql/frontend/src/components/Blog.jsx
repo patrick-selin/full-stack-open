@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateBlogPost, deleteBlogPost } from "../reducers/blogPostsReducer";
 import { notificationSetter } from "../reducers/notificationReducer";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 const Blog = () => {
   const { id } = useParams();
@@ -67,13 +69,15 @@ const Blog = () => {
 
   return (
     <div>
-      <h2>{blogData.title}</h2>
-      <p>URL: {blogData.url}</p>
-      <p>Likes: {blogData.likes}</p>
-      <button onClick={handleLikeButton}>Like</button>
-      <button onClick={handleDeletePost}>Remove</button>
+      <Typography variant="h2">{blogData.title}</Typography>
+      <Typography variant="body1">URL: {blogData.url}</Typography>
+      <Typography variant="body1">Likes: {blogData.likes}</Typography>
+      <Button variant="contained" color="primary" onClick={handleLikeButton}>Like</Button>
+      <Button variant="contained" color="error" onClick={handleDeletePost}>Remove</Button>
       <div>
-        <Link to="/">Back to Blogs</Link>
+        <Link to="/">
+          <Typography variant="body1">Back to Blogs</Typography>
+        </Link>
       </div>
     </div>
   );

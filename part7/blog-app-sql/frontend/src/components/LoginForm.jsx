@@ -1,5 +1,8 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
 const LoginForm = ({ handleLogin }) => {
   const [username, setUsername] = useState("");
@@ -25,8 +28,10 @@ const LoginForm = ({ handleLogin }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Username:</label>
-          <input
+          <Typography htmlFor="username" variant="body1">
+            Username:
+          </Typography>
+          <TextField
             type="text"
             id="username"
             value={username}
@@ -35,8 +40,10 @@ const LoginForm = ({ handleLogin }) => {
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
-          <input
+          <Typography htmlFor="password" variant="body1">
+            Password:
+          </Typography>
+          <TextField
             type="password"
             id="password"
             value={password}
@@ -44,9 +51,9 @@ const LoginForm = ({ handleLogin }) => {
             required
           />
         </div>
-        <button id="login-button" type="submit">
+        <Button variant="contained" type="submit">
           Login
-        </button>
+        </Button>
       </form>
     </div>
   );

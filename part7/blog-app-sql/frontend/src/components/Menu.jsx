@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../reducers/signedUserReducer";
 
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+
 const Menu = () => {
   const signedUser = useSelector((state) => state.signedUser);
   const dispatch = useDispatch();
@@ -21,18 +24,30 @@ const Menu = () => {
   };
 
   return (
-    <div style={nav}>
-      <Link to="/" style={padding}>
-        blogs
+    <div style={{ marginBottom: "1rem" }}>
+      <Link to="/" style={{ marginRight: "1rem" }}>
+        <Typography variant="button" color="primary">
+          blogs
+        </Typography>
       </Link>
-      <Link to="/users" style={padding}>
-        users
+      <Link to="/users" style={{ marginRight: "1rem" }}>
+        <Typography variant="button" color="primary">
+          users
+        </Typography>
       </Link>
       {signedUser ? (
-        <>
-          <p style={padding}>{signedUser.name} logged in</p>
-          <button onClick={handleLogOut}>log out</button>
-        </>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Typography
+            variant="button"
+            color="primary"
+            style={{ marginRight: "1rem" }}
+          >
+            {signedUser.name} logged in
+          </Typography>
+          <Button variant="contained" color="error" onClick={handleLogOut}>
+            Log out
+          </Button>
+        </div>
       ) : null}
     </div>
   );

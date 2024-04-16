@@ -15,7 +15,6 @@ const getAllBlogPosts = async () => {
 };
 
 const createNewBlogPost = async (newBlogPostObject) => {
-  console.log(`token in header : ${token}`);
   const config = {
     headers: { Authorization: token },
   };
