@@ -17,16 +17,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { notificationSetter } from "./reducers/notificationReducer";
 import {
   loginUser,
-  logoutUser,
   initializeUserFromStorage,
 } from "./reducers/signedUserReducer";
 import {
   initializeBlogPosts,
   createBlogPost,
-  deleteBlogPost,
-  updateBlogPost,
 } from "./reducers/blogPostsReducer";
-
 import { initializeUsers } from "./reducers/usersReducer";
 
 const App = () => {
@@ -35,12 +31,14 @@ const App = () => {
   const users = useSelector((state) => state.users);
   const addBlogFormRef = useRef();
   const dispatch = useDispatch();
+  console.log(`signedUser :: ${JSON.stringify(signedUser)}`);
   //
   const matchUser = useMatch("/users/:id");
   const user = matchUser
     ? users.find((user) => user.id === Number(matchUser.params.id))
     : null;
 
+  console.log(`signedUser :: ${JSON.stringify(user)}`);
   useEffect(() => {
     dispatch(initializeBlogPosts());
     dispatch(initializeUserFromStorage());
@@ -77,10 +75,6 @@ const App = () => {
     }
   };
 
-  const handleLogOut = async () => {
-    dispatch(logoutUser());
-  };
-
   const handleCreateBlogPost = async ({ title, author, url }) => {
     const year = new Date().getFullYear();
 
@@ -104,38 +98,6 @@ const App = () => {
       addBlogFormRef.current.toggleVisibility();
     } catch (exception) {
       console.log("this is error messaage");
-    }
-  };
-
-  const updateBlogPostLikes = async (postId, blogPostData) => {
-    try {
-      dispatch(updateBlogPost(postId, blogPostData));
-
-      dispatch(
-        notificationSetter({
-          text: `you upvoted the post: ${blogPostData.title}`,
-          timeOutLength: 3,
-          type: "success",
-        }),
-      );
-    } catch (exception) {
-      "error" + exception.response.data.error;
-    }
-  };
-
-  const handleDeleteBlogPost = async (postId) => {
-    try {
-      dispatch(deleteBlogPost(postId));
-
-      dispatch(
-        notificationSetter({
-          text: "Blog post deleted.",
-          timeOutLength: 5,
-          type: "success",
-        }),
-      );
-    } catch (exception) {
-      "error" + exception.response.data.error;
     }
   };
 

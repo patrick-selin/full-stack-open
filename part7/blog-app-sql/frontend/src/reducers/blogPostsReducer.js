@@ -49,7 +49,7 @@ export const updateBlogPost = (postId, blogPostData) => {
 };
 
 export const deleteBlogPost = (postId) => {
-//   console.log(`content 22 :: ${JSON.stringify(postId)}`);
+  console.log(`content 22 :: ${JSON.stringify(postId)}`);
   return async (dispatch, getState) => {
     await blogService.deleteBlogPost(postId);
 

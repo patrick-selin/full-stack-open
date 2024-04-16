@@ -51,6 +51,8 @@ blogsRouter.post("/", async (req, res) => {
 //
 // delete
 blogsRouter.delete("/:id", blogFinder, async (req, res) => {
+  console.log(`content 22 :: ${JSON.stringify(req.blog)}`);
+
   if (!req.blog) {
     return res.status(404).send({ error: "Blog not found" });
   }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateBlogPost, deleteBlogPost } from "../reducers/blogPostsReducer";
+import { notificationSetter } from "../reducers/notificationReducer";
 
 const Blog = () => {
   const { id } = useParams();
@@ -21,16 +22,38 @@ const Blog = () => {
       ...blogData,
       likes: blogData.likes + 1,
     };
+    try {
+      dispatch(updateBlogPost(blogData.id, updatedBlogData));
+      setBlogData(updatedBlogData);
 
-    dispatch(updateBlogPost(blogData.id, updatedBlogData));
-    setBlogData(updatedBlogData);
+      dispatch(
+        notificationSetter({
+          text: `you upvoted the post: ${blogData.title}`,
+          timeOutLength: 3,
+          type: "success",
+        }),
+      );
+    } catch (exception) {
+      "error" + exception.response.data.error;
+    }
   };
 
   const handleDeletePost = () => {
     if (
       window.confirm(`Remove blog ${blogData.title} by ${blogData.author}?`)
     ) {
-      dispatch(deleteBlogPost(blogData.id));
+      try {
+        dispatch(deleteBlogPost(blogData.id));
+        dispatch(
+          notificationSetter({
+            text: "Blog post deleted.",
+            timeOutLength: 5,
+            type: "success",
+          }),
+        );
+      } catch (exception) {
+        "error" + exception.response.data.error;
+      }
     }
   };
 
