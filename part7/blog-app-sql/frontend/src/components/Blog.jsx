@@ -1,12 +1,14 @@
 // Blog.jsx
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateBlogPost, deleteBlogPost } from "../reducers/blogPostsReducer";
 import { notificationSetter } from "../reducers/notificationReducer";
 
 const Blog = () => {
   const { id } = useParams();
+  let navigateTo = useNavigate();
   const dispatch = useDispatch();
   const blog = useSelector((state) =>
     state.blogPosts.find((blog) => blog.id === Number(id)),
@@ -51,6 +53,8 @@ const Blog = () => {
             type: "success",
           }),
         );
+        //
+        navigateTo("/");
       } catch (exception) {
         "error" + exception.response.data.error;
       }
