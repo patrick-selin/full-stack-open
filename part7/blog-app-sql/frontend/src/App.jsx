@@ -40,8 +40,13 @@ const App = () => {
 
   console.log(`signedUser :: ${JSON.stringify(user)}`);
   useEffect(() => {
+    const userFromStorage = dispatch(initializeUserFromStorage());
+    if (userFromStorage) {
+      blogService.setToken(userFromStorage.token);
+    }
+    // dispatch(initializeUserFromStorage());
+    //
     dispatch(initializeBlogPosts());
-    dispatch(initializeUserFromStorage());
     dispatch(initializeUsers());
   }, [dispatch]);
 
