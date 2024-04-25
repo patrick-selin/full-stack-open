@@ -9,28 +9,40 @@ interface WeeklyTrainingData {
 }
 
 const calculateExercises = (
-  data: number[],
+  trainingData: number[],
   targetHours: number
 ): WeeklyTrainingData => {
-  // calculate average time of daily exercise hours
-  // compare to target amount of daily hours
-  // return object{}
+  //
+  const periodLength = trainingData.length;
+  //
+  const trainingDaysFiltered = trainingData.filter((hours) => hours > 0);
+  const trainingDays = trainingDaysFiltered.length;
+  //
+  const totalTrainingHours: number = trainingData.reduce((a, b) => a + b, 0);
+  const averageTainingHours = totalTrainingHours / trainingData.length;
+  //
+  let rating: number;
+  let ratingDescription: string;
 
-  const countTrainingDays = (data) => {
-    const trainingDaysFiltered = data.filter((hours) => hours > 0);
-    const numTrainingDays = trainingDaysFiltered.length;
-
-    return numTrainingDays;
-  };
+  if (averageTainingHours < targetHours) {
+    rating = 1;
+    ratingDescription = "Under the Target. Time to impove a bit.";
+  } else if (averageTainingHours === targetHours) {
+    rating = 2;
+    ratingDescription = "Good job. You hit the target.";
+  } else if (averageTainingHours > targetHours) {
+    rating = 3;
+    ratingDescription = "You went above the target. You are a machine!";
+  }
 
   const stats: WeeklyTrainingData = {
-    periodLength: data.length,
-    trainingDays: countTrainingDays(data),
-    success: false,
-    rating: 2,
-    ratingDescription: "not too bad but could be better",
-    target: 2,
-    average: 1.9285714285714286,
+    periodLength,
+    trainingDays,
+    success: averageTainingHours > targetHours,
+    rating,
+    ratingDescription,
+    target: targetHours,
+    average: averageTainingHours,
   };
 
   return stats;
