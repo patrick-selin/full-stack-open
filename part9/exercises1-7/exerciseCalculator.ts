@@ -51,8 +51,8 @@ const calculateExercises = (
   const totalTrainingHours: number = trainingData.reduce((a, b) => a + b, 0);
   const averageTainingHours = totalTrainingHours / trainingData.length;
   //
-  let rating: number;
-  let ratingDescription: string;
+  let rating: number = 0;
+  let ratingDescription: string = "";
 
   if (averageTainingHours < targetHours) {
     rating = 1;
