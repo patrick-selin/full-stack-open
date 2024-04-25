@@ -48,6 +48,19 @@ const calculateExercises = (
   return stats;
 };
 
+try {
+    const { value1, value2 } = parseArguments(process.argv);
+    console.log("object");
+    console.log(value1, value2);
+  } catch (error: unknown) {
+    let errorMessage = "Something went wrong ";
+  
+    if (error instanceof Error) {
+      errorMessage += error.message;
+    }
+    console.log(errorMessage);
+  }
+
 // [3, 0, 2, 4.5, 0, 3, 1] and 2
 const send = calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2);
 console.log(send);
