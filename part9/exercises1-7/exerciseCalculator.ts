@@ -1,3 +1,31 @@
+// make interface
+interface UserDataValues {
+  target: number;
+  trainingData: number[];
+}
+
+process.argv.forEach((arg, index) => {
+  console.log(`Argument ${index}: ${arg}`);
+});
+
+const parseCliArguments = (args: string[]): UserDataValues => {
+  if (args.length < 4) {
+    throw new Error("Not enough arguments");
+  }
+  let trainingHours: number[] = [];
+
+  // tyonna arg3 eteenpain arrayhin, palauta array
+
+  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+    return {
+      target: Number(args[2]),
+      trainingData: trainingHours,
+    };
+  } else {
+    throw new Error("Provided values were not numbers!");
+  }
+};
+
 interface WeeklyTrainingData {
   periodLength: number;
   trainingDays: number;
@@ -49,17 +77,15 @@ const calculateExercises = (
 };
 
 try {
-    const { value1, value2 } = parseArguments(process.argv);
-    console.log("object");
-    console.log(value1, value2);
-  } catch (error: unknown) {
-    let errorMessage = "Something went wrong ";
-  
-    if (error instanceof Error) {
-      errorMessage += error.message;
-    }
-    console.log(errorMessage);
+  const { target, trainingData } = parseCliArguments(process.argv);
+} catch (error: unknown) {
+  let errorMessage = "Something went wrong ";
+
+  if (error instanceof Error) {
+    errorMessage += error.message;
   }
+  console.log(errorMessage);
+}
 
 // [3, 0, 2, 4.5, 0, 3, 1] and 2
 const send = calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2);

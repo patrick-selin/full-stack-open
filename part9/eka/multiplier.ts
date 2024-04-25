@@ -35,7 +35,6 @@ const multiplicator = (a: number, b: number, printText: string): void => {
 
 multiplicator(2, 4, "Multiplied numbers 2 and 4, the result is:");
 
-// try-catch
 try {
   const { value1, value2 } = parseArguments(process.argv);
   multiplicator(
