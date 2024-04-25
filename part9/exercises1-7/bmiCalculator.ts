@@ -1,4 +1,4 @@
-// make interface
+// bmiCalculator.ts
 interface MultiplyValues {
   value1: number;
   value2: number;
@@ -26,7 +26,7 @@ const parseArguments = (args: string[]): MultiplyValues => {
   }
 };
 
-const calculateBmi = (height: number, weight: number): string => {
+export const calculateBmi = (height: number, weight: number): string => {
   if (height === 0 || weight === 0) {
     throw new Error("Zero is not valid.");
   }
