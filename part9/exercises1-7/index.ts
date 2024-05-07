@@ -1,6 +1,7 @@
 import express from "express";
-const app = express();
 import { calculateBmi } from "./bmiCalculator";
+
+const app = express();
 
 app.use(express.json());
 
