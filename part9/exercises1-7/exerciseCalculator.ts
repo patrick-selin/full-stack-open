@@ -1,3 +1,5 @@
+// exerciseCalculator.ts
+
 interface UserDataValues {
   target: number;
   trainingData: number[];
@@ -38,7 +40,7 @@ interface WeeklyTrainingData {
   average: number;
 }
 
-const calculateExercises = (
+export const calculateExercises = (
   trainingData: number[],
   targetHours: number
 ): WeeklyTrainingData => {
