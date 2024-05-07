@@ -26,7 +26,7 @@ app.get("/bmi", (req, res) => {
     bmi: bmiResult,
   });
 });
-//
+
 //
 app.post("/exercises", (req, res) => {
   const { daily_exercises, target } = req.body;
@@ -37,8 +37,8 @@ app.post("/exercises", (req, res) => {
 
   if (
     !Array.isArray(daily_exercises) ||
-    daily_exercises.some(isNaN) ||
-    isNaN(target)
+    daily_exercises.some((value) => typeof value !== "number") ||
+    typeof target !== "number"
   ) {
     return res.status(400).json({ error: "malformatted parameters" });
   }
