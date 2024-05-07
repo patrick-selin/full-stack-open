@@ -1,6 +1,6 @@
 // exerciseCalculator.ts
 
-interface UserDataValues {
+export interface UserDataValues {
   target: number;
   trainingData: number[];
 }
