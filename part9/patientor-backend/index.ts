@@ -15,7 +15,6 @@ app.get("/api/ping", (_req, res) => {
   res.send("pong");
 });
 
-//
 // app.post("/exercises", (req, res) => {
 //   const { daily_exercises, target } = req.body;
 
