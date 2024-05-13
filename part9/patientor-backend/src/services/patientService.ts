@@ -15,13 +15,13 @@ const getPatientsWithoutSsn = (): PatientWithoutSsn[] => {
 const addPatient = (entry: NewPatientEntry): Patient => {
   const generatedId = uuid();
 
-  const newPatientEntry = {
+  const newPatient = {
     id: generatedId,
     ...entry,
   };
 
-  patients.push(newPatientEntry);
-  return newPatientEntry;
+  patients.push(newPatient);
+  return newPatient;
 };
 
 export default {
