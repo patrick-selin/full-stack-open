@@ -13,4 +13,6 @@ export interface Patient {
   occupation: string;
 }
 
-// excludingg ssn
+export type PatientWithoutSsn = Omit<Patient, "ssn">;
+
+
