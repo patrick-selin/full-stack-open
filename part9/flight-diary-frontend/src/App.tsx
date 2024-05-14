@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import Notification from "./components/Notification";
+import DiaryForm from "./components/DiaryForm";
 import { getAllDiaries, createDiary } from "./services/diaries";
 //
 import { DiaryEntry, NewDiaryEntry, Weather, Visibility } from "./types";
@@ -28,6 +29,10 @@ function App() {
       });
   };
 
+  const handleDiaryAdded = (newDiary) => {
+    setDiaries([...diaries, newDiary]);
+  };
+
   const closeNotification = () => {
     setNotification(null);
   };
@@ -39,57 +44,10 @@ function App() {
         <Notification message={notification} onClose={closeNotification} />
       )}
 
-      <form onSubmit={createNewDiary}>
-        <div>
-          date
-          <input
-            value={newDiary.date || ""}
-            onChange={(event) =>
-              setNewDiary((prevState) => ({
-                ...prevState,
-                date: event.target.value,
-              }))
-            }
-          />
-        </div>
-        <div>
-          weather
-          <input
-            value={newDiary.weather || ""}
-            onChange={(event) =>
-              setNewDiary((prevState) => ({
-                ...prevState,
-                weather: event.target.value as Weather,
-              }))
-            }
-          />
-        </div>
-        <div>
-          visibility
-          <input
-            value={newDiary.visibility || ""}
-            onChange={(event) =>
-              setNewDiary((prevState) => ({
-                ...prevState,
-                visibility: event.target.value as Visibility,
-              }))
-            }
-          />
-        </div>
-        <div>
-          comment
-          <input
-            value={newDiary.comment || ""}
-            onChange={(event) =>
-              setNewDiary((prevState) => ({
-                ...prevState,
-                comment: event.target.value,
-              }))
-            }
-          />
-        </div>
-        <button type="submit">add</button>
-      </form>
+      <DiaryForm
+        onDiaryAdded={handleDiaryAdded}
+        setNotification={setNotification}
+      />
 
       <h2>Diary Entries</h2>
       <ul>
