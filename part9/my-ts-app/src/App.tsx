@@ -6,10 +6,15 @@ import {
   CoursePartBasic,
   CoursePartGroup,
   CoursePartBackground,
+  CoursePartSpecial,
 } from "./types";
 
 //
-type CoursePart = CoursePartBasic | CoursePartGroup | CoursePartBackground;
+type CoursePart =
+  | CoursePartBasic
+  | CoursePartGroup
+  | CoursePartBackground
+  | CoursePartSpecial;
 
 const App = () => {
   const courseName = "Half Stack application development";
@@ -46,6 +51,13 @@ const App = () => {
       exerciseCount: 10,
       description: "a hard part",
       kind: "basic",
+    },
+    {
+      name: "Backend development",
+      exerciseCount: 21,
+      description: "Typing the backend",
+      requirements: ["nodejs", "jest"],
+      kind: "special",
     },
   ];
 

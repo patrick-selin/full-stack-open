@@ -41,6 +41,18 @@ const Part = ({ part }: PartProps) => {
           <p>submit to {part.backgroundMaterial}</p>
         </div>
       );
+    case "special":
+      return (
+        <div>
+          <h3>
+            {part.name} {part.exerciseCount}
+          </h3>
+          <p>
+            <i>{part.description}</i>
+          </p>
+          <div>{`required skills: ${part.requirements.join(", ")}`}</div>
+        </div>
+      );
     default:
       return assertNever(part);
   }
