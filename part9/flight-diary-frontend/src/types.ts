@@ -22,5 +22,13 @@ export enum Weather {
     Ok = 'ok',
     Poor = 'poor',
   }
-  
+
 export type NewDiaryEntry = Omit<DiaryEntry, "id">;
+
+
+//
+
+export interface NotificationProps {
+    message: string;
+    onClose: () => void;
+  }

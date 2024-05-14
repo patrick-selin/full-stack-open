@@ -1,11 +1,13 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import Notification from "./components/Notification";
 import { getAllDiaries, createDiary } from "./services/diaries";
 //
 import { DiaryEntry, NewDiaryEntry, Weather, Visibility } from "./types";
 function App() {
   const [diaries, setDiaries] = useState<DiaryEntry[]>([]);
   const [newDiary, setNewDiary] = useState<NewDiaryEntry>({} as NewDiaryEntry);
+  const [notification, setNotification] = useState<string | null>(null);
   //
   useEffect(() => {
     getAllDiaries().then((data) => {
@@ -16,17 +18,27 @@ function App() {
 
   const createNewDiary = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    console.log(newDiary);
+    createDiary(newDiary)
+      .then((data) => {
+        setDiaries(diaries.concat(data));
+        setNewDiary({} as NewDiaryEntry);
+      })
+      .catch((error) => {
+        setNotification(error.response.data);
+      });
+  };
 
-    createDiary(newDiary).then((data) => {
-      setDiaries(diaries.concat(data));
-      setNewDiary({} as NewDiaryEntry);
-    });
+  const closeNotification = () => {
+    setNotification(null);
   };
 
   return (
     <>
-      <h2>Diary Entries</h2>
+      <h2>Add new entry</h2>
+      {notification && (
+        <Notification message={notification} onClose={closeNotification} />
+      )}
+
       <form onSubmit={createNewDiary}>
         <div>
           date
