@@ -2,12 +2,12 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import Notification from "./components/Notification";
 import DiaryForm from "./components/DiaryForm";
-import { getAllDiaries, createDiary } from "./services/diaries";
+import DiaryEntryList from "./components/DiaryEntryList";
+import { getAllDiaries } from "./services/diaries";
 //
-import { DiaryEntry, NewDiaryEntry, Weather, Visibility } from "./types";
+import { DiaryEntry, NewDiaryEntry } from "./types";
 function App() {
   const [diaries, setDiaries] = useState<DiaryEntry[]>([]);
-  const [newDiary, setNewDiary] = useState<NewDiaryEntry>({} as NewDiaryEntry);
   const [notification, setNotification] = useState<string | null>(null);
   //
   useEffect(() => {
@@ -17,19 +17,7 @@ function App() {
   }, []);
   //
 
-  const createNewDiary = (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    createDiary(newDiary)
-      .then((data) => {
-        setDiaries(diaries.concat(data));
-        setNewDiary({} as NewDiaryEntry);
-      })
-      .catch((error) => {
-        setNotification(error.response.data);
-      });
-  };
-
-  const handleDiaryAdded = (newDiary) => {
+  const handleDiaryAdded = (newDiary: NewDiaryEntry) => {
     setDiaries([...diaries, newDiary]);
   };
 
@@ -50,15 +38,7 @@ function App() {
       />
 
       <h2>Diary Entries</h2>
-      <ul>
-        {diaries.map((diary, index) => (
-          <li key={index}>
-            <h3>{diary.date}</h3>
-            <p>visibility: {diary.visibility}</p>
-            <p>weather: {diary.weather}</p>
-          </li>
-        ))}
-      </ul>
+      <DiaryEntryList diaries={diaries} />
     </>
   );
 }

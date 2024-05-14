@@ -7,6 +7,6 @@ export const getAllDiaries = () => {
   return axios.get<DiaryEntry[]>(baseUrl).then((res) => res.data);
 };
 
-export const createDiary = (object: NewDiaryEntry) => {
+export const createDiary = (object: NewDiaryEntry): Promise<DiaryEntry> => {
   return axios.post<DiaryEntry>(baseUrl, object).then((res) => res.data);
 };

@@ -1,7 +1,7 @@
 // types
 
 export interface DiaryEntry {
-  id: number;
+  id?: number;
   date: string;
   weather: Weather;
   visibility: Visibility;
@@ -33,6 +33,10 @@ export interface NotificationProps {
 }
 
 export interface DiaryFormProps {
-  onDiaryAdded: (diary: DiaryEntry) => void;
+  onDiaryAdded: (diary: NewDiaryEntry) => void;
   setNotification: (notification: string | null) => void;
+}
+
+export interface DiaryEntryListProps {
+  diaries: DiaryEntry[];
 }

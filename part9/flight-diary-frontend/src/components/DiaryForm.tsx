@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createDiary } from '../services/diaries';
-import { Weather, Visibility, DiaryFormProps } from '../types';
+import { DiaryFormProps, NewDiaryEntry } from '../types';
 
 const DiaryForm = ({ onDiaryAdded, setNotification }: DiaryFormProps) => {
   const [newDiary, setNewDiary] = useState({
@@ -10,12 +10,12 @@ const DiaryForm = ({ onDiaryAdded, setNotification }: DiaryFormProps) => {
     comment: ''
   });
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.SyntheticEvent) => {
     const { name, value } = event.target;
     setNewDiary({ ...newDiary, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     try {
       const diary = await createDiary(newDiary);
