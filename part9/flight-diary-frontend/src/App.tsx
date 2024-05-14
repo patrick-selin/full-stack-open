@@ -1,6 +1,5 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { getAllDiaries, createDiary } from "./services/diaries";
 //
 import { DiaryEntry, NewDiaryEntry, Weather, Visibility } from "./types";
@@ -19,12 +18,10 @@ function App() {
     event.preventDefault();
     console.log(newDiary);
 
-    axios
-      .post<DiaryEntry>("http://localhost:3003/api/diaries", newDiary)
-      .then((response) => {
-        setDiaries(diaries.concat(response.data));
-      });
-    setNewDiary({} as NewDiaryEntry);
+    createDiary(newDiary).then((data) => {
+      setDiaries(diaries.concat(data));
+      setNewDiary({} as NewDiaryEntry);
+    });
   };
 
   return (
@@ -50,7 +47,7 @@ function App() {
             onChange={(event) =>
               setNewDiary((prevState) => ({
                 ...prevState,
-                weather: event.target.value,
+                weather: event.target.value as Weather,
               }))
             }
           />
@@ -62,7 +59,7 @@ function App() {
             onChange={(event) =>
               setNewDiary((prevState) => ({
                 ...prevState,
-                visibility: event.target.value,
+                visibility: event.target.value as Visibility,
               }))
             }
           />
