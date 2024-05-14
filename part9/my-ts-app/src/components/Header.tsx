@@ -1,6 +1,4 @@
-interface HeaderProps {
-  courseName: string;
-}
+import { HeaderProps } from "../types";
 
 function Header({ courseName }: HeaderProps) {
   return <h1>{courseName}</h1>;

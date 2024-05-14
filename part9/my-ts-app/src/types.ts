@@ -39,3 +39,10 @@ export interface ContentProps {
 export interface PartProps {
   part: CoursePart;
 }
+
+//
+//
+
+export interface HeaderProps {
+  courseName: string;
+}

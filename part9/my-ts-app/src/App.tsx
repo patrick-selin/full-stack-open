@@ -13,7 +13,6 @@ type CoursePart = CoursePartBasic | CoursePartGroup | CoursePartBackground;
 
 const App = () => {
   const courseName = "Half Stack application development";
-  //
 
   const courseParts: CoursePart[] = [
     {

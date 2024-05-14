@@ -5,6 +5,7 @@ function Total({ courseParts }: ContentProps) {
     (sum, part) => sum + part.exerciseCount,
     0
   );
+
   return <h2>Number of exercises {totalExercises}</h2>;
 }
 
