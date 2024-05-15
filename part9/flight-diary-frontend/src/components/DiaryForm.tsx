@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createDiary } from '../services/diaries';
 import { DiaryFormProps, NewDiaryEntry } from '../types';
+import { AxiosError } from 'axios';
 
 const DiaryForm = ({ onDiaryAdded, setNotification }: DiaryFormProps) => {
   const [newDiary, setNewDiary] = useState({
@@ -18,7 +19,7 @@ const DiaryForm = ({ onDiaryAdded, setNotification }: DiaryFormProps) => {
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     try {
-      const diary = await createDiary(newDiary);
+      const diary: NewDiaryEntry = await createDiary(newEntry);
       onDiaryAdded(diary);
       setNewDiary({
         date: '',
@@ -26,10 +27,21 @@ const DiaryForm = ({ onDiaryAdded, setNotification }: DiaryFormProps) => {
         visibility: '',
         comment: ''
       });
-    } catch (error) {
-      setNotification(error.response.data);
+    } catch (error: unknown) {
+      if (isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          const responseData = axiosError.response.data;
+          setNotification(responseData);
+        }
+      }
     }
   };
+
+  function isAxiosError(error: unknown): error is AxiosError {
+    return (error as AxiosError).isAxiosError !== undefined;
+  }
+  
 
   return (
     <form onSubmit={handleSubmit}>
