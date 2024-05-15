@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { createDiary } from '../services/diaries';
-import { DiaryFormProps, NewDiaryEntry } from '../types';
-import { AxiosError } from 'axios';
+import { DiaryFormProps, NewDiaryEntry, Weather, Visibility } from '../types';
 
 const DiaryForm = ({ onDiaryAdded, setNotification }: DiaryFormProps) => {
   const [newDiary, setNewDiary] = useState({
@@ -19,7 +18,7 @@ const DiaryForm = ({ onDiaryAdded, setNotification }: DiaryFormProps) => {
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     try {
-      const diary: NewDiaryEntry = await createDiary(newEntry);
+      const diary = await createDiary(newDiary);
       onDiaryAdded(diary);
       setNewDiary({
         date: '',
@@ -27,28 +26,17 @@ const DiaryForm = ({ onDiaryAdded, setNotification }: DiaryFormProps) => {
         visibility: '',
         comment: ''
       });
-    } catch (error: unknown) {
-      if (isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        if (axiosError.response) {
-          const responseData = axiosError.response.data;
-          setNotification(responseData);
-        }
-      }
+    } catch (error) {
+      setNotification(error.response.data);
     }
-  };
-
-  function isAxiosError(error: unknown): error is AxiosError {
-    return (error as AxiosError).isAxiosError !== undefined;
-  }
-  
+};
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
         Date:
         <input
-          type="text"
+          type="date"
           name="date"
           value={newDiary.date}
           onChange={handleInputChange}
@@ -56,21 +44,33 @@ const DiaryForm = ({ onDiaryAdded, setNotification }: DiaryFormProps) => {
       </div>
       <div>
         Weather:
-        <input
-          type="text"
-          name="weather"
-          value={newDiary.weather}
-          onChange={handleInputChange}
-        />
+        {Object.values(Weather).map((weather) => (
+          <label key={weather}>
+            <input
+              type="radio"
+              name="weather"
+              value={weather}
+              checked={newDiary.weather === weather}
+              onChange={handleInputChange}
+            />{' '}
+            {weather}
+          </label>
+        ))}
       </div>
       <div>
         Visibility:
-        <input
-          type="text"
-          name="visibility"
-          value={newDiary.visibility}
-          onChange={handleInputChange}
-        />
+        {Object.values(Visibility).map((visibility) => (
+          <label key={visibility}>
+            <input
+              type="radio"
+              name="visibility"
+              value={visibility}
+              checked={newDiary.visibility === visibility}
+              onChange={handleInputChange}
+            />{' '}
+            {visibility}
+          </label>
+        ))}
       </div>
       <div>
         Comment:
