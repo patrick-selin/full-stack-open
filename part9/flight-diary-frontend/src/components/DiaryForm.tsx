@@ -18,7 +18,7 @@ const DiaryForm = ({ onDiaryAdded, setNotification }: DiaryFormProps) => {
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     try {
-      const diary = await createDiary(newDiary);
+      const diary: NewDiaryEntry = await createDiary(newDiary);
       onDiaryAdded(diary);
       setNewDiary({
         date: '',
