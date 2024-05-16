@@ -20,7 +20,7 @@ const PatientDetailsPage = () => {
         const response = await patientService.getOne(
           match?.params.id as string
         );
-        console.log(response);
+        // console.log(response);
         setPatientDetails(response);
       } catch (error) {
         console.error("Error fetching patient details:", error);
@@ -29,13 +29,18 @@ const PatientDetailsPage = () => {
 
     const fetchDiagnosesList = async () => {
       const diagnoses = await diagnoseService.getAll();
-      console.log(`diagnoses :: ${JSON.stringify(diagnoses)}`);
+    //   console.log(`diagnoses :: ${JSON.stringify(diagnoses)}`);
       setDiagnoses(diagnoses);
     };
     void fetchPatientDetails();
     void fetchDiagnosesList();
 
   }, [match]);
+
+  const getDiagnosisDescription = (code: string): string => {
+    const diagnosis = diagnoses.find(diagnosis => diagnosis.code === code);
+    return diagnosis ? `${diagnosis.code} ${diagnosis.name}` : "Unknown diagnosis";
+  };
 
   return (
     <Box>
@@ -58,16 +63,19 @@ const PatientDetailsPage = () => {
               {patientDetails.entries.map((entry: Entry) => (
                 <ListItem key={entry.id}>
                   <ListItemText
-                    primary={entry.date}
-                    secondary={entry.description}
-                  />
-                  <ListItemText
-                    style={{ textAlign: "right" }}
-                    primary="Diagnosis Codes"
+                    primary={`${entry.date}: ${entry.description}`}
                     secondary={
-                      entry.diagnosisCodes
-                        ? entry.diagnosisCodes.join(", ")
-                        : "No diagnosis codes"
+                      entry.diagnosisCodes && entry.diagnosisCodes.length > 0 ? (
+                        <List>
+                          {entry.diagnosisCodes.map(code => (
+                            <ListItem key={code}>
+                              <ListItemText
+                                primary={getDiagnosisDescription(code)}
+                              />
+                            </ListItem>
+                          ))}
+                        </List>
+                      ) : "No diagnosis codes"
                     }
                   />
                 </ListItem>
