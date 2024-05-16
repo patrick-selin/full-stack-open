@@ -9,6 +9,14 @@ router.get("/", (_req, res) => {
   res.send(patientService.getPatientsWithoutSsn());
 });
 
+// api/patients/:id
+
+router.get("/:id", (req, res) => {
+  const patientId = req.params.id;
+  // console.log(patientId);
+  res.send(patientService.getPatient(patientId));
+});
+
 router.post("/", (req, res) => {
   try {
     const newPatientEntry = toNewPatientEntry(req.body);
