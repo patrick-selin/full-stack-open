@@ -5,13 +5,11 @@ import { Patient } from "../types"
 
 const router = express.Router();
 
-
 router.get("/", (_req, res) => {
   res.send(patientService.getPatientsWithoutSsn());
 });
 
 // api/patients/:id
-
 router.get("/:id", (req, res) => {
   const patientId = req.params.id;
   // console.log(patientId);
