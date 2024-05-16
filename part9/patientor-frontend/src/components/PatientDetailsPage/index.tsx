@@ -1,10 +1,10 @@
 // PatientDetailsPage/index.ts
 
-import { Patient } from "../../types";
+import { Patient, Entry } from "../../types";
 import patientService from "../../services/patients";
 import { useEffect, useState } from "react";
 import { useMatch } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, List, ListItem, ListItemText } from "@mui/material";
 
 const PatientDetailsPage = () => {
   const [patientDetails, setPatientDetails] = useState<Patient | null>(null);
@@ -31,11 +31,36 @@ const PatientDetailsPage = () => {
     <Box>
       {patientDetails && (
         <>
-          <Typography variant="h3">{patientDetails.name}</Typography>
+          <Typography variant="h3"
+          style={{ marginTop: "1.0em" }}>{patientDetails.name}</Typography>
           <Typography>Date of Birth: {patientDetails.dateOfBirth}</Typography>
           <Typography>SSN: {patientDetails.ssn}</Typography>
           <Typography>Gender: {patientDetails.gender}</Typography>
           <Typography>Occupation: {patientDetails.occupation}</Typography>
+          <Typography variant="h5" style={{ marginTop: "1.0em" }}>Entries:</Typography>
+          {patientDetails.entries.length === 0 ? (
+            <Typography>No entries found.</Typography>
+          ) : (
+            <List>
+              {patientDetails.entries.map((entry: Entry) => (
+                <ListItem key={entry.id}>
+                  <ListItemText
+                    primary={entry.date}
+                    secondary={entry.description}
+                  />
+                  <ListItemText
+                    style={{ textAlign: "right" }}
+                    primary="Diagnosis Codes"
+                    secondary={
+                      entry.diagnosisCodes
+                        ? entry.diagnosisCodes.join(", ")
+                        : "No diagnosis codes"
+                    }
+                  />
+                </ListItem>
+              ))}
+            </List>
+          )}
         </>
       )}
       {!patientDetails && <Typography>Loading...</Typography>}
