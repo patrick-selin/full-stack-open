@@ -7,13 +7,15 @@ import { Button, Divider, Container, Typography } from "@mui/material";
 import PatientDetailsPage from "./components/PatientDetailsPage";
 
 import { apiBaseUrl } from "./constants";
-import { Patient } from "./types";
+import { Patient, Diagnosis } from "./types";
 
 import patientService from "./services/patients";
+import diagnoseService from "./services/diagnoses";
 import PatientListPage from "./components/PatientListPage";
 
 const App = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
+  const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
 
   useEffect(() => {
     void axios.get<void>(`${apiBaseUrl}/ping`);
@@ -22,9 +24,16 @@ const App = () => {
       const patients = await patientService.getAll();
       setPatients(patients);
     };
-    void fetchPatientList();
-  }, []);
+    const fetchDiagnosesList = async () => {
+      const diagnoses = await diagnoseService.getAll();
+      setDiagnoses(diagnoses);
+    };
 
+    void fetchPatientList();
+    void fetchDiagnosesList();
+  }, []);
+  console.log(`patients :: ${JSON.stringify(patients)}`);
+  console.log(`diagnoses :: ${JSON.stringify(diagnoses)}`);
   return (
     <div className="App">
       <Router>
