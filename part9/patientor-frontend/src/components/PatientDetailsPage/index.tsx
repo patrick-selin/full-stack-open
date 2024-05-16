@@ -1,13 +1,16 @@
 // PatientDetailsPage/index.ts
 
-import { Patient, Entry } from "../../types";
+import { Patient, Entry, Diagnosis } from "../../types";
 import patientService from "../../services/patients";
+import diagnoseService from "../../services/diagnoses";
 import { useEffect, useState } from "react";
 import { useMatch } from "react-router-dom";
 import { Box, Typography, List, ListItem, ListItemText } from "@mui/material";
 
 const PatientDetailsPage = () => {
   const [patientDetails, setPatientDetails] = useState<Patient | null>(null);
+  const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
+
   const match = useMatch("/patients/:id");
 
   useEffect(() => {
@@ -24,20 +27,30 @@ const PatientDetailsPage = () => {
       }
     };
 
-    fetchPatientDetails();
+    const fetchDiagnosesList = async () => {
+      const diagnoses = await diagnoseService.getAll();
+      console.log(`diagnoses :: ${JSON.stringify(diagnoses)}`);
+      setDiagnoses(diagnoses);
+    };
+    void fetchPatientDetails();
+    void fetchDiagnosesList();
+
   }, [match]);
 
   return (
     <Box>
       {patientDetails && (
         <>
-          <Typography variant="h3"
-          style={{ marginTop: "1.0em" }}>{patientDetails.name}</Typography>
+          <Typography variant="h3" style={{ marginTop: "1.0em" }}>
+            {patientDetails.name}
+          </Typography>
           <Typography>Date of Birth: {patientDetails.dateOfBirth}</Typography>
           <Typography>SSN: {patientDetails.ssn}</Typography>
           <Typography>Gender: {patientDetails.gender}</Typography>
           <Typography>Occupation: {patientDetails.occupation}</Typography>
-          <Typography variant="h5" style={{ marginTop: "1.0em" }}>Entries:</Typography>
+          <Typography variant="h5" style={{ marginTop: "1.0em" }}>
+            Entries:
+          </Typography>
           {patientDetails.entries.length === 0 ? (
             <Typography>No entries found.</Typography>
           ) : (
