@@ -1,3 +1,5 @@
+// HealthRatingBar.tsx
+
 import { Rating } from '@mui/material';
 import { Favorite } from '@mui/icons-material';
 

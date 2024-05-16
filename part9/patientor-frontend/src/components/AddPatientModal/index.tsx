@@ -1,3 +1,5 @@
+// AddPatientModal/index.tsx
+
 import { Dialog, DialogTitle, DialogContent, Divider, Alert } from '@mui/material';
 
 import AddPatientForm from "./AddPatientForm";
