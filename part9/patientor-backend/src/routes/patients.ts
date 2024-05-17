@@ -1,8 +1,8 @@
 import express from "express";
 import patientService from "../services/patientService";
-import toNewPatientEntry from "../utils/toNewPatient";
-import toNewEntry from "../utils/toNewPatient";
-import { Patient, EntryWithoutId } from "../types";
+import toNewPatient from "../utils/toNewPatient";
+import toNewEntry from "../utils/toNewEntry";
+import { Patient } from "../types";
 
 const router = express.Router();
 
@@ -19,15 +19,13 @@ router.get("/:id", (req, res) => {
 
 router.post("/:id/entries", (req, res) => {
   console.log(req.body);
-  console.log("kii");
   try {
     const patient = patientService.getPatientForOne(req.params.id);
     if (!patient) {
       res.status(404).send(`patient not found`);
       return;
     }
-
-    const newEntry = toNewEntry(req.body)  as EntryWithoutId;;
+    const newEntry = toNewEntry(req.body);
     const addedEntry = patientService.addEntry(patient, newEntry);
     res.json(addedEntry);
   } catch (error: unknown) {
@@ -41,7 +39,7 @@ router.post("/:id/entries", (req, res) => {
 
 router.post("/", (req, res) => {
   try {
-    const newPatientEntry = toNewPatientEntry(req.body);
+    const newPatientEntry = toNewPatient(req.body);
     const addedEntry = patientService.addPatient(newPatientEntry);
 
     res.json(addedEntry);
