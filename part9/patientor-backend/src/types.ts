@@ -76,3 +76,15 @@ export enum Gender {
 }
 
 export type NonSensitivePatient = Omit<Patient, "ssn" | "entries">;
+
+export interface SickLeave {
+  startDate: string;
+  endDate: string;
+}
+
+export interface Discharge {
+  date: string;
+  criteria: string;
+}
+
+export type NewBaseEntry = Omit<BaseEntry, "id">;
