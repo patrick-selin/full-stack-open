@@ -1,13 +1,21 @@
 // EntryDetails.tsx
 
-import { Entry, HealthCheckEntry, HospitalEntry, OccupationalHealthcareEntry, HealthCheckRating } from "../../types";
-import { Box, Typography, List, ListItem, ListItemText } from "@mui/material";
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import WorkIcon from '@mui/icons-material/Work';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import {
+  Entry,
+  HealthCheckEntry,
+  HospitalEntry,
+  OccupationalHealthcareEntry,
+  HealthCheckRating,
+} from "../../types";
+import { Box, Typography } from "@mui/material";
+import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import WorkIcon from "@mui/icons-material/Work";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const assertNever = (value: never): never => {
-  throw new Error(`Unhandled discriminated union member: ${JSON.stringify(value)}`);
+  throw new Error(
+    `Unhandled discriminated union member: ${JSON.stringify(value)}`
+  );
 };
 
 const HealthCheckEntryDetails = ({ entry }: { entry: HealthCheckEntry }) => (
@@ -21,12 +29,17 @@ const HealthCheckEntryDetails = ({ entry }: { entry: HealthCheckEntry }) => (
 const HospitalEntryDetails = ({ entry }: { entry: HospitalEntry }) => (
   <Box>
     <Typography variant="body2">
-      <LocalHospitalIcon /> Discharge: {entry.discharge.date} - {entry.discharge.criteria}
+      <LocalHospitalIcon /> Discharge: {entry.discharge.date} -{" "}
+      {entry.discharge.criteria}
     </Typography>
   </Box>
 );
 
-const OccupationalHealthcareEntryDetails = ({ entry }: { entry: OccupationalHealthcareEntry }) => (
+const OccupationalHealthcareEntryDetails = ({
+  entry,
+}: {
+  entry: OccupationalHealthcareEntry;
+}) => (
   <Box>
     <Typography variant="body2">
       <WorkIcon /> {entry.employerName}
@@ -39,7 +52,7 @@ const OccupationalHealthcareEntryDetails = ({ entry }: { entry: OccupationalHeal
   </Box>
 );
 
-const EntryDetails = ({ entry }: { entry: Entry}) => {
+const EntryDetails = ({ entry }: { entry: Entry }) => {
   switch (entry.type) {
     case "HealthCheck":
       return <HealthCheckEntryDetails entry={entry} />;

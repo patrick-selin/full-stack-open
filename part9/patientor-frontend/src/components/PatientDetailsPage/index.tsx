@@ -5,7 +5,7 @@ import patientService from "../../services/patients";
 import diagnoseService from "../../services/diagnoses";
 import { useEffect, useState } from "react";
 import { useMatch } from "react-router-dom";
-import { Box, Typography, List, ListItem, ListItemText } from "@mui/material";
+import { Box, Typography, List, ListItem, ListItemText, Button } from "@mui/material";
 import EntryDetails from "./EntryDetails";
 import EntryForm from "./EntryForm";
 import axios from "axios";
@@ -14,6 +14,7 @@ const PatientDetailsPage = () => {
   const [patientDetails, setPatientDetails] = useState<Patient | null>(null);
   const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(false);
 
   const match = useMatch("/patients/:id");
 
@@ -55,6 +56,7 @@ const PatientDetailsPage = () => {
           ...patientDetails,
           entries: [...patientDetails.entries, newEntry],
         });
+        setShowForm(false);
       }
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -114,11 +116,21 @@ const PatientDetailsPage = () => {
               ))}
             </List>
           )}
-          <EntryForm
-            diagnoses={diagnoses}
-            onSubmit={submitNewEntry}
-            onCancel={() => {}}
-          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setShowForm(!showForm)}
+            style={{ marginTop: "1.0em" }}
+          >
+            {showForm ? "Cancel" : "ADD ENTRY"}
+          </Button>
+          {showForm && (
+            <EntryForm
+              diagnoses={diagnoses}
+              onSubmit={submitNewEntry}
+              onCancel={() => setShowForm(false)}
+            />
+          )}
           {error && <Typography color="error">{error}</Typography>}
         </>
       ) : (

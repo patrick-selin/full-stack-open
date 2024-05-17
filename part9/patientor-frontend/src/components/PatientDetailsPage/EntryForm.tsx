@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import {
   OutlinedInput,
   SelectChangeEvent,
@@ -111,13 +111,12 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
 
   return (
     <Box>
-      <Typography component="h5" variant="h5">
+      <Typography component="h5" variant="h5" style={{ marginTop: 20 }}>
         New Entry
       </Typography>
-      <InputLabel style={{ marginTop: 20 }}>Entry Options</InputLabel>
+      <InputLabel style={{ marginTop: 25 }}>Entry Options</InputLabel>
       <Select
         label="Option"
-        fullWidth
         value={entryOptions}
         onChange={({ target }) => setEntryOptions(target.value)}
       >
@@ -136,7 +135,6 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
         <InputLabel style={{ marginTop: 20 }}>Description</InputLabel>
         <TextField
           label="description"
-          fullWidth
           value={description}
           onChange={({ target }) => setDescription(target.value)}
           required
@@ -144,7 +142,6 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
 
         <InputLabel style={{ marginTop: 20 }}>Date</InputLabel>
         <TextField
-          fullWidth
           type="date"
           value={date}
           onChange={({ target }) => setDate(target.value)}
@@ -154,7 +151,6 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
         <InputLabel style={{ marginTop: 20 }}>Specialist</InputLabel>
         <TextField
           label="specialist"
-          fullWidth
           value={specialist}
           onChange={({ target }) => setSpecialist(target.value)}
           required
@@ -164,7 +160,6 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
         <Select
           label="Diagnosis codes"
           multiple
-          fullWidth
           value={diagnosisCodes}
           onChange={onDiagnosisCodesChange}
           input={<OutlinedInput label="Multiple Select" />}
@@ -178,12 +173,9 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
 
         {entryOptions === "HealthCheck" && (
           <>
-            <InputLabel style={{ marginTop: 20 }}>
-              Health Check Rating
-            </InputLabel>
+            <InputLabel style={{ marginTop: 20 }}>HealthCheckRating</InputLabel>
             <Select
-              label="Health Check Rating"
-              fullWidth
+              label="HealthCheckRating"
               value={healthCheckRating.toString()}
               onChange={onHealthCheckRatingChange}
             >
@@ -201,7 +193,6 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
             <InputLabel style={{ marginTop: 20 }}>Discharge Date</InputLabel>
             <TextField
               type="date"
-              fullWidth
               value={dischargeDate}
               onChange={({ target }) => setDischargeDate(target.value)}
               required
@@ -211,7 +202,6 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
             </InputLabel>
             <TextField
               label="discharge criteria"
-              fullWidth
               value={dischargeCriteria}
               onChange={({ target }) => setDischargeCriteria(target.value)}
               required
@@ -223,38 +213,39 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
           <>
             <InputLabel style={{ marginTop: 20 }}>Employer Name</InputLabel>
             <TextField
-              label="employer name"
-              fullWidth
+              label="employername"
               value={employerName}
               onChange={({ target }) => setEmployerName(target.value)}
               required
             />
-            <InputLabel style={{ marginTop: 20 }}>Sick Leave</InputLabel>
+            <InputLabel style={{ marginTop: 20 }}>Sick Leave: </InputLabel>
             <InputLabel style={{ marginTop: 5 }}>Start Date</InputLabel>
             <TextField
               type="date"
-              fullWidth
               value={sickLeaveStart}
               onChange={({ target }) => setSickLeaveStart(target.value)}
             />
             <InputLabel style={{ marginTop: 5 }}>End Date</InputLabel>
             <TextField
               type="date"
-              fullWidth
               value={sickLeaveEnd}
               onChange={({ target }) => setSickLeaveEnd(target.value)}
             />
           </>
         )}
 
-        <Grid container spacing={2} style={{ marginTop: 20 }}>
+        <Grid
+          container
+          style={{ marginTop: 20 }}
+        >
           <Grid item>
-            <Button color="secondary" variant="contained" onClick={onCancel}>
+            <Button color="secondary" variant="contained" onClick={onCancel}
+            style={{ marginRight: 30 }}>
               Cancel
             </Button>
           </Grid>
           <Grid item>
-            <Button type="submit" variant="contained">
+            <Button type="submit" variant="contained" color="primary">
               Add
             </Button>
           </Grid>
