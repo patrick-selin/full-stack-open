@@ -15,10 +15,10 @@ export interface DiagnoseEntry {
 }
 
 export enum HealthCheckRating {
-  "Healthy" = 0,
-  "LowRisk" = 1,
-  "HighRisk" = 2,
-  "CriticalRisk" = 3,
+  Healthy = 1,
+  LowRisk = 2,
+  HighRisk = 3,
+  CriticalRisk = 4
 }
 
 export interface HospitalEntry extends BaseEntry {
@@ -27,6 +27,11 @@ export interface HospitalEntry extends BaseEntry {
     date: string;
     criteria: string;
   };
+}
+
+export interface SickLeave {
+  startDate: string,
+  endDate: string,
 }
 
 export interface HealthCheckEntry extends BaseEntry {
@@ -73,3 +78,5 @@ export interface Patient {
 }
 
 export type PatientFormValues = Omit<Patient, "id" | "entries">;
+
+export type EntryFormValues = Omit<Entry, "id">;

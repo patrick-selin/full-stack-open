@@ -1,16 +1,19 @@
 /// PatientDetailsPage/index.ts
 
-import { Patient, Entry, Diagnosis } from "../../types";
+import { Patient, Entry, Diagnosis, EntryFormValues } from "../../types";
+import axios from "axios";
 import patientService from "../../services/patients";
 import diagnoseService from "../../services/diagnoses";
 import { useEffect, useState } from "react";
 import { useMatch } from "react-router-dom";
 import { Box, Typography, List, ListItem, ListItemText } from "@mui/material";
 import EntryDetails from "./EntryDetails";
+import EntryForm from "./EntryForm";
 
 const PatientDetailsPage = () => {
   const [patientDetails, setPatientDetails] = useState<Patient | null>(null);
   const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const match = useMatch("/patients/:id");
 
@@ -40,6 +43,28 @@ const PatientDetailsPage = () => {
     return diagnosis
       ? `${diagnosis.code} ${diagnosis.name}`
       : "Unknown diagnosis";
+  };
+
+  const handleEntrySubmit = async (values: EntryFormValues) => {
+    try {
+      if (patientDetails) {
+        const newEntry = await patientService.addEntry(
+          patientDetails.id,
+          values
+        );
+        setPatientDetails({
+          ...patientDetails,
+          entries: patientDetails.entries.concat(newEntry),
+        });
+        setError(null); // Clear any previous errors
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data || "Error adding entry");
+      } else {
+        setError("Error adding entry");
+      }
+    }
   };
 
   return (
@@ -91,6 +116,10 @@ const PatientDetailsPage = () => {
               ))}
             </List>
           )}
+
+          <EntryForm onSubmit={handleEntrySubmit} />
+
+          {error && <Typography color="error">{error}</Typography>}
         </>
       ) : (
         <Typography>Loading...</Typography>
