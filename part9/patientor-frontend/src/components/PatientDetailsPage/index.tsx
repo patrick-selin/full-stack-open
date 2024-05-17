@@ -14,13 +14,11 @@ const PatientDetailsPage = () => {
   const match = useMatch("/patients/:id");
 
   useEffect(() => {
-    // console.log(match);
     const fetchPatientDetails = async () => {
       try {
         const response = await patientService.getOne(
           match?.params.id as string
         );
-        // console.log(response);
         setPatientDetails(response);
       } catch (error) {
         console.error("Error fetching patient details:", error);
@@ -29,22 +27,23 @@ const PatientDetailsPage = () => {
 
     const fetchDiagnosesList = async () => {
       const diagnoses = await diagnoseService.getAll();
-    //   console.log(`diagnoses :: ${JSON.stringify(diagnoses)}`);
       setDiagnoses(diagnoses);
     };
-    void fetchPatientDetails();
-    void fetchDiagnosesList();
 
+    fetchPatientDetails();
+    fetchDiagnosesList();
   }, [match]);
 
   const getDiagnosisDescription = (code: string): string => {
-    const diagnosis = diagnoses.find(diagnosis => diagnosis.code === code);
-    return diagnosis ? `${diagnosis.code} ${diagnosis.name}` : "Unknown diagnosis";
+    const diagnosis = diagnoses.find((diagnosis) => diagnosis.code === code);
+    return diagnosis
+      ? `${diagnosis.code} ${diagnosis.name}`
+      : "Unknown diagnosis";
   };
 
   return (
     <Box>
-      {patientDetails && (
+      {patientDetails ? (
         <>
           <Typography variant="h3" style={{ marginTop: "1.0em" }}>
             {patientDetails.name}
@@ -61,30 +60,32 @@ const PatientDetailsPage = () => {
           ) : (
             <List>
               {patientDetails.entries.map((entry: Entry) => (
-                <ListItem key={entry.id}>
+                <ListItem key={entry.id} alignItems="flex-start">
                   <ListItemText
                     primary={`${entry.date}: ${entry.description}`}
-                    secondary={
-                      entry.diagnosisCodes && entry.diagnosisCodes.length > 0 ? (
-                        <List>
-                          {entry.diagnosisCodes.map(code => (
-                            <ListItem key={code}>
-                              <ListItemText
-                                primary={getDiagnosisDescription(code)}
-                              />
-                            </ListItem>
-                          ))}
-                        </List>
-                      ) : "No diagnosis codes"
-                    }
                   />
+                  {entry.diagnosisCodes && entry.diagnosisCodes.length > 0 && (
+                    <List component="div" disablePadding>
+                      {entry.diagnosisCodes.map((code) => (
+                        <ListItem key={code} component="div" disableGutters>
+                          <ListItemText
+                            primary={getDiagnosisDescription(code)}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  )}
+                  {!entry.diagnosisCodes && (
+                    <ListItemText secondary="No diagnosis codes" />
+                  )}
                 </ListItem>
               ))}
             </List>
           )}
         </>
+      ) : (
+        <Typography>Loading...</Typography>
       )}
-      {!patientDetails && <Typography>Loading...</Typography>}
     </Box>
   );
 };
