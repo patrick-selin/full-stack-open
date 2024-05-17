@@ -1,8 +1,22 @@
 import patientsData from "../../data/patients-full";
-import { PatientWithoutSsn, Patient, NewPatientEntry, EntryWithoutId, Entry } from "../types";
-import { v1 as uuid } from "uuid";
+import {
+  NoSsnPatient,
+  Patient,
+  NewPatient,
+  EntryWithoutId,
+  Entry,
+} from "../types";
+import { v1 as uuid } from 'uuid';
 
-const getPatientsWithoutSsn = (): PatientWithoutSsn[] => {
+const getPatients = (): Patient[] => {
+  return patientsData;
+};
+
+const getPatientForOne = (id: string): Patient | undefined => {
+  return patientsData.find(p => p.id === id);
+};
+
+const getNoSsnPatient = (): NoSsnPatient[] => {
   return patientsData.map(
     ({ id, name, dateOfBirth, gender, occupation, entries }) => ({
       id,
@@ -15,58 +29,33 @@ const getPatientsWithoutSsn = (): PatientWithoutSsn[] => {
   );
 };
 
-const getPatient = (id: string): Patient | undefined => {
-  return patientsData.find(patient => patient.id === id);
-};
 
-const addPatient = (entry: NewPatientEntry): Patient => {
-  const generatedId = uuid();
-
+const addPatient = (entry: NewPatient): Patient => {
+  const id = uuid();
   const newPatient = {
-    id: generatedId,
+    id,
     ...entry,
   };
 
   patientsData.push(newPatient);
   return newPatient;
 };
- const addEntry = (patientId: string, entry: EntryWithoutId): Entry => {
-    const newId: string = uuid();
-    const newEntry = {
-        id: newId,
-        ...entry
-    };
-    const idx: number = patientsData.findIndex((patient) => patientId === patient.id);
-    if (idx === -1) {
-        throw Error("Patient not found");
-    }
-    else {
-        patientsData[idx].entries.push(newEntry);
-        return newEntry;
-    }
-};
 
-//
-const addEntry = (patientId: string, entry: EntryWithoutId): Entry => {
-  const newId: string = uuid();
+const addEntry = ( patient: Patient, entry: EntryWithoutId ): Entry => {
+  const id = uuid();
   const newEntry = {
-      id: newId,
+      id,
       ...entry
   };
-  const idx: number = patientsData.findIndex((patient) => patientId === patient.id);
-  if (idx === -1) {
-      throw Error("Patient not found");
-  }
-  else {
-      patientsData[idx].entries.push(newEntry);
-      return newEntry;
-  }
+
+  patient.entries.push(newEntry);
+  return newEntry;
 };
 
-
 export default {
-  getPatientsWithoutSsn,
+  getPatients,
+  getNoSsnPatient,
   addPatient,
-  getPatient,
+  getPatientForOne,
   addEntry,
 };
