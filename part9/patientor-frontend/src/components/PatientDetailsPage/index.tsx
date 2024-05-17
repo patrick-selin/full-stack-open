@@ -1,4 +1,4 @@
-// PatientDetailsPage/index.ts
+/// PatientDetailsPage/index.ts
 
 import { Patient, Entry, Diagnosis } from "../../types";
 import patientService from "../../services/patients";
@@ -6,6 +6,7 @@ import diagnoseService from "../../services/diagnoses";
 import { useEffect, useState } from "react";
 import { useMatch } from "react-router-dom";
 import { Box, Typography, List, ListItem, ListItemText } from "@mui/material";
+import EntryDetails from "./EntryDetails";
 
 const PatientDetailsPage = () => {
   const [patientDetails, setPatientDetails] = useState<Patient | null>(null);
@@ -60,10 +61,21 @@ const PatientDetailsPage = () => {
           ) : (
             <List>
               {patientDetails.entries.map((entry: Entry) => (
-                <ListItem key={entry.id} alignItems="flex-start">
+                <ListItem
+                  key={entry.id}
+                  alignItems="flex-start"
+                  sx={{
+                    borderRadius: "8px",
+                    border: "1px solid #ccc",
+                    marginBottom: "1em",
+                    padding: "1em",
+                  }}
+                >
                   <ListItemText
                     primary={`${entry.date}: ${entry.description}`}
+                    secondary={`Diagnosed by: ${entry.specialist}`}
                   />
+                  <EntryDetails entry={entry} />
                   {entry.diagnosisCodes && entry.diagnosisCodes.length > 0 && (
                     <List component="div" disablePadding>
                       {entry.diagnosisCodes.map((code) => (
@@ -74,9 +86,6 @@ const PatientDetailsPage = () => {
                         </ListItem>
                       ))}
                     </List>
-                  )}
-                  {!entry.diagnosisCodes && (
-                    <ListItemText secondary="No diagnosis codes" />
                   )}
                 </ListItem>
               ))}
