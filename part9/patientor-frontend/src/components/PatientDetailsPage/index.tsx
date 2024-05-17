@@ -1,7 +1,6 @@
 /// PatientDetailsPage/index.ts
 
-import { Patient, Entry, Diagnosis, EntryFormValues } from "../../types";
-import axios from "axios";
+import { Patient, Entry, Diagnosis, EntryWithoutId } from "../../types";
 import patientService from "../../services/patients";
 import diagnoseService from "../../services/diagnoses";
 import { useEffect, useState } from "react";
@@ -9,6 +8,7 @@ import { useMatch } from "react-router-dom";
 import { Box, Typography, List, ListItem, ListItemText } from "@mui/material";
 import EntryDetails from "./EntryDetails";
 import EntryForm from "./EntryForm";
+import axios from "axios";
 
 const PatientDetailsPage = () => {
   const [patientDetails, setPatientDetails] = useState<Patient | null>(null);
@@ -45,24 +45,22 @@ const PatientDetailsPage = () => {
       : "Unknown diagnosis";
   };
 
-  const handleEntrySubmit = async (values: EntryFormValues) => {
+  const submitNewEntry = async (values: EntryWithoutId) => {
     try {
+      if (!match?.params.id) throw new Error("Patient ID not found");
+
+      const newEntry = await patientService.addEntry(match.params.id, values);
       if (patientDetails) {
-        const newEntry = await patientService.addEntry(
-          patientDetails.id,
-          values
-        );
         setPatientDetails({
           ...patientDetails,
-          entries: patientDetails.entries.concat(newEntry),
+          entries: [...patientDetails.entries, newEntry],
         });
-        setError(null); // Clear any previous errors
       }
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        setError(error.response?.data || "Error adding entry");
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        setError(e.response?.data || "Unknown error");
       } else {
-        setError("Error adding entry");
+        setError("Unknown error");
       }
     }
   };
@@ -116,9 +114,11 @@ const PatientDetailsPage = () => {
               ))}
             </List>
           )}
-
-          <EntryForm onSubmit={handleEntrySubmit} />
-
+          <EntryForm
+            diagnoses={diagnoses}
+            onSubmit={submitNewEntry}
+            onCancel={() => {}}
+          />
           {error && <Typography color="error">{error}</Typography>}
         </>
       ) : (
