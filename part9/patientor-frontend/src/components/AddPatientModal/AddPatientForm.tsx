@@ -1,7 +1,8 @@
 // AddPatientModal/AddPatientForm.tsx
 
 import { useState, SyntheticEvent } from "react";
-
+import { PatientFormValues, Gender } from "../../types";
+//
 import {
   TextField,
   InputLabel,
@@ -11,8 +12,6 @@ import {
   Button,
   SelectChangeEvent,
 } from "@mui/material";
-
-import { PatientFormValues, Gender } from "../../types";
 
 interface Props {
   onCancel: () => void;
@@ -41,6 +40,7 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
     if (typeof event.target.value === "string") {
       const value = event.target.value;
       const gender = Object.values(Gender).find((g) => g.toString() === value);
+
       if (gender) {
         setGender(gender);
       }

@@ -7,6 +7,7 @@ import {
   OccupationalHealthcareEntry,
   HealthCheckRating,
 } from "../../types";
+//
 import { Box, Typography } from "@mui/material";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import WorkIcon from "@mui/icons-material/Work";

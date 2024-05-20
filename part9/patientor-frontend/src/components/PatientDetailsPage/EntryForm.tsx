@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { EntryWithoutId, HealthCheckRating, Diagnosis } from "../../types";
+//
 import {
   OutlinedInput,
   SelectChangeEvent,
@@ -11,7 +13,6 @@ import {
   MenuItem,
   Box,
 } from "@mui/material";
-import { EntryWithoutId, HealthCheckRating, Diagnosis } from "../../types";
 
 interface Props {
   onCancel: () => void;
@@ -48,7 +49,7 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
   const [employerName, setEmployerName] = useState("");
   const [sickLeaveStart, setSickLeaveStart] = useState("");
   const [sickLeaveEnd, setSickLeaveEnd] = useState("");
-  const [entryOptions, setEntryOptions] = useState("");
+  const [entryType, setEntryType] = useState("");
 
   const onHealthCheckRatingChange = (event: SelectChangeEvent<string>) => {
     event.preventDefault();
@@ -74,7 +75,7 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
       diagnosisCodes,
     };
 
-    switch (entryOptions) {
+    switch (entryType) {
       case "HealthCheck":
         onSubmit({
           type: "HealthCheck",
@@ -115,10 +116,11 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
         New Entry
       </Typography>
       <InputLabel style={{ marginTop: 25 }}>Entry Options</InputLabel>
+      {/*  */}
       <Select
         label="Option"
-        value={entryOptions}
-        onChange={({ target }) => setEntryOptions(target.value)}
+        value={entryType}
+        onChange={({ target }) => setEntryType(target.value)}
       >
         <MenuItem key="HealthCheck" value="HealthCheck">
           Health Check
@@ -171,7 +173,7 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
           ))}
         </Select>
 
-        {entryOptions === "HealthCheck" && (
+        {entryType === "HealthCheck" && (
           <>
             <InputLabel style={{ marginTop: 20 }}>HealthCheckRating</InputLabel>
             <Select
@@ -188,7 +190,7 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
           </>
         )}
 
-        {entryOptions === "Hospital" && (
+        {entryType === "Hospital" && (
           <>
             <InputLabel style={{ marginTop: 20 }}>Discharge Date</InputLabel>
             <TextField
@@ -209,7 +211,7 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
           </>
         )}
 
-        {entryOptions === "OccupationalHealthcare" && (
+        {entryType === "OccupationalHealthcare" && (
           <>
             <InputLabel style={{ marginTop: 20 }}>Employer Name</InputLabel>
             <TextField
@@ -234,13 +236,14 @@ const EntryForm: React.FC<Props> = ({ onCancel, onSubmit, diagnoses }) => {
           </>
         )}
 
-        <Grid
-          container
-          style={{ marginTop: 20 }}
-        >
+        <Grid container style={{ marginTop: 20 }}>
           <Grid item>
-            <Button color="secondary" variant="contained" onClick={onCancel}
-            style={{ marginRight: 30 }}>
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={onCancel}
+              style={{ marginRight: 30 }}
+            >
               Cancel
             </Button>
           </Grid>

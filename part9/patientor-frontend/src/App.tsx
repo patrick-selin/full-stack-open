@@ -26,7 +26,7 @@ const App = () => {
     void fetchPatientList();
   }, []);
   // console.log(`patients :: ${JSON.stringify(patients)}`);
-  
+
   return (
     <div className="App">
       <Router>

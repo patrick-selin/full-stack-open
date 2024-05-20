@@ -10,7 +10,6 @@ router.get("/", (_req, res) => {
   res.send(patientService.getNoSsnPatient());
 });
 
-// api/patients/:id
 router.get("/:id", (req, res) => {
   const patientId = req.params.id;
   // console.log(patientId);
@@ -23,16 +22,20 @@ router.post("/:id/entries", (req, res) => {
     const patient = patientService.getPatientForOne(req.params.id);
     if (!patient) {
       res.status(404).send(`patient not found`);
+
       return;
     }
     const newEntry = toNewEntry(req.body);
     const addedEntry = patientService.addEntry(patient, newEntry);
+
     res.json(addedEntry);
   } catch (error: unknown) {
     let errorMessage = "Something went wrong";
+
     if (error instanceof Error) {
       errorMessage += " Error: " + error.message;
     }
+
     res.status(400).send(errorMessage);
   }
 });
@@ -45,6 +48,7 @@ router.post("/", (req, res) => {
     res.json(addedEntry);
   } catch (error: unknown) {
     let errorMessage = "Something went wrong.";
+
     if (error instanceof Error) {
       errorMessage += " Error: " + error.message;
     }
