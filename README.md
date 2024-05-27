@@ -88,11 +88,18 @@ The course covers testing, configuration and environment management, the use of 
 - Metrics & Periodic tasks
 
 ### Part 12 - Containers
-- a
-- b
-- c  
+- Containers with Docker
+- Docker Compose
+- Bind mount and Volumes
+- Redis
+- Multiple stage builds
+- Orchestaration
 
 ### Part 13 - Using relational databases
-- a
-- b
-- c  
+- SQL and Relational databases
+- PostgreSQL
+- Models
+- Sequalize ORM
+- Queries and Joins
+- 1-1, 1-M, M-M relationships
+- Migrations
