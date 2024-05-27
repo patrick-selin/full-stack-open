@@ -21,8 +21,12 @@ The course covers testing, configuration and environment management, the use of 
 
 ### Part 2 - Communicating with server
 - Rendering collections
+- Forms
+- NPM and axios
 - Map & Index Key
 - Modules
+- REST
+- Promises and Errors
 
 ### Part 3 Programming a server with NodeJS and Express
 - Node.js & Express
@@ -62,14 +66,21 @@ The course covers testing, configuration and environment management, the use of 
 - Class components
 
 ### Part 9 - TypeScript
-- a
-- b
-- c
+- Typescript init and config
+- Type narrowing & Type assertion
+- Typing Express app
+- types and interfaces
+- Utily types, type guards, enum
+- React with types, omit with unions
 
 ### Part 11 - CI/CD
-- a
-- b
-- c
+- CI/CD wit hGithub Actions
+- Workflows and jobs
+- Continuous deployment
+- Working with Pull request
+- Versioning
+- Main branch protection
+- Metrics & Periodic tasks
 
 ### Part 12 - Containers
 - a
