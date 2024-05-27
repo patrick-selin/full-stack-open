@@ -1,9 +1,9 @@
 # Full Stack Open - University of Helsinki 
 This course serves as an introduction to modern web application development with JavaScript. The main focus is on building single page applications with ReactJS that use REST APIs built with Node.js.
 
-The course covers testing, configuration and environment management, the use of PostgreSQL adn MongoDB databases for storing the application’s data amongst other things.
+Key topics include testing methodologies, configuration management, environment setup, continuous integration and continuous deployment (CI/CD), containerization with Docker and TypeScript. 
 
-
+Additionally, implementation for utilizing PostgreSQL and MongoDB databases for efficient data storage and retrieval, while also delving into best practices for collaborative development and versioning strategies.
 
 ## Content:
 ### Part 0 - Fundamentals of Web Apps
