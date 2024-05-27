@@ -28,15 +28,20 @@ Communicating with server
 
 # Part 3
 Programming a server with NodeJS and Express
-- a
-- b
-- c
+- Node.js & Express
+- REST & Middlewares
+- CORS & Error handling
+- Deployment
+- MongoDB & Mongoose
+- Validation & ESLint
 
 # Part 4
 Testing Express servers, user administration
-- a
-- b
-- c
+- Project structure
+- Exports
+- Testing Node applications
+- Unit & Integration tests
+- Token based authentication
 
 # Part 5
 Testing React apps
