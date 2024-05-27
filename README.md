@@ -11,26 +11,31 @@ The course covers testing, configuration and environment management, the use of 
 - Event handelers and Callback functions
 - DOM
 - HTTP
-- SPA and JS libraries
+- SPA
+- JS libraries
   
 ### Part 1 - Introduction to React
 - Intro to React
 - JavaScript
-- Component state & Event handelers
-- Complex state & debugging
+- Component state 
+- Event handelers
+- Complex state
+- Debugging
 
 ### Part 2 - Communicating with server
 - Rendering collections
 - Forms
-- NPM and axios
-- Map & Index Key
+- NPM
+- Axios
+- Map & Index key
 - Modules
 - REST
 - Promises and Errors
 
 ### Part 3 Programming a server with NodeJS and Express
 - Node.js & Express
-- REST & Middlewares
+- REST
+- Middlewares
 - CORS & Error handling
 - Deployment
 - MongoDB & Mongoose
@@ -66,15 +71,15 @@ The course covers testing, configuration and environment management, the use of 
 - Class components
 
 ### Part 9 - TypeScript
-- Typescript init and config
+- Typescript init and tsconfig
 - Type narrowing & Type assertion
 - Typing Express app
-- types and interfaces
-- Utily types, type guards, enum
+- Types and interfaces
+- Utility types, type guards, enum
 - React with types, omit with unions
 
 ### Part 11 - CI/CD
-- CI/CD wit hGithub Actions
+- CI/CD wit Github Actions
 - Workflows and jobs
 - Continuous deployment
 - Working with Pull request
