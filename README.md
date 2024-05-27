@@ -7,21 +7,24 @@ The course covers testing, configuration and environment management, the use of 
 ## Content:
 # Part 0
 Fundamentals of Web Apps
-- a
-- b
-- c
+- Web apps
+- Event handelers and Callback functions
+- DOM
+- HTTP
+- SPA and JS libraries
   
 # Part 1
 Introduction to React
-- a
-- b
-- c
+- Intro to React
+- JavaScript
+- Component state & Event handelers
+- Complex state & debugging
 
 # Part 2
 Communicating with server
-- a
-- b
-- c
+- Rendering collections
+- Map & Index Key
+- Modules
 
 # Part 3
 Programming a server with NodeJS and Express
@@ -37,7 +40,7 @@ Testing Express servers, user administration
 
 # Part 5
 Testing React apps
-- a
+- 
 - b
 - c
 
